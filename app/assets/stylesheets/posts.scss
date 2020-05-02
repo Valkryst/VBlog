@@ -1,0 +1,66 @@
+.article-header {
+  h1 {
+    margin: 0;
+  }
+
+  div {
+    font-size: smaller;
+  }
+}
+
+article {
+  header {
+    h1 {
+      margin: 0;
+    }
+
+    div {
+      font-size: smaller;
+    }
+  }
+
+  #index {
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1rem;
+
+      list-style-type: none;
+
+      li:not(:last-child) {
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    ol {
+      li {
+        margin-bottom: 0.5em;
+      }
+    }
+
+    ul {
+      li {
+        margin-bottom: 0.5em;
+      }
+    }
+
+    .indent1 {
+      margin-left: 1rem;
+    }
+
+    .indent2 {
+      margin-left: 2rem;
+    }
+
+    .indent3 {
+      margin-left: 3rem;
+    }
+
+    .indent4 {
+      margin-left: 4rem;
+    }
+  }
+}

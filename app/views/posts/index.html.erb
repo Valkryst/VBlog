@@ -1,0 +1,46 @@
+<% content_for(:title, 'Posts') %>
+
+<div id='post-index'>
+  <h1>Posts</h1>
+
+  <form action="" method="get" onsubmit="return false;">
+    <select id="post-search-category" autocomplete="off">
+      <option value="">All Categories</option>
+
+      <% @categories.each do |category| %>
+        <option value="<%= category.title %>"><%= category.title %></option>
+      <% end %>
+    </select>
+
+    <input id="post-search-text" type="text" placeholder="Search" autocomplete="off">
+
+    <input id="post-search-button" type="submit" value="Submit" onclick="search()">
+  </form>
+
+  <% posts_in_chronological_order(@categories).each do |post| %>
+    <section class="post-listing">
+      <h2><%= link_to(post.title, post_path(post), class: 'post-title') %></h2>
+      <h3>
+        Posted by <%= link_to(post.user.name, user_path(post.user)) %> on
+        <%= render(partial: 'partials/timestamp', locals: {timestamp: post.created_at}) %>
+      </h3>
+
+      <p class="post-description">
+        <%= post.description %>
+        <%= link_to('View Post', post_path(post)) %>
+      </p>
+
+      <div>
+        <button class="post-tag" onclick="searchForCategory(<%= "\"#{post.category.title}\"" %>)">
+          <%= post.category.title %>
+        </button>
+
+        <% unless post.tag_list.length.zero? %>
+          <% post.tag_list.each do |tag| %>
+            <button class="post-tag" onclick="searchForString(<%= "\"#{tag}\"" %>)"><%= tag %></button>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+    <% end %>
+</div>

@@ -1,0 +1,43 @@
+<%= content_for(:title, "#{@user.name}'s Profile'") %>
+
+
+<div id="user-profile">
+  <header>
+    <%= render(partial: 'users/avatar', locals: {user: @user}) %>
+
+    <h1><%= @user.name %></h1>
+
+    <% if can?(:edit, @user) %>
+      <%= link_to 'Edit', edit_user_path(@user) %>
+    <% end %>
+  </header>
+
+  <h2>Posts</h2>
+  <% if @posts.count.zero? %>
+    <p><%= @user.name %> hasn't posted anything yet.</p>
+  <% else %>
+    <table>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+          <% if can?(:edit, post) %>
+            <%= button_to('Edit', edit_post_path(post), method: :get) %>
+          <% end %>
+
+          <% if can?(:destroy, post) %>
+            <%= button_to('Delete',
+                          post,
+                          method: :delete,
+                          data: {confirm: "Continue Deleting ''#{post.title}''?"}) %>
+          <% end %>
+          </td>
+          <td><%= link_to(post.title, post_path(post)) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+
+  <% if @user == current_user %>
+    <%= button_to('New Post', new_post_path, method: :get) %>
+  <% end %>
+</div>

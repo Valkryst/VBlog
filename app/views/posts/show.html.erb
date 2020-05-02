@@ -1,0 +1,33 @@
+<% content_for(:title, @post.title) %>
+<% content_for(:description, @post.description) %>
+<% content_for(:keywords, @post.tag_list.join(', ')) %>
+<% content_for(:author, @post.user.name) %>
+
+<%= link_to 'Edit', edit_post_path(@post) %>
+
+<article>
+  <header class="article-header">
+    <h1><%= @post.title %></h1>
+    <div>
+      <% if @post.created_at != @post.updated_at %>
+        Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>,
+        Edited <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.updated_at}) %>
+      <% else %>
+        Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>
+      <% end %>
+    </div>
+  </header>
+
+  <!-- Index -->
+  <% if @post.index_html.present? %>
+    <div id="index">
+      <h2>Table of Contents</h2>
+      <ul>
+        <%= @post.index_html.html_safe %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Body -->
+  <%= @post.body_html.html_safe %>
+</article>
