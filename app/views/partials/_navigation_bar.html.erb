@@ -1,0 +1,40 @@
+<nav>
+  <a onclick="toggleNavigation()">&gt;</a>
+
+  <%= link_to(root_path) do %>
+    <%= image_tag("icon_home.svg", :alt => "Home Icon") %>
+    <p>Home</p>
+  <% end %>
+
+  <%= link_to(root_path) do %>
+    <%= image_tag("icon_documentation.svg", :alt => "Documentation Icon") %>
+    <p>Documentation</p>
+  <% end %>
+
+  <a href="https://github.com/Valkryst" title="GitHub" target="_blank">
+    <%= image_tag("logo_github.svg", :alt => "GitHub Icon") %>
+    <p>GitHub</p>
+  </a>
+
+  <%= link_to(root_path) do %>
+    <%= image_tag("icon_about.svg", :alt => "About Icon") %>
+    <p>About</p>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to(user_path(current_user)) do %>
+      <%= render("users/avatar") %>
+      <p>My Account</p>
+    <% end %>
+
+    <%= link_to(destroy_user_session_path, method: :delete) do %>
+      <%= image_tag("icon_log_in.svg", :alt => "Log In Icon") %>
+      <p>Log Out</p>
+    <% end %>
+  <% else %>
+    <%= link_to(login_show_path) do %>
+      <%= image_tag("icon_log_in.svg", :alt => "Log In Icon") %>
+      <p>Log In</p>
+    <% end %>
+  <% end %>
+</nav>
