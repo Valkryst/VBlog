@@ -1,0 +1,69 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+html {
+  --color-foreground: #1A1C1A;
+  --color-background: #F7F7F7;
+  --color-accent: #6BA4FF;
+
+  --z-index-navigation: 1000;
+
+  height: 100%;
+
+  font-family: 'Times New Roman', serif;
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 400;
+
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+
+  body {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+
+    height: 100%;
+    margin: 0;
+
+    main {
+      grid-column: 2;
+
+      padding: 1rem 1rem 0 1rem;
+
+      line-height: 1.5rem;
+
+      a:link {
+        color: #1795FF;
+      }
+
+      a:visited {
+        color: #D10DEE;
+      }
+    }
+
+    footer {
+      grid-column: 2;
+
+      box-sizing: border-box;
+      padding: 0 0.5rem 0.5rem 0;
+
+      font-size: small;
+      text-align: right;
+    }
+  }
+}
+
+@media only screen and (min-width: 1080px) {
+  html > body {
+    grid-template-columns: 4rem minmax(0, 1fr);
+
+    main {
+      width: 80ch;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1rem 0 0 0;
+    }
+  }
+}
