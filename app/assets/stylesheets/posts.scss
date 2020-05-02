@@ -1,0 +1,35 @@
+article {
+  header {
+    h1 {
+      margin: 0;
+
+      font-size: 2rem;
+    }
+
+    div {
+      font-size: smaller;
+
+      a {
+        margin-left: 0.25rem;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  ol, ul {
+    li:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  div:last-of-type {
+    font-size: smaller;
+
+    a:first-of-type {
+      margin-right: 0.25rem;
+    }
+  }
+}

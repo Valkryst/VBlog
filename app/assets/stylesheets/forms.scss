@@ -1,0 +1,35 @@
+input, select, table, textarea {
+  color: var(--color-foreground);
+
+  border: #CCCCCC solid 1px;
+
+  font-family: inherit;
+  font-size: smaller;
+}
+
+// Posts Form
+#post-form {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 0.25rem;
+  grid-row-gap: 0.25rem;
+
+  textarea {
+    min-height: 6rem;
+    resize: vertical;
+  }
+}
+
+@media only screen and (min-width: 1080px) {
+  #post-form {
+    grid-template-columns: 12rem auto;
+
+    div, textarea {
+      grid-column: 2 span;
+    }
+
+    #post_tag_list {
+      grid-column: 2 span;
+    }
+  }
+}
