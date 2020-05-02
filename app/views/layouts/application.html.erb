@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MD8MG98');</script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148333548-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-148333548-1');
+    </script>
+
+    <% if content_for?(:title) %><title><%= yield(:title) %></title><% end %>
+
+    <% if content_for?(:author) %><meta name="author" content="<%= yield(:author) %>"><% end %>
+    <% if content_for?(:description) %><meta name="description" content="<%= yield(:description) %>"><% end %>
+    <% if content_for?(:keywords) %><meta name="keywords" content="<%= yield(:keywords) %>"><% end %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= favicon_link_tag(asset_path('favicon.png')) %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+
+  <body>
+    <%= render('partials/navigation_bar') %>
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>
+      &copy; Copyright 2014-<%= Date.today.year %> Valkryst, All Rights Reserved
+    </footer>
+  </body>
+</html>
