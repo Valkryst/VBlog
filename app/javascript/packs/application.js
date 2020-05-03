@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 require('packs/navigation_bar')
+require('packs/post_search')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

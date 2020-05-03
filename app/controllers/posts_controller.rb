@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @categories = Category.all
   end
 
   # GET /posts/1
@@ -31,8 +31,17 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = Post.new
+
+    if params[:post][:category]
+      category = Category.find_by(title: params[:post][:category])
+      @post.category = category if category.present?
+    end
+
     @post.user = current_user
+    @post.title = params[:post][:title]
+    @post.description = params[:post][:description]
+    @post.body_html = params[:post][:title]
     @post.index_html = generate_index_html(params[:post][:body_html])
 
     respond_to do |format|
@@ -49,6 +58,11 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    if params[:post][:category]
+      category = Category.find(params[:post][:category])
+      @post.category = category if category.present?
+    end
+
     @post.index_html = generate_index_html(params[:post][:body_html])
 
     respond_to do |format|
@@ -89,6 +103,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :body_html)
+      params.require(:post).permit(:title, :description, :body_html, :category)
     end
 end

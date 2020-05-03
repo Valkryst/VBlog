@@ -14,12 +14,14 @@
   </header>
 
   <!-- Index -->
-  <div id="index" data-turbolinks="false">
-    <h2>Table of Contents</h2>
-    <ul>
-      <%= @post.index_html.html_safe %>
-    </ul>
-  </div>
+  <% if @post.index_html.present? %>
+    <div id="index" data-turbolinks="false">
+      <h2>Table of Contents</h2>
+      <ul>
+        <%= @post.index_html.html_safe %>
+      </ul>
+    </div>
+  <% end %>
 
   <!-- Body -->
   <%= @post.body_html.html_safe %>
