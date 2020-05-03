@@ -1,27 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div id='post-index'>
+  <form action="" method="get" onsubmit="return false;">
+    <select id="post-search-category" autocomplete="off">
+      <option value="">All Categories</option>
 
-<h1>Posts</h1>
+      <% @categories.each do |category| %>
+        <option value="<%= category.title %>"><%= category.title %></option>
+      <% end %>
+    </select>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-    </tr>
-  </thead>
+    <input id="post-search-text" type="text" placeholder="Search" autocomplete="off">
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <input id="post-search-button" type="submit" value="Submit" onclick="search()">
+  </form>
+
+  <% posts_in_chronological_order(@categories).each do |post| %>
+    <section class="post-listing">
+      <h2><%= link_to(post.title, post_path(post), class: 'post-title') %></h2>
+
+      <p class="post-description"><%= post.description %></p>
+
+      <div>
+        <p>Category:</p>
+        <p class="post-category"><%= post.category.title %></p>
+      </div>
+
+      <div>
+        <p>Tags:</p>
+        <% post.tag_list.each do |tag| %>
+          <button class="post-tag" onclick="searchFor(<%= "\"#{tag}\"" %>)"><%= tag %></button>
+        <% end %>
+      </div>
+    </section>
     <% end %>
-  </tbody>
-</table>
-
-<br>
+</div>
 
 <% if can?(:new, Post) %>
   <%= link_to 'New Post', new_post_path %>

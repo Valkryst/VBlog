@@ -1,3 +1,58 @@
+#post-index {
+  form {
+    display: grid;
+    grid-template-columns: 80% auto;
+    grid-column-gap: 0.5rem;
+    grid-row-gap: 0.5rem;
+
+    margin-top: 1.5rem;
+
+    * {
+      font-size: large;
+    }
+
+    select {
+      grid-column: span 2;
+    }
+  }
+
+  section {
+    h2 {
+      margin-bottom: 0.25rem;
+
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    div {
+      * {
+        display: inline-block;
+        margin-bottom: 0;
+      }
+
+      p {
+        font-size: medium;
+      }
+    }
+
+    .post-tag {
+      background-color: var(--color-background);
+    }
+
+    .post-tag:hover {
+      text-decoration: underline;
+    }
+  }
+
+  section:not(:first-of-type) {
+    margin-top: 1.5rem;
+  }
+}
+
 .article-header {
   h1 {
     margin: 0;
@@ -66,7 +121,7 @@ article {
 }
 
 @media only screen and (min-width: 1080px) {
-  article {
+  article, #post-index {
     width: 80ch;
     margin-left: auto;
     margin-right: auto;
