@@ -15,7 +15,7 @@
 
   <!-- Index -->
   <% if @post.index_html.present? %>
-    <div id="index" data-turbolinks="false">
+    <div id="index">
       <h2>Table of Contents</h2>
       <ul>
         <%= @post.index_html.html_safe %>
