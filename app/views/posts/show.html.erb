@@ -2,7 +2,7 @@
 
 <article>
   <header class="article-header">
-    <h1><%= @post.title %></h1>
+    <h1><%= content_for(:title, @post.title) %></h1>
     <div>
       <% if @post.created_at != @post.updated_at %>
         Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>,
