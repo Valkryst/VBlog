@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get 'login/show'
 
+  resources :categories, only: [:index]
   resources :posts
   resources :users, only: [:index, :show, :edit, :create, :update]
 end

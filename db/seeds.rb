@@ -50,7 +50,7 @@ post_index_html = '
 <li><a href="#Screen(int, int, Font)">Screen(int, int, Font)</a></li>
 '
 
-post_description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tristique malesuada fringilla. Nulla nec sapien ac arcu gravida porttitor ut eget nunc. Aenean eu mi nibh. Vestibulum tristique, ante sit amet aliquet accumsan, est nisi rhoncus erat, vel varius nisl orci eu justo. Aenean ut eros ipsum. Vivamus mattis cursus varius. Integer non augue et erat malesuada pellentesque placerat sed mi. Fusce pretium turpis ut gravida pharetra. Quisque rhoncus purus cursus, rhoncus justo a, accumsan lorem. Quisque posuere sed eros aliquet dapibus. Donec lacinia sollicitudin faucibus. Duis quis nunc at lacus blandit egestas ac et elit. '
+lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tristique malesuada fringilla. Nulla nec sapien ac arcu gravida porttitor ut eget nunc. Aenean eu mi nibh. Vestibulum tristique, ante sit amet aliquet accumsan, est nisi rhoncus erat, vel varius nisl orci eu justo. Aenean ut eros ipsum. Vivamus mattis cursus varius. Integer non augue et erat malesuada pellentesque placerat sed mi. Fusce pretium turpis ut gravida pharetra. Quisque rhoncus purus cursus, rhoncus justo a, accumsan lorem. Quisque posuere sed eros aliquet dapibus. Donec lacinia sollicitudin faucibus. Duis quis nunc at lacus blandit egestas ac et elit. '
 
 categories = [
     {
@@ -81,10 +81,10 @@ categories = [
 user = User.create(name: 'Valkryst')
 
 categories.each do |category|
-  temp_category = Category.create!(title: category[:title])
+  temp_category = Category.create!(title: category[:title], description: lorem_ipsum)
 
   category[:posts].each do |post|
-    temp_post = Post.create!(title: post[:title], description: post_description, index_html: post_index_html, body_html: post_body_html, category: temp_category, user: user)
+    temp_post = Post.create!(title: post[:title], description: lorem_ipsum, index_html: post_index_html, body_html: post_body_html, category: temp_category, user: user)
 
     post[:tag_list].each do |tag|
       temp_post.tag_list << tag
