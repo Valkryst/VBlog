@@ -1,3 +1,21 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const search = urlParams.get("search");
+    const category = urlParams.get("category");
+
+    if (search !== null) {
+        searchFor(search);
+    }
+
+    if (category !== null) {
+        const searchCategoryElement = document.getElementById("post-search-category");
+        const searchButtonElement = document.getElementById("post-search-button");
+
+        searchCategoryElement.value = category;
+        searchButtonElement.click();
+    }
+}, false);
+
 /** Shows and hides posts based on the user's search criteria. */
 window.search = function search() {
     // Retrieve the filter elements and their data.
@@ -56,7 +74,6 @@ window.searchFor = function searchFor(searchString) {
 
     searchTextElement.value = searchString;
     searchButtonElement.click();
-
 }
 
 /** Shows all post listings. */
