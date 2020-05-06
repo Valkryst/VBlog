@@ -21,7 +21,7 @@ html {
   body {
     display: grid;
     grid-template-columns: 4rem minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    grid-template-rows: 1fr auto;
 
     height: 100%;
     padding: 0;
@@ -31,6 +31,7 @@ html {
 
     main {
       grid-column: 2;
+      padding: 1rem;
 
       h1, h2, h3, h4, h5, h6 {
         font-family: 'Oswald', sans-serif
@@ -77,10 +78,15 @@ html {
       grid-column: 2;
 
       #copyright {
+        padding-right: 0.5rem;
+
+        height: 1.5rem;
+
         color: var(--color-foreground);
 
         font-size: small;
         text-align: right;
+        line-height: 1.5rem;
       }
     }
   }
