@@ -23,13 +23,15 @@
 
       <div>
         <p>Category:</p>
-        <p class="post-category"><%= post.category.title %></p>
+        <button class="post-category" onclick="searchForCategory(<%= "\"#{post.category.title}\"" %>)">
+          <%= post.category.title %>
+        </button>
       </div>
 
       <div>
         <p>Tags:</p>
         <% post.tag_list.each do |tag| %>
-          <button class="post-tag" onclick="searchFor(<%= "\"#{tag}\"" %>)"><%= tag %></button>
+          <button class="post-tag" onclick="searchForString(<%= "\"#{tag}\"" %>)"><%= tag %></button>
         <% end %>
       </div>
     </section>
