@@ -1,6 +1,8 @@
 <% content_for(:title, 'Categories') %>
 
 <div id='categories-index'>
+  <h1>Categories</h1>
+
   <% @categories.each do |category| %>
     <section class="category-listing">
       <h2><%= link_to(category.title, posts_path(category: category.title)) %></h2>
