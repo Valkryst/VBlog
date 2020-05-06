@@ -38,9 +38,11 @@ window.search = function search() {
         const postListing = postListingElements[i];
 
         // If the post isn't in the selected category, then omit it from the search results.
-        const categoryElement = getPostListingCategory(postListing);
-        if (searchCategoryString !== categoryElement.innerHTML.trim()) {
-            continue;
+        if (searchCategoryString.length > 0) {
+            const categoryElement = getPostListingCategory(postListing);
+            if (searchCategoryString !== categoryElement.innerHTML.trim()) {
+                continue;
+            }
         }
 
         if (searchTextTerms.length !== 0) {
