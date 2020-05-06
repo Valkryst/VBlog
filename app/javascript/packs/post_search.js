@@ -4,15 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const category = urlParams.get("category");
 
     if (search !== null) {
-        searchFor(search);
+        searchForString(search);
     }
 
     if (category !== null) {
-        const searchCategoryElement = document.getElementById("post-search-category");
-        const searchButtonElement = document.getElementById("post-search-button");
-
-        searchCategoryElement.value = category;
-        searchButtonElement.click();
+        searchForCategory(category);
     }
 }, false);
 
@@ -41,38 +37,58 @@ window.search = function search() {
     for (let i = 0 ; i < postListingElements.length ; i++) {
         const postListing = postListingElements[i];
 
-        let displayInSearchResults = false;
+        // If the post isn't in the selected category, then omit it from the search results.
+        const categoryElement = getPostListingCategory(postListing);
+        if (searchCategoryString !== categoryElement.innerHTML.trim()) {
+            continue;
+        }
 
-        if (searchTextTerms.length === 0) {
-            // If the post isn't in the selected category, then omit it from the search results.
-            const categoryElements = postListing.getElementsByClassName('post-category');
-
-            for (let i = 0 ; i < categoryElements.length ; i++) {
-                if (searchCategoryString === categoryElements[i].innerHTML) {
-                    displayInSearchResults = true;
-                    break;
-                }
-            }
-        } else {
+        if (searchTextTerms.length !== 0) {
+            let displayInSearchResults = false;
             displayInSearchResults |= filterByPostCategory(postListing, searchTextTerms);
             displayInSearchResults |= filterByPostTitle(postListing, searchTextTerms);
             displayInSearchResults |= filterByPostTags(postListing, searchTextTerms);
             displayInSearchResults |= filterByPostDescription(postListing, searchTextTerms);
+
+            if (!displayInSearchResults) {
+                continue;
+            }
         }
 
-        if (displayInSearchResults) {
-            postListing.style.display = "inherit";
-        }
+
+        postListing.style.display = "inherit";
     }
 }
 
-window.searchFor = function searchFor(searchString) {
+/**
+ * Enters the given string in the search field and performs a search.
+ *
+ * @param string
+ *        The string to search for.
+ */
+window.searchForString = function searchForString(string) {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
     const searchTextElement = document.getElementById("post-search-text");
     const searchButtonElement = document.getElementById("post-search-button");
 
-    searchTextElement.value = searchString;
+    searchTextElement.value = string;
+    searchButtonElement.click();
+}
+
+/**
+ * Selects the given category from the dropdown and performs a search.
+ *
+ * @param categoryName
+ *        The category to search for.
+ */
+window.searchForCategory = function searchForCategory(categoryName) {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+    const searchCategoryElement = document.getElementById("post-search-category");
+    const searchButtonElement = document.getElementById("post-search-button");
+
+    searchCategoryElement.value = categoryName;
     searchButtonElement.click();
 }
 
@@ -106,6 +122,7 @@ function splitStringIntoTerms(string) {
         return [];
     }
 
+    string = string.trim();
     string = string.toLowerCase();
     string = string.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ");
     string = string.split(" ");
@@ -153,19 +170,13 @@ function anyTermsMatch(termsA, termsB) {
  *        Whether the given post should be displayed in the search results.
  */
 function filterByPostTitle(postListingElement, searchTerms) {
-    const titleElements = postListingElement.getElementsByClassName('post-title');
-
-    if (titleElements.length > 0) {
-        for (let i = 0; i < titleElements.length; i++) {
-            const titleTerms = splitStringIntoTerms(titleElements[i].innerHTML);
-
-            if (anyTermsMatch(searchTerms, titleTerms)) {
-                return true;
-            }
-        }
+    const titleElement = getPostListingTitle(postListingElement);
+    if (titleElement === null) {
+        return false;
     }
 
-    return false;
+    const titleTerms = splitStringIntoTerms(titleElement.innerHTML);
+    return anyTermsMatch(searchTerms, titleTerms);
 }
 
 /**
@@ -182,19 +193,13 @@ function filterByPostTitle(postListingElement, searchTerms) {
  *        Whether the given post should be displayed in the search results.
  */
 function filterByPostDescription(postListingElement, searchTerms) {
-    const descriptionElements = postListingElement.getElementsByClassName('post-description');
-
-    if (descriptionElements.length > 0) {
-        for (let i = 0; i < descriptionElements.length; i++) {
-            const descriptionTerms = splitStringIntoTerms(descriptionElements[i].innerHTML);
-
-            if (anyTermsMatch(searchTerms, descriptionTerms)) {
-                return true;
-            }
-        }
+    const descriptionElement = getPostListingDescription(postListingElement);
+    if (descriptionElement === null) {
+        return false;
     }
 
-    return false;
+    const descriptionTerms = splitStringIntoTerms(descriptionElement.innerHTML);
+    return anyTermsMatch(searchTerms, descriptionTerms);
 }
 
 /**
@@ -211,7 +216,7 @@ function filterByPostDescription(postListingElement, searchTerms) {
  *        Whether the given post should be displayed in the search results.
  */
 function filterByPostTags(postListingElement, searchTerms) {
-    const tagElements = postListingElement.getElementsByClassName("post-tag");
+    const tagElements = getPostListingTags(postListingElement);
 
     if (tagElements.length > 0) {
         for (let i = 0 ; i < tagElements.length ; i++) {
@@ -240,21 +245,66 @@ function filterByPostTags(postListingElement, searchTerms) {
  *        Whether the given post should be displayed in the search results.
  */
 function filterByPostCategory(postListingElement, searchTerms) {
-    const categoryElements = postListingElement.getElementsByClassName('post-category');
-
-    if (categoryElements.length > 0) {
-        for (let i = 0; i < categoryElements.length; i++) {
-            const categoryString = categoryElements[i].innerHTML;
-            if (categoryString.length === 0) {
-                continue;
-            }
-
-            const categoryTerms = splitStringIntoTerms(categoryString);
-            if (anyTermsMatch(searchTerms, categoryTerms)) {
-                return true;
-            }
-        }
+    const categoryElement = getPostListingCategory(postListingElement);
+    if (categoryElement === null) {
+        return false;
     }
 
-    return false;
+    const categoryTerms = splitStringIntoTerms(categoryElement.innerHTML);
+    return anyTermsMatch(searchTerms, categoryTerms);
+}
+
+/**
+ * Retrieves the title element of a post listing.
+ *
+ * @param postListingElement
+ *        The post listing.
+ *
+ * @returns {Element}
+ *        The title element.
+ */
+function getPostListingTitle(postListingElement) {
+    const titleElements = postListingElement.getElementsByClassName('post-title');
+    return (titleElements.length === 0) ? null : titleElements[0];
+}
+
+/**
+ * Retrieves the description element of a post listing.
+ *
+ * @param postListingElement
+ *        The post listing.
+ *
+ * @returns {Element}
+ *        The description element.
+ */
+function getPostListingDescription(postListingElement) {
+    const descriptionElements = postListingElement.getElementsByClassName('post-description');
+    return (descriptionElements.length === 0) ? null : descriptionElements[0];
+}
+
+/**
+ * Retrieves the category element of a post listing.
+ *
+ * @param postListingElement
+ *        The post listing.
+ *
+ * @returns {Element}
+ *        The category element.
+ */
+function getPostListingCategory(postListingElement) {
+    const categoryElements = postListingElement.getElementsByClassName('post-category');
+    return (categoryElements.length === 0) ? null : categoryElements[0];
+}
+
+/**
+ * Retrieves the tag elements of a post listing.
+ *
+ * @param postListingElement
+ *        The post listing.
+ *
+ * @returns {*}
+ *        The tag elements.
+ */
+function getPostListingTags(postListingElement) {
+    return postListingElement.getElementsByClassName("post-tag");
 }

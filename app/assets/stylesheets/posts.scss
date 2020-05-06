@@ -39,11 +39,11 @@
       }
     }
 
-    .post-tag {
+    .post-category, .post-tag {
       background-color: var(--color-background);
     }
 
-    .post-tag:hover {
+    .post-category:hover, .post-tag:hover {
       text-decoration: underline;
     }
   }
