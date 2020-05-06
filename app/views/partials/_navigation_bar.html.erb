@@ -6,9 +6,14 @@
     <p>Home</p>
   <% end %>
 
-  <%= link_to(root_path) do %>
-    <%= image_tag("icon_documentation.svg", :alt => "Documentation Icon") %>
-    <p>Documentation</p>
+  <%= link_to(posts_path) do %>
+    <%= image_tag("icon_search.svg", :alt => "Search Icon") %>
+    <p>Search</p>
+  <% end %>
+
+  <%= link_to(categories_path) do %>
+    <%= image_tag("icon_categories.svg", :alt => "Categories Icon") %>
+    <p>Categories</p>
   <% end %>
 
   <a href="https://github.com/Valkryst" title="GitHub" target="_blank">
@@ -16,15 +21,15 @@
     <p>GitHub</p>
   </a>
 
-  <%= link_to(root_path) do %>
+  <a href="https://github.com/Valkryst/VBlog" title="About" target="_blank">
     <%= image_tag("icon_about.svg", :alt => "About Icon") %>
     <p>About</p>
-  <% end %>
+  </a>
 
   <% if user_signed_in? %>
     <%= link_to(user_path(current_user)) do %>
       <%= render("users/avatar") %>
-      <p>My Account</p>
+      <p>Profile</p>
     <% end %>
 
     <%= link_to(destroy_user_session_path, method: :delete) do %>
