@@ -25,6 +25,7 @@ class Ability
 
   def initialize_author(user)
     can(:new, Post)
+    can(:edit, Post, user_id: user.id)
 
     initialize_reader(user)
   end
