@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    authorize!(:manage, Post)
+    authorize!(:edit, @post)
   rescue CanCan::AccessDenied
     redirect_to(action: :show)
   end
@@ -41,7 +41,7 @@ class PostsController < ApplicationController
     @post.user = current_user
     @post.title = params[:post][:title]
     @post.description = params[:post][:description]
-    @post.body_html = params[:post][:title]
+    @post.body_html = params[:post][:body_html]
     @post.index_html = generate_index_html(params[:post][:body_html])
 
     respond_to do |format|
@@ -59,14 +59,17 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     if params[:post][:category]
-      category = Category.find(params[:post][:category])
+      category = Category.find_by(title: params[:post][:category])
       @post.category = category if category.present?
     end
 
+    @post.title = params[:post][:title]
+    @post.description = params[:post][:description]
+    @post.body_html = params[:post][:body_html]
     @post.index_html = generate_index_html(params[:post][:body_html])
 
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else

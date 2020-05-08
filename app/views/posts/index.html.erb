@@ -1,6 +1,10 @@
 <% content_for(:title, 'Posts') %>
 
 <div id='post-index'>
+  <% if can?(:new, Post) %>
+    <%= button_to('New Post', new_post_path, method: 'get')  %>
+  <% end %>
+
   <form action="" method="get" onsubmit="return false;">
     <select id="post-search-category" autocomplete="off">
       <option value="">All Categories</option>
@@ -37,7 +41,3 @@
     </section>
     <% end %>
 </div>
-
-<% if can?(:new, Post) %>
-  <%= link_to 'New Post', new_post_path %>
-<% end %>

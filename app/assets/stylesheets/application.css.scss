@@ -70,6 +70,17 @@ html {
         font-size: 0.67rem;
       }
 
+      input, select, textarea {
+        color: var(--color-foreground);
+
+        border-color: #CCCCCC;
+        border-style: solid;
+        border-width: 1px;
+
+        font-family: inherit;
+        font-size: 0.8rem;
+      }
+
       #about {
         display: grid;
         grid-template-columns: repeat(4, 4rem);
