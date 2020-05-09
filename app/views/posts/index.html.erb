@@ -1,10 +1,6 @@
 <% content_for(:title, 'Posts') %>
 
 <div id='post-index'>
-  <% if can?(:new, Post) %>
-    <%= button_to('New Post', new_post_path, method: 'get')  %>
-  <% end %>
-
   <form action="" method="get" onsubmit="return false;">
     <select id="post-search-category" autocomplete="off">
       <option value="">All Categories</option>
@@ -23,23 +19,24 @@
     <section class="post-listing">
       <h2><%= link_to(post.title, post_path(post), class: 'post-title') %></h2>
       <h3>
-        Posted by <%= link_to(post.user.name, users_path(post.user)) %> on
+        Posted by <%= link_to(post.user.name, user_path(post.user)) %> on
         <%= render(partial: 'partials/timestamp', locals: {timestamp: post.created_at}) %>
       </h3>
 
-      <p class="post-description"><%= post.description %></p>
+      <p class="post-description">
+        <%= post.description %>
+        <%= link_to('View Post', post_path(post), class: 'post-view-link') %>
+      </p>
 
       <div>
-        <p>Category:</p>
-        <button class="post-category" onclick="searchForCategory(<%= "\"#{post.category.title}\"" %>)">
+        <button class="post-tag" onclick="searchForCategory(<%= "\"#{post.category.title}\"" %>)">
           <%= post.category.title %>
         </button>
-      </div>
 
-      <div>
-        <p>Tags:</p>
-        <% post.tag_list.each do |tag| %>
-          <button class="post-tag" onclick="searchForString(<%= "\"#{tag}\"" %>)"><%= tag %></button>
+        <% unless post.tag_list.length.zero? %>
+          <% post.tag_list.each do |tag| %>
+            <button class="post-tag" onclick="searchForString(<%= "\"#{tag}\"" %>)"><%= tag %></button>
+          <% end %>
         <% end %>
       </div>
     </section>
