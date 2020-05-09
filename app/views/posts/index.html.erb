@@ -22,6 +22,10 @@
   <% posts_in_chronological_order(@categories).each do |post| %>
     <section class="post-listing">
       <h2><%= link_to(post.title, post_path(post), class: 'post-title') %></h2>
+      <h3>
+        Posted by <%= link_to(post.user.name, users_path(post.user)) %> on
+        <%= render(partial: 'partials/timestamp', locals: {timestamp: post.created_at}) %>
+      </h3>
 
       <p class="post-description"><%= post.description %></p>
 

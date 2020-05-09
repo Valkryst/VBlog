@@ -16,9 +16,17 @@
 
   section {
     h2 {
-      margin-bottom: 0.25rem;
+      margin-bottom: 0;
 
       font-size: 1.25rem;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+
+      font-size: 0.85rem;
+      font-weight: lighter;
     }
 
     p {
