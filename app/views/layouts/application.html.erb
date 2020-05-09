@@ -18,10 +18,13 @@
         gtag('config', 'UA-148333548-1');
     </script>
 
+    <% if content_for?(:title) %><title><%= yield(:title) %></title><% end %>
+
+    <% if content_for?(:author) %><meta name="author" content="<%= yield(:author) %>"><% end %>
+    <% if content_for?(:description) %><meta name="description" content="<%= yield(:description) %>"><% end %>
+    <% if content_for?(:keywords) %><meta name="keywords" content="<%= yield(:keywords) %>"><% end %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title><%= yield(:title) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
