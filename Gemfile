@@ -44,6 +44,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+
+  gem 'shoulda-context', '~> 1.2', '>= 1.2.2'
 end
 
 gem 'acts-as-taggable-on', '~> 6.0'

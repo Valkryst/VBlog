@@ -1,7 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+user_reader:
+  name: 'Onyx the Reader'
+  role: 'reader'
 
-one:
-  name: MyString
+user_author:
+  name: 'Onyx the Author'
+  role: 'author'
 
-two:
-  name: MyString
+user_admin:
+  name: 'Onyx the Admin'
+  role: 'admin'

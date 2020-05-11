@@ -21,19 +21,21 @@ class PostsController < ApplicationController
 
     @post = Post.new
   rescue CanCan::AccessDenied
-    redirect_to(action: :index)
+    redirect_to(posts_path)
   end
 
   # GET /posts/1/edit
   def edit
     authorize!(:edit, @post)
   rescue CanCan::AccessDenied
-    redirect_to(action: :show)
+    redirect_to(posts_path)
   end
 
   # POST /posts
   # POST /posts.json
   def create
+    authorize!(:new, Post)
+
     @post = Post.new
 
     if params[:post][:category]
@@ -56,6 +58,8 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  rescue CanCan::AccessDenied
+    redirect_to(posts_path)
   end
 
   # PATCH/PUT /posts/1
@@ -66,10 +70,10 @@ class PostsController < ApplicationController
       @post.category = category if category.present?
     end
 
-    @post.title = params[:post][:title]
-    @post.description = params[:post][:description]
-    @post.body_html = params[:post][:body_html]
-    @post.index_html = generate_index_html(params[:post][:body_html])
+    @post.title = params[:post][:title] if params[:post][:title]
+    @post.description = params[:post][:description] if params[:post][:description]
+    @post.body_html = params[:post][:body_html] if params[:post][:body_html]
+    @post.index_html = generate_index_html(params[:post][:body_html]) if params[:post][:body_html]
 
     respond_to do |format|
       if @post.save
@@ -95,7 +99,7 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   rescue CanCan::AccessDenied
-    redirect_to(action: :show)
+    redirect_to(posts_path)
   end
 
   private
