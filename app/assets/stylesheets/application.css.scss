@@ -67,3 +67,13 @@ html {
     }
   }
 }
+
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  html {
+    font-size: 12px;
+  }
+}

@@ -56,3 +56,9 @@
 .post-tag:nth-of-type(5n+5):hover {
   background-color: #36a019;
 }
+
+@media print {
+  .post-tag {
+    display: none;
+  }
+}

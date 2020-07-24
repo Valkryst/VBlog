@@ -33,3 +33,9 @@ article {
     }
   }
 }
+
+@media print {
+  #disqus_thread {
+    display: none;
+  }
+}
