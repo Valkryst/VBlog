@@ -32,6 +32,18 @@ article {
       margin-right: 0.25rem;
     }
   }
+
+  img {
+    display: block;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    width: auto;
+    height: auto;
+
+    max-width: 100%;
+  }
 }
 
 @media print {
