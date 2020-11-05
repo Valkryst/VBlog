@@ -16,14 +16,16 @@
           plugins: "advlist autolink code fullscreen image lists link media paste",
           selector: ".tinymce",
           setup: function (editor) {
-              editor.on('change', function(e) {
+              editor.on("change", function(e) {
+                  editor.save();
+              });
+
+              editor.on("NodeChange", function(e) {
                   // Ensure all images are lazily loaded.
                   if (e.element.tagName === "IMG") {
                       e.element.setAttribute("loading", "on");
                   }
-
-                  editor.save();
-              });
+              })
           },
           toolbar: "fullscreen | image media link | h2 bold italic underline strikethrough removeformat | bullist numlist | code"
       });
