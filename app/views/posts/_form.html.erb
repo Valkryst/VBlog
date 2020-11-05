@@ -23,7 +23,7 @@
               editor.on("NodeChange", function(e) {
                   // Ensure all images are lazily loaded.
                   if (e.element.tagName === "IMG") {
-                      e.element.setAttribute("loading", "on");
+                      e.element.setAttribute("loading", "lazy");
                   }
               })
           },
