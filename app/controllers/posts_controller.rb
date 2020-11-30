@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @categories = Category.all
+    ahoy.track("Viewed Posts Index")
   end
 
   # GET /posts/1
@@ -13,6 +14,8 @@ class PostsController < ApplicationController
     if @post.deleted
       redirect_to(posts_path)
     end
+
+    ahoy.track("Viewed Post", title: @post.title)
   end
 
   # GET /posts/new

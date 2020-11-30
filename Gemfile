@@ -50,8 +50,12 @@ group :test do
   gem 'webdrivers'
 end
 
+# For first-party analytics.
+gem 'ahoy_matey'
+
 gem 'acts-as-taggable-on', '~> 6.0'
 
+# For user registration, login, and permissions.
 gem 'devise'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
