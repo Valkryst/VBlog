@@ -13,7 +13,7 @@
     <p>Posts</p>
   <% end %>
 
-  <% if can?(:new, Post) %>
+  <% if can?(:new, Post) || Rails.env.development? %>
     <%= link_to(new_post_path) do %>
       <%= image_tag("icon_new_post.svg", :alt => "Log In Icon") %>
       <p>New Post</p>
