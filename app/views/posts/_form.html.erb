@@ -1,5 +1,5 @@
 <%= form_with(model: post, local: true, html: {id: 'post-form'}) do |form| %>
-  <%= form.collection_select(:category, Category.all.order(:title), :title, :title, {prompt: 'Select a Category'}, required: true) %>
+  <%= form.collection_select(:category, Category.all.order(:category), :category, :category, {prompt: 'Select a Category'}, required: true) %>
   <%= form.text_field(:title, placeholder: 'Enter a Title', required: true) %>
   <%= form.text_area(:description, placeholder: 'Enter a Description', required: true) %>
   <%= form.text_field(:tag_list, placeholder: 'Enter Space-Separated Tags', required: false) %>
