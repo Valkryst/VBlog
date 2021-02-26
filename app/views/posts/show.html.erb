@@ -1,4 +1,4 @@
-<% cache(@post) do %>
+<% cache(@post, can?(:edit, @post), can?(:destroy, @post)) do %>
   <% content_for(:title, @post.title) %>
   <% content_for(:description, @post.description) %>
   <% content_for(:keywords, @post.tag_list.join(', ')) %>
