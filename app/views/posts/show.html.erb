@@ -1,4 +1,4 @@
-<% cache(@post.description, @post.tag_list, @post.title,@post.user.name) do %>
+<% cache(@post) do %>
   <% content_for(:title, @post.title) %>
   <% content_for(:description, @post.description) %>
   <% content_for(:keywords, @post.tag_list.join(', ')) %>
@@ -9,7 +9,7 @@
   <header>
     <h1><%= @post.title %></h1>
     <div>
-      <% cache(@post.created_at, @post.updated_at) do %>
+      <% cache(@post) do %>
         <% if @post.created_at != @post.updated_at %>
           Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %> &#8212;
           Edited <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.updated_at}) %>
@@ -28,7 +28,7 @@
     </div>
   </header>
 
-  <% cache(@post.body_html, @post.category.title, @post.tag_list) do %>
+  <% cache(@post) do %>
     <%= @post.body_html.html_safe %>
 
     <div>
@@ -45,7 +45,7 @@
   <% end %>
 </article>
 
-<% cache(@post.id, @post.title) do %>
+<% cache(@post) do %>
   <div id="disqus_thread"></div>
   <script>
       const disqus_config = function () {
