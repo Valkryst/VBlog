@@ -1,56 +1,73 @@
-<% content_for(:title, @post.title) %>
-<% content_for(:description, @post.description) %>
-<% content_for(:keywords, @post.tag_list.join(', ')) %>
-<% content_for(:author, @post.user.name) %>
+<% cache [@post.title, @post.description, @post.tag_list, @post.user.name] do %>
+  <% content_for(:title, @post.title) %>
+  <% content_for(:description, @post.description) %>
+  <% content_for(:keywords, @post.tag_list.join(', ')) %>
+  <% content_for(:author, @post.user.name) %>
+<% end %>
 
 <article>
   <header>
-    <h1><%= @post.title %></h1>
+    <% cache [@post.title] do %>
+      <h1><%= @post.title %></h1>
+    <% end %>
+
     <div>
-      <% if @post.created_at != @post.updated_at %>
-        Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %> &#8212;
-        Edited <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.updated_at}) %>
-      <% else %>
-        Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>
+      <% cache [@post.created_at, @post.updated_at] do %>
+        <% if @post.created_at != @post.updated_at %>
+          Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %> &#8212;
+          Edited <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.updated_at}) %>
+        <% else %>
+          Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>
+        <% end %>
       <% end %>
 
-      <% if can?(:edit, @post) %>
-        <%= link_to("Edit", edit_post_path(@post)) %>
-      <% end %>
+      <% cache [can?(:edit, @post), can?(:destroy, @post)] do %>
+        <% if can?(:edit, @post) %>
+          <%= link_to("Edit", edit_post_path(@post)) %>
+        <% end %>
 
-      <% if can?(:destroy, @post) %>
-        <%= link_to("Delete", @post, method: :delete, data: {confirm: "Delete this post?"}) %>
+        <% if can?(:destroy, @post) %>
+          <%= link_to("Delete", @post, method: :delete, data: {confirm: "Delete this post?"}) %>
+        <% end %>
       <% end %>
     </div>
   </header>
 
-  <%= @post.body_html.html_safe %>
+  <% cache [@post.body_html] do %>
+    <%= @post.body_html.html_safe %>
+  <% end %>
 
   <div>
-    <a class="post-tag" href="<%= posts_path(category: @post.category.title) %>">
-      <%= @post.category.title %>
-    </a>
+    <% cache [@post.category.title] do %>
+      <a class="post-tag" href="<%= posts_path(category: @post.category.title) %>">
+        <%= @post.category.title %>
+      </a>
+    <% end %>
 
-    <% unless @post.tag_list.length.zero? %>
-      <% @post.tag_list.sort.each do |tag| %>
-        <a class="post-tag" href="<%= posts_path(search: tag) %>"><%= tag %></a>
+    <% cache [@post.tag_list] do %>
+      <% unless @post.tag_list.length.zero? %>
+        <% @post.tag_list.sort.each do |tag| %>
+          <a class="post-tag" href="<%= posts_path(search: tag) %>"><%= tag %></a>
+        <% end %>
       <% end %>
     <% end %>
   </div>
 </article>
 
-<div id="disqus_thread"></div>
-<script>
-    const disqus_config = function () {
-      this.page.identifier = "<%= @post.title %>";
-      this.page.title = "<%= @post.id %>";
-      this.page.url = "<%= post_path(@post) %>";
-    };
+<% cache [@post] do %>
+  <div id="disqus_thread"></div>
+  <script>
+      const disqus_config = function () {
+        this.page.identifier = "<%= @post.title %>";
+        this.page.title = "<%= @post.id %>";
+        this.page.url = "<%= post_path(@post) %>";
+      };
 
-    (function() {
-        const d = document, s = d.createElement('script');
-        s.src = 'https://valkryst.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
+      (function() {
+          const d = document, s = d.createElement('script');
+          s.src = 'https://valkryst.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+      })();
+  </script>
+<% end %>
