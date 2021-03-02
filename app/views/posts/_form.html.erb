@@ -12,17 +12,13 @@
   <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
       tinymce.init({
-          codesample_global_prismjs: true,
-          codesample_languages: [
-              {text: 'Java', value: 'java'},
-          ],
           contextmenu: false,
           elementpath: false,
           entity_encoding: "raw",
           extended_valid_elements : "script[src|async|defer|type|charset]",
           height: 600,
           menubar: false,
-          plugins: "advlist autolink code codesample fullscreen image lists link media paste",
+          plugins: "advlist autolink code fullscreen image lists link media paste",
           selector: ".tinymce",
           setup: function (editor) {
               editor.on("change", function(e) {
@@ -36,7 +32,7 @@
                   }
               })
           },
-          toolbar: "fullscreen | image media link codesample | h2 bold italic underline strikethrough removeformat | bullist numlist | code"
+          toolbar: "fullscreen | image media link | h2 bold italic underline strikethrough removeformat | bullist numlist | code"
       });
   </script>
   <%= form.text_area(:body_html, value: post.body_html, class: 'tinymce', required: true) %>
