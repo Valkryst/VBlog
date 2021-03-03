@@ -53,7 +53,7 @@ end
 gem 'acts-as-taggable-on', '~> 7.0'
 
 # For user registration, login, and permissions.
-gem 'devise'
+gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2' # https://stackoverflow.com/a/65732099/13279616
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
 gem 'cancancan'
