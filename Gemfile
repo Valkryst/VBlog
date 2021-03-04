@@ -53,7 +53,19 @@ end
 gem 'acts-as-taggable-on', '~> 7.0'
 
 # For user registration, login, and permissions.
-gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2' # https://stackoverflow.com/a/65732099/13279616
+#
+# The "You are using an old OmniAuth version, please ensure you have 1.0.0.pr2 version or later installed." error
+# was encountered while updating a few gems. To resolve this issue, I had to change how the devise gem was specified
+# below.
+#
+# After the previous fix was implemented, I ran into the "Attack prevented by OmniAuth::AuthenticityTokenProtection"
+# error which was resolved by adding the omniauth-rails_csrf_protection gem.
+#
+# Sources:
+#   * https://stackoverflow.com/a/65732099/13279616
+#   * https://github.com/cookpad/omniauth-rails_csrf_protection
+gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
+gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
 gem 'cancancan'
