@@ -1,9 +1,7 @@
-<% cache [@post.title, @post.description, @post.tag_list, @post.user.name] do %>
-  <% content_for(:title, @post.title) %>
-  <% content_for(:description, @post.description) %>
-  <% content_for(:keywords, @post.tag_list.join(', ')) %>
-  <% content_for(:author, @post.user.name) %>
-<% end %>
+<% content_for(:title, @post.title) %>
+<% content_for(:description, @post.description) %>
+<% content_for(:keywords, @post.tag_list.join(', ')) %>
+<% content_for(:author, @post.user.name) %>
 
 <article>
   <header>
@@ -12,13 +10,11 @@
     <% end %>
 
     <div>
-      <% cache [@post.created_at, @post.updated_at] do %>
-        <% if @post.created_at != @post.updated_at %>
-          Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %> &#8212;
-          Edited <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.updated_at}) %>
-        <% else %>
-          Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>
-        <% end %>
+      <% if @post.created_at != @post.updated_at %>
+        Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %> &#8212;
+        Edited <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.updated_at}) %>
+      <% else %>
+        Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>
       <% end %>
 
       <% cache [can?(:edit, @post), can?(:destroy, @post)] do %>
@@ -54,20 +50,18 @@
   </div>
 </article>
 
-<% cache [@post] do %>
-  <div id="disqus_thread"></div>
-  <script>
-      const disqus_config = function () {
-        this.page.identifier = "<%= @post.title %>";
-        this.page.title = "<%= @post.id %>";
-        this.page.url = "<%= post_path(@post) %>";
-      };
+<div id="disqus_thread"></div>
+<script>
+    const disqus_config = function () {
+      this.page.identifier = "<%= @post.title %>";
+      this.page.title = "<%= @post.id %>";
+      this.page.url = "<%= post_path(@post) %>";
+    };
 
-      (function() {
-          const d = document, s = d.createElement('script');
-          s.src = 'https://valkryst.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-      })();
-  </script>
-<% end %>
+    (function() {
+        const d = document, s = d.createElement('script');
+        s.src = 'https://valkryst.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
