@@ -45,7 +45,7 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'acts-as-taggable-on', '~> 7.0'
+gem 'acts-as-taggable-on', '~> 8.0'
 
 # For user registration, login, and permissions.
 #
