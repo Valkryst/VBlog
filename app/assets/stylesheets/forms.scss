@@ -15,7 +15,7 @@ input[type=button]:active, input[type=submit]:active {
   filter: brightness(90%);
 }
 
-@media (pointer: coarse), (hover: hover) {
+@media only screen and (hover: none) {
   input:hover, select:hover, textarea:hover {
     border-color: var(--color-accent);
   }

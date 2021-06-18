@@ -82,7 +82,7 @@ article {
   }
 }
 
-@media print {
+@media only print {
   article {
     img {
       break-inside: avoid;

@@ -31,7 +31,7 @@
   background-color: #46ce21;
 }
 
-@media (pointer: coarse), (hover: hover) {
+@media only screen and (hover: none) {
   .post-tag:hover {
     cursor: pointer;
   }
@@ -57,7 +57,7 @@
   }
 }
 
-@media print {
+@media only print {
   .post-tag {
     display: none;
   }

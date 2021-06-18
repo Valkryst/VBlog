@@ -60,7 +60,7 @@
   }
 }
 
-@media (pointer: coarse), (hover: hover) {
+@media only screen and (hover: none) {
   #posts-list {
     li {
       transition-duration: 0.25s;
@@ -92,7 +92,7 @@
   }
 }
 
-@media print {
+@media only print {
   #posts-search-form {
     display: none;
   }
