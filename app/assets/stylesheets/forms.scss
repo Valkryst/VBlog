@@ -15,8 +15,10 @@ input[type=button]:active, input[type=submit]:active {
   filter: brightness(90%);
 }
 
-input:hover, select:hover, textarea:hover {
-  border-color: var(--color-accent);
+@media (pointer: coarse), (hover: hover) {
+  input:hover, select:hover, textarea:hover {
+    border-color: var(--color-accent);
+  }
 }
 
 // Posts Form
