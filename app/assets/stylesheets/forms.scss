@@ -7,6 +7,18 @@ input, select, table, textarea {
   font-size: smaller;
 }
 
+input[type=button], input[type=submit], select {
+  cursor: pointer;
+}
+
+input[type=button]:active, input[type=submit]:active {
+  filter: brightness(90%);
+}
+
+input:hover, select:hover, textarea:hover {
+  border-color: var(--color-accent);
+}
+
 // Posts Form
 #post-form {
   display: grid;

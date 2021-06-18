@@ -21,14 +21,6 @@ html {
 
   scroll-behavior: smooth;
 
-  input[type=button], input[type=submit] {
-    cursor: pointer;
-  }
-
-  input[type=button]:active, input[type=submit]:active {
-    filter: brightness(90%);
-  }
-
   body {
     display: grid;
     grid-template-columns: 3rem minmax(0, 1fr);
