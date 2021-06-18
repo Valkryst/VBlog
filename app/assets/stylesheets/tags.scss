@@ -31,30 +31,31 @@
   background-color: #46ce21;
 }
 
-// Hovered
-.post-tag:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
+@media (pointer: coarse), (hover: hover) {
+  .post-tag:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
-.post-tag:nth-of-type(5n+1):hover {
-  background-color: #5a8ad7;
-}
+  .post-tag:nth-of-type(5n+1):hover {
+    background-color: #5a8ad7;
+  }
 
-.post-tag:nth-of-type(5n+2):hover {
-  background-color: #8253c4;
-}
+  .post-tag:nth-of-type(5n+2):hover {
+    background-color: #8253c4;
+  }
 
-.post-tag:nth-of-type(5n+3):hover {
-  background-color: #d03377;
-}
+  .post-tag:nth-of-type(5n+3):hover {
+    background-color: #d03377;
+  }
 
-.post-tag:nth-of-type(5n+4):hover {
-  background-color: #d06838;
-}
+  .post-tag:nth-of-type(5n+4):hover {
+    background-color: #d06838;
+  }
 
-.post-tag:nth-of-type(5n+5):hover {
-  background-color: #36a019;
+  .post-tag:nth-of-type(5n+5):hover {
+    background-color: #36a019;
+  }
 }
 
 @media print {
