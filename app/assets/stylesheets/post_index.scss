@@ -64,18 +64,14 @@
 
 @media only screen and (hover: hover) {
   #posts-list {
-    li {
+    li > a:first-of-type {
       transition-duration: 0.25s;
-      transition-property: translate;
+      transition-property: transform;
       transition-timing-function: ease;
-
-      border-left-color: transparent;
-      border-left-style: solid;
-      border-left-width: 0;
     }
 
-    li:hover {
-      translate: 1ch;
+    li > a:first-of-type:hover {
+      transform: translateX(1ch);
     }
   }
 }
