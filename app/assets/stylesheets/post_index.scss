@@ -66,6 +66,24 @@
   }
 }
 
+@media (pointer: coarse), (hover: hover) {
+  #posts-list {
+    li {
+      transition-duration: 0.25s;
+      transition-property: border-left-width;
+      transition-timing-function: ease;
+
+      border-left-color: transparent;
+      border-left-style: solid;
+      border-left-width: 0;
+    }
+
+    li:hover {
+      border-left-width: 1ch;
+    }
+  }
+}
+
 @media only screen and (min-width: 768px) {
   #posts-search-form {
     grid-template-columns: 60% auto auto;
