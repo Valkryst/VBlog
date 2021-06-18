@@ -83,6 +83,12 @@ article {
 }
 
 @media print {
+  article {
+    img {
+      break-inside: avoid;
+    }
+  }
+
   #disqus_thread {
     display: none;
   }
