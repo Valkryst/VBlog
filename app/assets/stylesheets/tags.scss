@@ -31,7 +31,7 @@
   background-color: #46ce21;
 }
 
-@media only screen and (hover: none) {
+@media only screen and (hover: hover) {
   .post-tag:hover {
     cursor: pointer;
   }
