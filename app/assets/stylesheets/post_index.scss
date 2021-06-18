@@ -70,7 +70,7 @@
   #posts-list {
     li {
       transition-duration: 0.25s;
-      transition-property: border-left-width;
+      transition-property: translate;
       transition-timing-function: ease;
 
       border-left-color: transparent;
@@ -79,7 +79,7 @@
     }
 
     li:hover {
-      border-left-width: 1ch;
+      translate: 1ch;
     }
   }
 }
