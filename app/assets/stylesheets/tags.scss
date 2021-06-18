@@ -8,6 +8,10 @@
   text-decoration: none;
 
   border: none;
+
+  transition-duration: 0.25s;
+  transition-property: background-color;
+  transition-timing-function: ease;
 }
 
 // Normal
