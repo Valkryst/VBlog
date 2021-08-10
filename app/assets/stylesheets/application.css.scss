@@ -6,6 +6,8 @@ html {
   --color-foreground: #1A1C1A;
   --color-background: #F7F7F7;
   --color-accent: #6BA4FF;
+
+  --footer-height: 1rem;
   --navigation-height: 3rem;
 
   --z-index-navigation: 1000;
@@ -23,15 +25,11 @@ html {
   scroll-behavior: smooth;
 
   body {
-    display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr);
-    grid-template-rows: 1fr auto;
-
     height: 100%;
     margin: 0;
 
     main {
-      grid-column: 2;
+      min-height: calc(100% - var(--navigation-height) - var(--footer-height));
 
       padding: var(--navigation-height) 1rem 0 1rem;
 
@@ -47,10 +45,7 @@ html {
     }
 
     footer {
-      grid-column: 2;
-
-      box-sizing: border-box;
-      padding: 0 0.5rem 0.5rem 0;
+      height: var(--footer-height);
 
       font-size: small;
       text-align: right;
@@ -60,8 +55,6 @@ html {
 
 @media only screen and (min-width: 1080px) {
   html > body {
-    grid-template-columns: 4rem minmax(0, 1fr);
-
     main {
       width: 80ch;
       margin-left: auto;
