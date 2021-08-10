@@ -4,10 +4,10 @@ nav {
   position: fixed;
 
   display: grid;
-  grid-auto-rows: 3rem;
+  grid-auto-rows: 100%;
 
-  height: 100%;
-  width: 3rem;
+  height: var(--navigation-height);
+  width: 100%;
 
   color: var(--color-background);
   background-color: var(--color-foreground);
@@ -17,16 +17,26 @@ nav {
     line-height: 3rem;
     text-decoration: none;
 
+    cursor: pointer;
+
     img {
       height: 1.5rem;
-
       transform: translate(50%, 25%);
     }
 
     p {
       padding-left: 1rem;
-      display: none;
+      display: inline;
     }
+  }
+
+  a:first-of-type {
+    width: 3rem;
+    line-height: 3rem;
+  }
+
+  a:not(:first-of-type) {
+    display: none;
   }
 
   a:link, a:visited {
@@ -37,32 +47,33 @@ nav {
   a:hover {
     background-color: var(--color-accent);
   }
-
-  a:first-child {
-    cursor: pointer;
-  }
-
-  #navigation-bar-user-avatar {
-    border-radius: 50%;
-  }
 }
 
 @media only screen and (min-width: 1080px) {
   nav {
-    grid-auto-rows: 4rem;
-
-    width: 4rem;
-
     a {
+      p {
+        padding-left: 1.25rem;
+      }
+    }
+
+    a:first-of-type {
       line-height: 4rem;
 
       img {
         height: 2rem;
+        transform: translate(25%, 0%);
       }
+    }
+  }
+}
 
-      p {
-        padding-left: 1.25rem;
-      }
+@media only screen and (hover: hover) {
+  nav {
+    a {
+      transition-duration: 0.125s;
+      transition-property: background-color, border-color;
+      transition-timing-function: ease;
     }
   }
 }

@@ -5,8 +5,8 @@
  *          Whether the navigation bar is expanded.
  */
 function isNavigationExpanded() {
-    const element = document.getElementsByTagName("nav")[0];
-    return element.style.width === ((screen.width <= 1080) ? "100%" : "14rem");
+    const navElement = document.getElementsByTagName("nav")[0];
+    return navElement.getAttribute("toggleState") === "expanded";
 }
 
 /**
@@ -19,9 +19,12 @@ function contractNavigation(navElement) {
     navElement.style.width = "";
 
     for (const link of navElement.getElementsByTagName("a")) {
-        for (const p of link.getElementsByTagName("p")) {
-            p.style.display = "";
+        // The navigation toggle should be the only element with an onclick.
+        if (link.onclick !== null) {
+            continue;
         }
+
+        link.style.display = "none";
     }
 }
 
@@ -32,12 +35,8 @@ function contractNavigation(navElement) {
  *        The navigation bar.
  */
 function expandNavigation(navElement) {
-    navElement.style.width = ((screen.width <= 1080) ? "100%" : "14rem");
-
     for (const link of navElement.getElementsByTagName("a")) {
-        for (const p of link.getElementsByTagName("p")) {
-            p.style.display = "inline";
-        }
+        link.style.display = "inline";
     }
 }
 
@@ -47,10 +46,13 @@ function expandNavigation(navElement) {
  */
 window.toggleNavigation = function toggleNavigation() {
     const navElement = document.getElementsByTagName("nav")[0];
+
     if (isNavigationExpanded()) {
         contractNavigation(navElement);
+        navElement.setAttribute("toggleState", "contracted");
     } else {
         expandNavigation(navElement);
+        navElement.setAttribute("toggleState", "expanded");
     }
 }
 

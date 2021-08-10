@@ -6,6 +6,7 @@ html {
   --color-foreground: #1A1C1A;
   --color-background: #F7F7F7;
   --color-accent: #6BA4FF;
+  --navigation-height: 3rem;
 
   --z-index-navigation: 1000;
 
@@ -32,7 +33,7 @@ html {
     main {
       grid-column: 2;
 
-      padding: 1rem 1rem 0 1rem;
+      padding: var(--navigation-height) 1rem 0 1rem;
 
       line-height: 1.5rem;
 
@@ -65,7 +66,7 @@ html {
       width: 80ch;
       margin-left: auto;
       margin-right: auto;
-      padding: 1rem 0 0 0;
+      padding: var(--navigation-height) 0 0 0;
     }
   }
 }
