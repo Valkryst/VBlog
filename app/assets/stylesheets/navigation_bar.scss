@@ -25,18 +25,9 @@ nav {
     }
 
     p {
-      padding-left: 1rem;
+      padding: 0 1rem 0 1rem;
       display: inline;
     }
-  }
-
-  a:first-of-type {
-    width: 3rem;
-    line-height: 3rem;
-  }
-
-  a:not(:first-of-type) {
-    display: none;
   }
 
   a:link, a:visited {
@@ -47,23 +38,44 @@ nav {
   a:hover {
     background-color: var(--color-accent);
   }
+
+  section:first-of-type {
+    position: fixed;
+    top: var(--navigation-height);
+
+    display: grid;
+    grid-auto-rows: 100%;
+
+    width: 100%;
+
+    a {
+      display: none;
+    }
+  }
+}
+
+nav > a:first-of-type {
+  width: 3rem;
+  line-height: 3rem;
+}
+
+@media only screen and (min-width: 500px) {
+  nav > section:first-of-type {
+    width: auto;
+  }
 }
 
 @media only screen and (min-width: 1080px) {
-  nav {
-    a {
-      p {
-        padding-left: 1.25rem;
-      }
-    }
+  nav > a > p {
+    padding: 0 1.25rem 0 1.25rem;
+  }
 
-    a:first-of-type {
-      line-height: 4rem;
+  nav > a:first-of-type {
+    line-height: 4rem;
 
-      img {
-        height: 2rem;
-        transform: translate(25%, 0%);
-      }
+    img {
+      height: 2rem;
+      transform: translate(25%, 0%);
     }
   }
 }

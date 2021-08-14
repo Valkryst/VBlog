@@ -12,13 +12,11 @@ function isNavigationExpanded() {
 /**
  * Contracts the navigation bar.
  *
- * @param navElement
- *        The navigation bar.
+ * @param sectionElement
+ *        The section of the navigation bar to contract.
  */
-function contractNavigation(navElement) {
-    navElement.style.width = "";
-
-    for (const link of navElement.getElementsByTagName("a")) {
+function contractNavigation(sectionElement) {
+    for (const link of sectionElement.getElementsByTagName("a")) {
         // The navigation toggle should be the only element with an onclick.
         if (link.onclick !== null) {
             continue;
@@ -31,11 +29,11 @@ function contractNavigation(navElement) {
 /**
  * Expands the navigation bar.
  *
- * @param navElement
- *        The navigation bar.
+ * @param sectionElement
+ *        The section of the navigation bar to expand.
  */
-function expandNavigation(navElement) {
-    for (const link of navElement.getElementsByTagName("a")) {
+function expandNavigation(sectionElement) {
+    for (const link of sectionElement.getElementsByTagName("a")) {
         link.style.display = "inline";
     }
 }
@@ -46,18 +44,22 @@ function expandNavigation(navElement) {
  */
 window.toggleNavigation = function toggleNavigation() {
     const navElement = document.getElementsByTagName("nav")[0];
+    const sectionElement = navElement.getElementsByTagName("section")[0];
 
     if (isNavigationExpanded()) {
-        contractNavigation(navElement);
+        contractNavigation(sectionElement);
         navElement.setAttribute("toggleState", "contracted");
     } else {
-        expandNavigation(navElement);
+        expandNavigation(sectionElement);
         navElement.setAttribute("toggleState", "expanded");
     }
 }
 
 window.addEventListener("resize", () => {
     if (isNavigationExpanded()) {
-        contractNavigation(document.getElementsByTagName("nav")[0])
+        const navElement = document.getElementsByTagName("nav")[0];
+        const sectionElement = navElement.getElementsByTagName("section")[0];
+
+        contractNavigation(sectionElement);
     }
 });

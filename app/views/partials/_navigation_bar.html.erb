@@ -3,32 +3,34 @@
     <%= image_tag("icon_navbar.svg", :alt => "Toggle Icon") %>
   </a>
 
-  <%= link_to(root_path) do %>
-    <%= image_tag("icon_home.svg", :alt => "Home Icon") %>
-    <p>Home</p>
-  <% end %>
-
-  <%= link_to(posts_path) do %>
-    <%= image_tag("icon_posts.svg", :alt => "Posts Icon") %>
-    <p>Posts</p>
-  <% end %>
-
-  <% if can?(:new, Post) || Rails.env.development? %>
-    <%= link_to(new_post_path) do %>
-      <%= image_tag("icon_new_post.svg", :alt => "Log In Icon") %>
-      <p>New Post</p>
+  <section>
+    <%= link_to(root_path) do %>
+      <%= image_tag("icon_home.svg", :alt => "Home Icon") %>
+      <p>Home</p>
     <% end %>
-  <% end %>
 
-  <% if user_signed_in? %>
-    <%= link_to(destroy_user_session_path, method: :delete) do %>
-      <%= image_tag("icon_log_in.svg", :alt => "Log In Icon") %>
-      <p>Log Out</p>
+    <%= link_to(posts_path) do %>
+      <%= image_tag("icon_posts.svg", :alt => "Posts Icon") %>
+      <p>Posts</p>
     <% end %>
-  <% else %>
-    <%= link_to(user_github_omniauth_authorize_path, method: :post) do %>
-      <%= image_tag("icon_log_in.svg", :alt => "Log In Icon") %>
-      <p>Log In</p>
+
+    <% if can?(:new, Post) || Rails.env.development? %>
+      <%= link_to(new_post_path) do %>
+        <%= image_tag("icon_new_post.svg", :alt => "Log In Icon") %>
+        <p>New Post</p>
+      <% end %>
     <% end %>
-  <% end %>
+
+    <% if user_signed_in? %>
+      <%= link_to(destroy_user_session_path, method: :delete) do %>
+        <%= image_tag("icon_log_in.svg", :alt => "Log In Icon") %>
+        <p>Log Out</p>
+      <% end %>
+    <% else %>
+      <%= link_to(user_github_omniauth_authorize_path, method: :post) do %>
+        <%= image_tag("icon_log_in.svg", :alt => "Log In Icon") %>
+        <p>Log In</p>
+      <% end %>
+    <% end %>
+  </section>
 </nav>
