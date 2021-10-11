@@ -9,3 +9,5 @@
   * [icon_new_post.svg](https://github.com/Valkryst/VBlog/blob/master/app/assets/images/icon_new_post.svg)
 * [prettycons](https://www.flaticon.com/authors/prettycons)
   * [icon_home.svg](https://github.com/Valkryst/VBlog/blob/master/app/assets/images/icon_home.svg)
+* [rss.com](https://rss.com/)
+  * [icon_rss.png](https://rss.com/blog/free-rss-icon/) 
