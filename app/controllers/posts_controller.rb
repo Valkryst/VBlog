@@ -1,21 +1,21 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  # GET /posts
-  # GET /posts.json
   def index
     @categories = Category.all
+
+    respond_to do |format|
+      format.html
+      format.rss { render('posts/index.rss', layout: false) }
+    end
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
   def show
     if @post.deleted
       redirect_to(posts_path)
     end
   end
 
-  # GET /posts/new
   def new
     authorize!(:new, Post)
 
@@ -24,15 +24,12 @@ class PostsController < ApplicationController
     redirect_to(action: :index)
   end
 
-  # GET /posts/1/edit
   def edit
     authorize!(:edit, @post)
   rescue CanCan::AccessDenied
     redirect_to(action: :show)
   end
 
-  # POST /posts
-  # POST /posts.json
   def create
     @post = Post.new
 
@@ -58,8 +55,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
   def update
     if params[:post][:category]
       category = Category.find_by(title: params[:post][:category])
@@ -82,8 +77,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     authorize!(:destroy, @post)
 
