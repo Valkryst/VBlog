@@ -3,9 +3,11 @@
  *= require_self
  */
 html {
-  --color-foreground: #1A1C1A;
-  --color-background: #F7F7F7;
   --color-accent: #6BA4FF;
+  --color-background: #F7F7F7;
+  --color-foreground: #1A1C1A;
+  --color-link-unvisited: #1795FF;
+  --color-link-visited: #D10DEE;
 
   --footer-height: 1rem;
   --navigation-height: 3rem;
@@ -36,11 +38,11 @@ html {
       line-height: 1.5rem;
 
       a:link {
-        color: #1795FF;
+        color: var(--color-link-unvisited);
       }
 
       a:visited {
-        color: #D10DEE;
+        color: var(--color-link-visited);
       }
     }
 
