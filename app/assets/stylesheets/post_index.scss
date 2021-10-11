@@ -1,10 +1,21 @@
+#posts-rss-feed-link {
+  display: block;
+  margin: 0.5rem 0 0.5rem 0;
+
+  color: var(--color-link-unvisited);
+  text-align: center;
+  text-decoration: none;
+
+  img {
+    max-width: 1rem;
+  }
+}
+
 #posts-search-form {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-column-gap: 0.5rem;
   grid-row-gap: 0.5rem;
-
-  margin-top: 1rem;
 
   * {
     font-size: large;
@@ -91,6 +102,7 @@
 }
 
 @media only print {
+  #posts-rss-feed-link,
   #posts-search-form {
     display: none;
   }
