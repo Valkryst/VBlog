@@ -11,6 +11,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= auto_discovery_link_tag(:rss, posts_url(format: :rss)) %>
+
     <%= favicon_link_tag(asset_path('favicon.png')) %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
