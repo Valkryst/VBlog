@@ -17,7 +17,7 @@
         Published <%= render(partial: 'partials/timestamp', locals: {timestamp: @post.created_at}) %>
       <% end %>
 
-      <% cache [can?(:edit, @post), can?(:destroy, @post)] do %>
+      <% cache [@post.id, can?(:edit, @post), can?(:destroy, @post)] do %>
         <% if can?(:edit, @post) %>
           <%= link_to("Edit", edit_post_path(@post)) %>
         <% end %>
