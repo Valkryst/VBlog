@@ -14,7 +14,7 @@
                      required: true,
                      spellcheck: true) %>
   <%= form.text_field(:tag_list,
-                      placeholder: 'Enter Space-Separated Tags',
+                      placeholder: 'Enter Comma-Separated Tags',
                       required: false,
                       spellcheck: true,
                       value: post&.tag_list.join(', ')) %>
