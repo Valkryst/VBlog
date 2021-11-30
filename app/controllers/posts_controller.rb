@@ -42,7 +42,7 @@ class PostsController < ApplicationController
     @post.title = params[:post][:title]
     @post.description = params[:post][:description]
     @post.body_html = params[:post][:body_html]
-    @post.tag_list = params[:post][:tag_list].split(' ')
+    @post.tag_list = process_tags(params[:post][:tag_list])
 
     respond_to do |format|
       if @post.save
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
     @post.title = params[:post][:title]
     @post.description = params[:post][:description]
     @post.body_html = params[:post][:body_html]
-    @post.tag_list = params[:post][:tag_list].split(' ')
+    @post.tag_list = process_tags(params[:post][:tag_list])
 
     respond_to do |format|
       if @post.save
@@ -92,7 +92,13 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def process_tags(tags = nil)
+      return [] if tags.nil?
+      return [] unless tags.is_a?(String)
+
+      tags.split(',').map { |tag| tag.squish }
+    end
+
     def set_post
       @post = Post.find(params[:id])
     end

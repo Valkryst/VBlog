@@ -16,7 +16,8 @@
   <%= form.text_field(:tag_list,
                       placeholder: 'Enter Space-Separated Tags',
                       required: false,
-                      spellcheck: true) %>
+                      spellcheck: true,
+                      value: post&.tag_list.join(', ')) %>
 
   <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
