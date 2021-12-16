@@ -43,7 +43,7 @@ rbenv init
 # Verify installation by running the following command.
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
 
-rbenv install 3.7.0
+rbenv install 2.7.0
 rbenv local 2.7.0
 ```
 
