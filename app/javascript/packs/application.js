@@ -8,6 +8,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 require('packs/navigation_bar')
+require('packs/post_form')
 require('packs/post_search')
 
 

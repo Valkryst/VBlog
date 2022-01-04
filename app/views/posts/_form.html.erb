@@ -6,52 +6,36 @@
                              { prompt: 'Select a Category', selected: @post.category&.title },
                              required: true) %>
   <%= form.text_field(:title,
+                      autocomplete: 'off',
                       placeholder: 'Enter a Title',
                       required: true,
                       spellcheck: true) %>
   <%= form.text_area(:description,
+                     autocomplete: 'off',
                      placeholder: 'Enter a Description',
                      required: true,
                      spellcheck: true) %>
   <%= form.text_field(:tag_list,
+                      autocomplete: 'off',
                       placeholder: 'Enter Comma-Separated Tags',
                       required: false,
                       spellcheck: true,
                       value: post&.tag_list.join(', ')) %>
 
-  <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>
-      tinymce.init({
-          browser_spellcheck: true,
-          contextmenu: false,
-          elementpath: false,
-          entity_encoding: "raw",
-          extended_valid_elements : "script[src|async|defer|type|charset]",
-          height: 600,
-          menubar: false,
-          plugins: "advlist autolink code fullscreen image lists link media paste",
-          selector: ".tinymce",
-          setup: function (editor) {
-              editor.on("change", function(e) {
-                  editor.save();
-              });
-
-              editor.on("NodeChange", function(e) {
-                  // Ensure all images are lazily loaded.
-                  if (e.element.tagName === "IMG") {
-                      e.element.setAttribute("loading", "lazy");
-                  }
-              })
-          },
-          toolbar: "fullscreen | image media link | h2 bold italic underline strikethrough removeformat | bullist numlist | code"
-      });
-  </script>
-  <%= form.text_area(:body_html, value: post.body_html, class: 'tinymce', required: true) %>
+  <%= form.text_area(:body_html,
+                     autocomplete: 'off',
+                     required: true,
+                     spellcheck: true,
+                     value: post.body_html,
+                     wrap: 'off') %>
 
   <div class="actions">
+    <%= submit_tag('Preview Post', type: 'button', onclick: 'previewPost()') %>
     <%= form.submit %>
   </div>
 <% end %>
+
+<article id="post-preview"></article>
 
 <% if post.errors.any? %>
   <div id="error_explanation">

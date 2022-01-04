@@ -17,11 +17,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    authorize!(:new, Post)
-
     @post = Post.new
-  rescue CanCan::AccessDenied
-    redirect_to(action: :index)
   end
 
   def edit
