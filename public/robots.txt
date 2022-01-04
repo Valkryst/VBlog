@@ -1,1 +1,1 @@
-Sitemap: https://site-valkryst.s3.amazonaws.com/sitemap.xml.gz
+Sitemap: https://valkryst.com/sitemap.xml.gz

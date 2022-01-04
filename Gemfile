@@ -65,6 +65,4 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
 gem 'cancancan'
 
-# For generation of sitemap.xml and uploading to AWS S3.
 gem 'sitemap_generator'
-gem 'aws-sdk-s3'
