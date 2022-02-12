@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '3.0.0'
 
 # Allows loading environment variables from the `.env` file in the root directory.
 gem 'dotenv-rails'
@@ -15,13 +15,6 @@ gem 'puma', '~> 5.6'
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.4'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.3', require: false
@@ -48,18 +41,7 @@ end
 gem 'acts-as-taggable-on', '~> 9.0'
 
 # For user registration, login, and permissions.
-#
-# The "You are using an old OmniAuth version, please ensure you have 1.0.0.pr2 version or later installed." error
-# was encountered while updating a few gems. To resolve this issue, I had to change how the devise gem was specified
-# below.
-#
-# After the previous fix was implemented, I ran into the "Attack prevented by OmniAuth::AuthenticityTokenProtection"
-# error which was resolved by adding the omniauth-rails_csrf_protection gem.
-#
-# Sources:
-#   * https://stackoverflow.com/a/65732099/13279616
-#   * https://github.com/cookpad/omniauth-rails_csrf_protection
-gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
+gem 'devise', github: 'heartcombo/devise', branch: 'main'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 
