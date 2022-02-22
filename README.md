@@ -24,15 +24,11 @@ sudo -u postgres psql
 \q
 ```
 
-Clone the repository and enter it.
+Clone the repository and enter it, then set up `rvm` and install whichever
+version of Ruby the project is currently using.
 
-```bash
-git clone https://github.com/Valkryst/VBlog.git
-cd VBlog
-```
-
-Set up rbenv and install whichever version of Ruby the project is currently
-using.
+Create `.env` file as follows, filling out the variables as necessary, and then
+load it using `source .env`.
 
 ```bash
 sudo apt install rbenv
@@ -51,10 +47,15 @@ Create `.env` file as follows, filling out the variables as necessary, and then
 load it using `source .env`.
 
 ```
-export AWS_S3_ACCESS_KEY_ID=
-export AWS_S3_BUCKET_NAME=site-valkryst
-export AWS_S3_REGION=us-east-1
-export AWS_S3_SECRET_ACCESS_KEY=
+# Use these if you're working locally.
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
+DATABASE_HOST=
+DATABASE_PORT=
+GITHUB_KEY=
+GITHUB_SECRET=
+
+# Use these if you're running the server.
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=
 export DATABASE_HOST=localhost
@@ -78,7 +79,7 @@ npm install --local yarn
 
 # Install gems and precompile all assets.
 bundle install
-rails assets:precompile.
+rails assets:precompile
 ```
 
 Create the database.
