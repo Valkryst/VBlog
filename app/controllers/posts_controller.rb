@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.rss { render('posts/index.rss', layout: false) }
+      format.rss
     end
   end
 

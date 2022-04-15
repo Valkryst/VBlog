@@ -12,7 +12,7 @@ xml.rss(version: '2.0') do
     xml.copyright("© Copyright 2014-#{Date.today.year} Valkryst, All Rights Reserved")
     xml.managingEditor('admin@valkryst.com (Valkryst)')
     xml.webMaster('admin@valkryst.com (Valkryst)')
-    xml.lastBuildDate(Post.maximum(:updated_at).rfc822)
+    xml.lastBuildDate(Post.maximum(:updated_at)&.rfc822)
     xml.docs('https://cyber.harvard.edu/rss/rss.html')
     xml.image do
       xml.url(asset_url('favicon.png'))
