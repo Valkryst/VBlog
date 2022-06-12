@@ -4,6 +4,7 @@ nav {
   position: fixed;
 
   display: grid;
+  grid-auto-rows: 100%;
 
   height: var(--navigation-height);
   width: 100%;
