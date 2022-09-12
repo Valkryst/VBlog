@@ -7,7 +7,7 @@ ruby '3.0.0'
 gem 'dotenv-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.3'
+gem 'rails', '~> 7.0.4'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 5.6'
