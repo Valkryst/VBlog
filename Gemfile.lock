@@ -12,12 +12,12 @@ GIT
 
 GIT
   remote: https://github.com/omniauth/omniauth-github.git
-  revision: 1633cbb33e58e072136bf92c5abd43dbcb9d0429
+  revision: fa3e9cfb3c78c7cb26e641621d81b08627600cc2
   branch: master
   specs:
     omniauth-github (2.0.0)
       omniauth (~> 2.0)
-      omniauth-oauth2 (~> 1.7.1)
+      omniauth-oauth2 (~> 1.8)
 
 GEM
   remote: https://rubygems.org/
@@ -116,17 +116,17 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.11.0)
-    faraday (2.3.0)
-      faraday-net_http (~> 2.0)
+    faraday (2.5.2)
+      faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (2.0.3)
+    faraday-net_http (3.0.0)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    jwt (2.4.1)
+    jwt (2.5.0)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -142,7 +142,6 @@ GEM
     mini_portile2 (2.8.0)
     minitest (5.16.3)
     msgpack (1.5.4)
-    multi_json (1.15.0)
     multi_xml (0.6.0)
     net-imap (0.2.3)
       digest
@@ -162,19 +161,20 @@ GEM
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    oauth2 (1.4.9)
+    oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
-      multi_json (~> 1.3)
       multi_xml (~> 0.5)
-      rack (>= 1.2, < 3)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
     omniauth (2.1.0)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-oauth2 (1.7.2)
-      oauth2 (~> 1.4)
-      omniauth (>= 1.9, < 3)
+    omniauth-oauth2 (1.8.0)
+      oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
@@ -185,7 +185,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
-    rack-protection (2.2.0)
+    rack-protection (2.2.2)
       rack
     rack-proxy (0.7.0)
       rack
@@ -246,6 +246,9 @@ GEM
     semantic_range (3.0.0)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
+    snaky_hash (2.0.0)
+      hashie
+      version_gem (~> 1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -259,6 +262,7 @@ GEM
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    version_gem (1.1.1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
