@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: vblog_development
+    ports:
+      - "${DATABASE_PORT}:${DATABASE_PORT}"
+    networks:
+      - vblog_default
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/vblog_development
+    ports:
+      - "8085:3000"
+    command: bundle exec puma -C config/puma.rb
+    networks:
+      - vblog_default
+    volumes:
+      - ./:/root/app
+
+networks:
+    vblog_default:
+        external: true
+
+volumes:
+  db-data:

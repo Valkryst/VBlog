@@ -1,67 +1,44 @@
-# Deployment
+## Local Setup
 
-Install PostgreSQL and set up superuser.
-
-```bash
-# Install PostgreSQL
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-RELEASE=$(lsb_release -cs)
-echo "deb http://apt.postgresql.org/pub/repos/apt/ ${RELEASE}"-pgdg main | sudo tee  /etc/apt/sources.list.d/pgdg.list
-sudo apt-get update
-sudo apt-get -y install postgresql-14
-
-# Change postgres DB user password:
-sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'CHANGE_ME';"
-
-# Add the user, who will run the server, as a PostgreSQL superuser to avoid
-# errors when running the server.
-sudo -u postgres createuser --superuser USERNAME_HERE
-sudo -u postgres psql
-
-# The previous command will put you in the PostgreSQL CLI. Type the following
-# commands.
-\password USERNAME_HERE
-\q
-```
-
-Clone the repository and enter it, then set up `rvm` and install whichever
-version of Ruby the project is currently using.
-
-Create `.env` file as follows, filling out the variables as necessary, and then
-load it using `source .env`.
-
-```bash
-sudo apt install rbenv
-
-# Update your .bashrc file, following instructions from this command.
-rbenv init
-
-# Verify installation by running the following command.
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash
-
-rbenv install 2.7.0
-rbenv local 2.7.0
-```
-
-Create `.env` file as follows, filling out the variables as necessary, and then
-load it using `source .env`.
+Create a `.envrc` file as follows, filling out the variables as necessary:
 
 ```
-# Use these if you're working locally.
-DATABASE_USERNAME=
-DATABASE_PASSWORD=
-DATABASE_HOST=
-DATABASE_PORT=
-GITHUB_KEY=
-GITHUB_SECRET=
+export DATABASE_USERNAME=postgres
+export DATABASE_PASSWORD=password
+export DATABASE_HOST=db
+export DATABASE_PORT=5432
 
-# Use these if you're running the server.
+export GITHUB_KEY=
+export GITHUB_SECRET=
+```
+
+```shell
+asdf plugin add direnv
+asdf install direnv latest
+asdf local direnv latest
+asdf direnv setup --shell bash --version latest
+
+docker compose build
+```
+
+## Production Setup
+
+Create a `.envrc` file as follows, filling out the variables as necessary:
+
+```
+ex[ort AWS_S3_ACCESS_KEY_ID=
+export AWS_S3_BUCKET_NAME=
+export AWS_S3_REGION=
+export AWS_S3_SECRET_ACCESS_KEY=
+
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=
 export DATABASE_HOST=localhost
 export DATABASE_PORT=5432
+
 export GITHUB_KEY=
 export GITHUB_SECRET=
+
 export LANG=en_US.UTF-8
 export RACK_ENV=production
 export RAILS_ENV=production
@@ -70,17 +47,6 @@ export RAILS_SERVE_STATIC_FILES=enabled
 export SECRET_KEY_BASE=
 ```
 
-Install dependencies.
-
-```bash
-# Node's tutorial doesn't recommend installing it VIA apt.
-sudo apt install nodejs npm libpq-dev
-npm install --local yarn
-
-# Install gems and precompile all assets.
-bundle install
-rails assets:precompile
-```
 
 Create the database.
 

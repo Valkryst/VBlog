@@ -38,3 +38,5 @@ yarn-debug.log*
 /config/credentials.yml.enc
 /tmp/
 /.idea
+/.envrc
+/.bash_history
