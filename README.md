@@ -57,7 +57,7 @@ rails db:create db:migrate
 Run the server.
 
 ```bash
-rails s -p PORT_NUMBER_HERE
+rails s -p PORT_NUMBER_HERE -e production
 ```
 
 # Acknowledgements
