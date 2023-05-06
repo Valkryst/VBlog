@@ -60,6 +60,31 @@ Run the server.
 rails s -p PORT_NUMBER_HERE -e production
 ```
 
+## Database
+
+### Export
+
+```shell
+docker compose exec db pg_dump -U $DATABASE_USERNAME -h $DATABASE_HOST -p $DATABASE_PORT -d vblog_development --file /tmp/latest.dump
+docker cp $(docker ps --filter "publish=$DATABASE_PORT" --format "{{.ID}}"):/tmp/latest.dump ./latest.dump
+```
+
+### Import
+
+Ensure that the databases are empty and that they exist:
+
+```shell
+docker compose exec app rake db:drop db:create
+````
+
+Import the database dump:
+
+```shell
+docker cp ./latest.dump $(docker ps --filter "publish=$DATABASE_PORT" --format "{{.ID}}"):/tmp/latest.dump
+docker compose exec db psql -U $DATABASE_USERNAME -d vblog_development -f /tmp/latest.dump
+```
+
+
 # Acknowledgements
 
 ## Artwork
