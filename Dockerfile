@@ -39,8 +39,6 @@ RUN . $SCRIPTS_FOLDER/setup_asdf.sh && npm install --local yarn
 
 # Install Yarn Dependencies
 RUN . $SCRIPTS_FOLDER/setup_asdf.sh && yarn install
-RUN rails webpacker:install
-RUN rails webpacker:compile
 
 
 # Misc.
