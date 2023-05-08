@@ -10,6 +10,8 @@ export DATABASE_PORT=5432
 
 export GITHUB_KEY=
 export GITHUB_SECRET=
+
+export RAILS_ENV=development
 ```
 
 ```shell
@@ -19,6 +21,7 @@ asdf local direnv latest
 asdf direnv setup --shell bash --version latest
 
 docker compose build
+docker compose up -d
 ```
 
 ## Production Setup
@@ -39,25 +42,15 @@ export DATABASE_PORT=5432
 export GITHUB_KEY=
 export GITHUB_SECRET=
 
-export LANG=en_US.UTF-8
 export RACK_ENV=production
 export RAILS_ENV=production
 export RAILS_LOG_TO_STDOUT=enabled
-export RAILS_SERVE_STATIC_FILES=enabled
 export SECRET_KEY_BASE=
 ```
 
-
-Create the database.
-
-```bash
-rails db:create db:migrate
-```
-
-Run the server.
-
-```bash
-rails s -p PORT_NUMBER_HERE -e production
+```shell
+docker-compose build
+docker compose up -d
 ```
 
 ## Database

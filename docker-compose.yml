@@ -8,10 +8,8 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: vblog_development
-    ports:
-      - "${DATABASE_PORT}:${DATABASE_PORT}"
-    networks:
-      - vblog_default
+      PGPORT: ${DATABASE_PORT}
+    network_mode: host
     volumes:
       - db-data:/var/lib/postgresql/data
 
@@ -21,19 +19,23 @@ services:
     depends_on:
       - db
     environment:
-      RAILS_ENV: development
+      AWS_S3_ACCESS_KEY_ID: ${AWS_S3_ACCESS_KEY_ID}
+      AWS_S3_BUCKET_NAME: ${AWS_S3_BUCKET_NAME}
+      AWS_S3_REGION: ${AWS_S3_REGION}
+      AWS_S3_SECRET_ACCESS_KEY: ${AWS_S3_SECRET_ACCESS_KEY}
       DATABASE_URL: postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/vblog_development
-    ports:
-      - "8085:3000"
-    command: bundle exec puma -C config/puma.rb
-    networks:
-      - vblog_default
+      GITHUB_KEY: ${GITHUB_KEY}
+      GITHUB_SECRET: ${GITHUB_SECRET}
+      LANG: en_US.UTF-8
+      RACK_ENV: ${RACK_ENV}
+      RAILS_ENV: ${RAILS_ENV}
+      RAILS_LOG_TO_STDOUT: ${RAILS_LOG_TO_STDOUT}
+      RAILS_SERVE_STATIC_FILES: enabled
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    command: rails s -p 8085 -e ${RAILS_ENV}
+    network_mode: host
     volumes:
       - ./:/root/app
-
-networks:
-    vblog_default:
-        external: true
 
 volumes:
   db-data:
