@@ -9,7 +9,10 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: vblog_development
       PGPORT: ${DATABASE_PORT}
-    network_mode: host
+    networks:
+      - vblog_network
+    ports:
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
 
@@ -32,10 +35,16 @@ services:
       RAILS_LOG_TO_STDOUT: ${RAILS_LOG_TO_STDOUT}
       RAILS_SERVE_STATIC_FILES: enabled
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-    command: rails s -p 8085 -e ${RAILS_ENV}
-    network_mode: host
+    command: rails s -b 0.0.0.0 -p 8085 -e ${RAILS_ENV}
+    networks:
+      - vblog_network
+    ports:
+      - "8085:8085"
     volumes:
       - ./:/root/app
+
+networks:
+  vblog_network:
 
 volumes:
   db-data:
