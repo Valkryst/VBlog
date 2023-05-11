@@ -14,7 +14,6 @@ gem 'puma', '~> 6.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.3', require: false
@@ -48,3 +47,4 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'cancancan'
 
 gem 'sitemap_generator'
+gem "importmap-rails", "~> 1.1"

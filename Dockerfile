@@ -35,17 +35,6 @@ RUN bundle install --jobs 4
 
 
 
-# Install Node Dependencies
-COPY package.json ./
-RUN . $SCRIPTS_FOLDER/setup_asdf.sh && npm install --local yarn
-
-
-
-# Install Yarn Dependencies
-RUN . $SCRIPTS_FOLDER/setup_asdf.sh && yarn install
-
-
-
 # Misc.
 RUN mkdir -p tmp/pids
 RUN . $SCRIPTS_FOLDER/setup_asdf.sh && rails assets:precompile
