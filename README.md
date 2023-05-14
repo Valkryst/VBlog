@@ -77,6 +77,11 @@ docker cp ./latest.dump $(docker ps --filter "publish=$DATABASE_PORT" --format "
 docker compose exec db psql -U $DATABASE_USERNAME -d vblog_development -f /tmp/latest.dump
 ```
 
+## ImportMap Misc.
+
+* Check for security issues using `./bin/importmap audit`.
+* Check for updates using `./bin/importmap outdated`.
+
 
 # Acknowledgements
 
