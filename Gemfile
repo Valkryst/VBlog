@@ -28,14 +28,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-end
-
 gem 'acts-as-taggable-on', '~> 9.0'
 
 # For user registration, login, and permissions.
