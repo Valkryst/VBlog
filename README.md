@@ -2,7 +2,7 @@
 
 Create a `.envrc` file as follows, filling out the variables as necessary:
 
-```
+```shell
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=password
 export DATABASE_HOST=db
@@ -15,11 +15,6 @@ export RAILS_ENV=development
 ```
 
 ```shell
-asdf plugin add direnv
-asdf install direnv latest
-asdf local direnv latest
-asdf direnv setup --shell bash --version latest
-
 docker compose build
 docker compose up -d
 ```
@@ -28,8 +23,8 @@ docker compose up -d
 
 Create a `.envrc` file as follows, filling out the variables as necessary:
 
-```
-ex[ort AWS_S3_ACCESS_KEY_ID=
+```shell
+export AWS_S3_ACCESS_KEY_ID=
 export AWS_S3_BUCKET_NAME=
 export AWS_S3_REGION=
 export AWS_S3_SECRET_ACCESS_KEY=
