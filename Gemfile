@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.2.2'
 
 # Allows loading environment variables from the `.env` file in the root directory.
 gem 'dotenv-rails'
