@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/omniauth/omniauth-github.git
-  revision: 659ef03d14c3a2552011b71e2ad6058c630c3656
+  revision: f27bb4e018150d87e9444ad13955acfc9e76f4d7
   branch: master
   specs:
     omniauth-github (2.0.1)
@@ -104,7 +104,7 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
-    faraday (2.7.4)
+    faraday (2.7.5)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
