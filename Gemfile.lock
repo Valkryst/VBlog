@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/heartcombo/devise.git
-  revision: 4b72064bfcf076478c5c87818b9536b203f6584f
+  revision: ec0674523e7909579a5a008f16fb9fe0c3a71712
   branch: main
   specs:
     devise (4.9.2)
@@ -112,7 +112,7 @@ GEM
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
-    i18n (1.13.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.6)
       actionpack (>= 6.0.0)
@@ -170,7 +170,7 @@ GEM
     pg (1.5.3)
     puma (6.2.2)
       nio4r (~> 2.0)
-    racc (1.6.2)
+    racc (1.7.0)
     rack (2.2.7)
     rack-protection (3.0.6)
       rack
@@ -193,8 +193,9 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.5.0)
-      loofah (~> 2.19, >= 2.19.1)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     railties (7.0.5)
       actionpack (= 7.0.5)
       activesupport (= 7.0.5)
