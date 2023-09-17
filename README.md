@@ -5,7 +5,6 @@ Create a `.envrc` file as follows, filling out the variables as necessary:
 ```shell
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=password
-export DATABASE_HOST=db
 export DATABASE_PORT=5432
 
 export GITHUB_KEY=
@@ -31,7 +30,6 @@ export AWS_S3_SECRET_ACCESS_KEY=
 
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=
-export DATABASE_HOST=localhost
 export DATABASE_PORT=5432
 
 export GITHUB_KEY=
@@ -53,7 +51,7 @@ docker compose up -d
 ### Export
 
 ```shell
-docker compose exec db pg_dump -U $DATABASE_USERNAME -h $DATABASE_HOST -p $DATABASE_PORT -d vblog_development --file /tmp/latest.dump
+docker compose exec db pg_dump -U $DATABASE_USERNAME -h db -p $DATABASE_PORT -d vblog_development --file /tmp/latest.dump
 docker cp $(docker ps --filter "publish=$DATABASE_PORT" --format "{{.ID}}"):/tmp/latest.dump ./latest.dump
 ```
 

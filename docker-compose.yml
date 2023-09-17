@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/vblog_development
+      DATABASE_URL: postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db:${DATABASE_PORT}/vblog_development
       LANG: en_US.UTF-8
       RAILS_SERVE_STATIC_FILES: enabled
     env_file:
