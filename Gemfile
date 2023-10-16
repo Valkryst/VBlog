@@ -28,7 +28,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-gem 'acts-as-taggable-on', '~> 9.0'
+gem 'acts-as-taggable-on', '~> 10.0'
 
 # For user registration, login, and permissions.
 gem 'devise', github: 'heartcombo/devise', branch: 'main'
