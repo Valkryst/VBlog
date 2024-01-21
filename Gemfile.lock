@@ -100,7 +100,7 @@ GEM
       activerecord (>= 6.1, < 7.2)
     base64 (0.2.0)
     bcrypt (3.1.19)
-    bigdecimal (3.1.5)
+    bigdecimal (3.1.6)
     bindex (0.8.1)
     bootsnap (1.17.1)
       msgpack (~> 1.2)
@@ -128,11 +128,11 @@ GEM
     hashie (5.0.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.2.3)
+    importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.7.1)
+    io-console (0.7.2)
     irb (1.11.1)
       rdoc
       reline (>= 0.4.2)
@@ -151,7 +151,7 @@ GEM
     marcel (1.0.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.21.1)
+    minitest (5.21.2)
     msgpack (1.7.2)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
@@ -295,7 +295,7 @@ DEPENDENCIES
   cancancan
   devise!
   dotenv-rails
-  importmap-rails (~> 1.2)
+  importmap-rails (~> 2.0)
   listen (>= 3.0.5, < 3.9)
   omniauth-github!
   omniauth-rails_csrf_protection
