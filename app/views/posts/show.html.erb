@@ -3,6 +3,17 @@
 <% content_for(:keywords, @post.tag_list.join(', ')) %>
 <% content_for(:author, @post.user.name) %>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
+<script>
+    window.onload = () => {
+        hljs.highlightAll();
+    }
+</script>
+
 <article>
   <header>
     <% cache [@post.title] do %>
