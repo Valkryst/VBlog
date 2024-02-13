@@ -2,16 +2,24 @@ version: '3.9'
 
 services:
   db:
-    image: postgres
-    restart: unless-stopped
+    image: postgres:15-alpine
+
     environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: vblog_development
+
     env_file:
       - .envrc
+
     networks:
       - vblog_network
+
     ports:
       - "5432:5432"
+
+    restart: unless-stopped
+
     volumes:
       - db-data:/var/lib/postgresql/data
 
