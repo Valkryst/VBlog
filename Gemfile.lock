@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/heartcombo/devise.git
-  revision: e2242a95f3bb2e68ec0e9a064238ff7af6429545
+  revision: bb18f4d3805be0bf5f45e21be39625c7cfd9c1d6
   branch: main
   specs:
     devise (4.9.3)
@@ -99,8 +99,8 @@ GEM
     acts-as-taggable-on (10.0.0)
       activerecord (>= 6.1, < 7.2)
     base64 (0.2.0)
-    bcrypt (3.1.19)
-    bigdecimal (3.1.5)
+    bcrypt (3.1.20)
+    bigdecimal (3.1.6)
     bindex (0.8.1)
     bootsnap (1.17.1)
       msgpack (~> 1.2)
@@ -132,8 +132,8 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.7.1)
-    irb (1.11.1)
+    io-console (0.7.2)
+    irb (1.11.2)
       rdoc
       reline (>= 0.4.2)
     jwt (2.7.0)
@@ -151,7 +151,7 @@ GEM
     marcel (1.0.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.21.1)
+    minitest (5.22.2)
     msgpack (1.7.2)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
@@ -165,7 +165,7 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0)
+    nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -283,7 +283,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.12)
+    zeitwerk (2.6.13)
 
 PLATFORMS
   ruby
