@@ -6,5 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/shell.min.js"></script>
 <script>
-    hljs.initHighlightingOnLoad();
+    document.addEventListener("DOMContentLoaded", function() {
+        hljs.highlightAll();
+    });
 </script>
