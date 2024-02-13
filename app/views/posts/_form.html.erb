@@ -1,3 +1,5 @@
+<%= render 'highlight_js' %>
+
 <%= form_with(model: post, local: true, html: {id: 'post-form'}) do |form| %>
   <%= form.collection_select(:category,
                              Category.all.order(:title),
