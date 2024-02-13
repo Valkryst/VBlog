@@ -65,14 +65,16 @@ article {
     padding: 0 0.5rem;
 
     code {
-      padding: 0 !important; // Overriding HighlightJS' padding.
+      padding: 0.5rem 0 !important; // Overriding HighlightJS' padding.
 
       flex-grow: 1;
 
       overflow: scroll;
 
       font-family: monospace;
-      font-size: smaller;
+      font-size: 0.6rem;
+
+      line-height: 0.8rem;
     }
   }
 
