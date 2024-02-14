@@ -6,7 +6,7 @@
  */
 function isNavigationExpanded() {
     const navElement = document.getElementsByTagName("nav")[0];
-    return navElement.getAttribute("toggleState") === "expanded";
+    return navElement.getAttribute("toggle_state") === "expanded";
 }
 
 /**
@@ -48,18 +48,30 @@ window.toggleNavigation = function toggleNavigation() {
 
     if (isNavigationExpanded()) {
         contractNavigation(sectionElement);
-        navElement.setAttribute("toggleState", "contracted");
+        navElement.setAttribute("toggle_state", "contracted");
     } else {
         expandNavigation(sectionElement);
-        navElement.setAttribute("toggleState", "expanded");
+        navElement.setAttribute("toggle_state", "expanded");
     }
 }
 
+/** Contracts the navigation bar when the window is resized. */
 window.addEventListener("resize", () => {
     if (isNavigationExpanded()) {
         const navElement = document.getElementsByTagName("nav")[0];
         const sectionElement = navElement.getElementsByTagName("section")[0];
 
         contractNavigation(sectionElement);
+        navElement.setAttribute("toggle_state", "contracted");
+    }
+});
+
+/** Contracts the navigation bar when the user clicks outside of it, while it's expanded. */
+window.addEventListener("click", (event) => {
+    const navElement = document.getElementsByTagName("nav")[0];
+
+    if (isNavigationExpanded() && !navElement.contains(event.target)) {
+        contractNavigation(navElement.getElementsByTagName("section")[0]);
+        navElement.setAttribute("toggle_state", "contracted");
     }
 });

@@ -26,12 +26,15 @@ html {
 
   scroll-behavior: smooth;
 
-  body {
+  & > body {
+    display: flex;
+    flex-direction: column;
+
     height: 100%;
     margin: 0;
 
-    main {
-      min-height: calc(100% - var(--navigation-height) - var(--footer-height));
+    & > main {
+      flex-grow: 1;
 
       padding: calc(var(--navigation-height) * 1.25) 1rem 0 1rem;
 
