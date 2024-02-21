@@ -111,9 +111,9 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    dotenv (3.0.0)
-    dotenv-rails (3.0.0)
-      dotenv (= 3.0.0)
+    dotenv (3.0.2)
+    dotenv-rails (3.0.2)
+      dotenv (= 3.0.2)
       railties (>= 6.1)
     drb (2.2.0)
       ruby2_keywords
@@ -186,7 +186,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
-    pg (1.5.4)
+    pg (1.5.5)
     psych (5.1.2)
       stringio
     puma (6.4.2)
