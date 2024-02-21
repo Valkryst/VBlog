@@ -10,10 +10,9 @@ services:
       POSTGRES_DB: vblog_development
 
     env_file:
-      - .envrc
+      - .env
 
-    networks:
-      - vblog_network
+    network_mode: host
 
     ports:
       - "5432:5432"
@@ -29,21 +28,18 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db:${DATABASE_PORT}/vblog_development
+      DATABASE_URL: postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/vblog_development
       LANG: en_US.UTF-8
       RAILS_SERVE_STATIC_FILES: enabled
     env_file:
-      - .envrc
+      - .env
     command: rails s -b 0.0.0.0 -p 8085 -e ${RAILS_ENV}
-    networks:
-      - vblog_network
+
+    network_mode: host
     ports:
       - "8085:8085"
     volumes:
       - ./:/root/app
-
-networks:
-  vblog_network:
 
 volumes:
   db-data:
