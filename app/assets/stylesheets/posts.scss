@@ -23,12 +23,6 @@ article {
     font-size: 1.4rem;
   }
 
-  ol, ul {
-    li:not(:last-of-type) {
-      margin-bottom: 1rem;
-    }
-  }
-
   img, pre, table {
     border: 1px solid var(--color-foreground);
 
