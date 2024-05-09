@@ -52,7 +52,6 @@ docker compose up -d
 
 ```shell
 podman compose exec db pg_dump -U $DATABASE_USERNAME -h db -p $DATABASE_PORT -d vblog_development --file /tmp/latest.dump
-podman cp $(docker ps --filter "publish=$DATABASE_PORT" --format "{{.ID}}"):/tmp/latest.dump ./latest.dump
 ```
 
 ### Import
@@ -66,8 +65,7 @@ podman compose exec app rake db:drop db:create
 Import the database dump:
 
 ```shell
-podman cp ./latest.dump $(docker ps --filter "publish=$DATABASE_PORT" --format "{{.ID}}"):/tmp/latest.dump
-podman compose exec db psql -U $DATABASE_USERNAME -d vblog_development -f /tmp/latest.dump
+podman compose exec db psql -U postgres -d vblog_development -f /tmp/latest.dump
 ```
 
 ## ImportMap Misc.
