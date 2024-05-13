@@ -46,6 +46,13 @@ docker-compose build
 docker compose up -d
 ```
 
+### Recompiling Assets
+
+```shell
+podman compose exec app rake assets:precompile
+podman compose restart
+```
+
 ## Database
 
 ### Export
