@@ -38,4 +38,4 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'cancancan'
 
 gem 'sitemap_generator'
-gem "importmap-rails", "~> 1.2"
+gem "importmap-rails", "~> 2.0"
