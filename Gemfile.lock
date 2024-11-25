@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/heartcombo/devise.git
-  revision: 0f514f1413e0f0ff2eb7e9b6f2c7644058c52c6d
+  revision: dce20b78f567a49ada1bd23caa43f3d507c8be28
   branch: main
   specs:
     devise (5.0.0.beta)
@@ -149,8 +149,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.7)
-    minitest (5.25.1)
+    mini_portile2 (2.8.8)
+    minitest (5.25.2)
     msgpack (1.7.2)
     multi_xml (0.6.0)
     net-imap (0.5.0)
@@ -234,7 +234,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.7.0)
+    rdoc (6.8.1)
       psych (>= 4.0.0)
     reline (0.5.11)
       io-console (~> 0.5)
