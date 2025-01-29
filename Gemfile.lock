@@ -187,7 +187,7 @@ GEM
     pg (1.5.9)
     psych (5.2.0)
       stringio
-    puma (6.4.3)
+    puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.10)
@@ -301,7 +301,7 @@ DEPENDENCIES
   omniauth-github!
   omniauth-rails_csrf_protection
   pg
-  puma (~> 6.4)
+  puma (~> 6.6)
   rails (~> 7.2.2)
   sass-rails (>= 6)
   sitemap_generator
