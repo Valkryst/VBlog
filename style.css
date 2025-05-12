@@ -1,0 +1,76 @@
+html {
+    --color-accent: #6BA4FF;
+    --color-background: #F7F7F7;
+    --color-foreground: #1A1C1A;
+    --color-link-unvisited: #1795FF;
+    --color-link-visited: #D10DEE;
+
+    --footer-height: 1rem;
+    --navigation-height: 3rem;
+
+    --z-index-navigation: 1000;
+
+    height: 100%;
+
+    font-family: 'Times New Roman', serif;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 400;
+
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+
+    scroll-behavior: smooth;
+
+    & > body {
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+        margin: 0;
+
+        & > main {
+            flex-grow: 1;
+
+            padding: 0 1rem 0 1rem;
+
+            line-height: 1.5rem;
+
+            a:link {
+                color: var(--color-link-unvisited);
+            }
+
+            a:visited {
+                color: var(--color-link-visited);
+            }
+        }
+
+        footer {
+            height: var(--footer-height);
+
+            font-size: small;
+            text-align: right;
+        }
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    html > body {
+        main {
+            width: 80ch;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 0 0 0;
+        }
+    }
+}
+
+@media only print {
+    @page {
+        margin: 0;
+    }
+
+    html {
+        font-size: 12px;
+    }
+}
