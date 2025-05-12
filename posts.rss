@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Valkryst's Blog</title>
+    <description>Documentation for some of my projects along with essays, technical articles, and thought pieces covering a variety of topics.</description>
+    <link>https://www.valkryst.com/posts</link>
+    <language>en-us</language>
+    <copyright>© Copyright 2014-2025 Valkryst, All Rights Reserved</copyright>
+    <managingEditor>admin@valkryst.com (Valkryst)</managingEditor>
+    <webMaster>admin@valkryst.com (Valkryst)</webMaster>
+    <lastBuildDate>Mon, 05 May 2025 13:20:18 +0000</lastBuildDate>
+    <docs>https://cyber.harvard.edu/rss/rss.html</docs>
+    <image>
+      <url>https://www.valkryst.com/resource/icon/favicon.png</url>
+      <title>Valkryst's Blog</title>
+      <link>https://www.valkryst.com/posts</link>
+    </image>
+    <item>
+      <title>Benchmarking OpenFGA</title>
+      <link>https://www.valkryst.com/posts/56</link>
+      <description>A glimpse into the work that I did to evaluate and benchmark OpenFGA for one of Tarka Labs' clients.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Essays &amp; Thought Pieces</category>
+      <category>Java</category>
+      <category>OpenFGA</category>
+      <category>Authorization</category>
+      <category>Tarka Labs</category>
+      <category>Docker</category>
+      <guid>https://www.valkryst.com/posts/56</guid>
+      <pubDate>Mon, 05 May 2025 13:19:32 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Install iWork 9 on OS X Mavericks</title>
+      <link>https://www.valkryst.com/posts/55</link>
+      <description>Breathe life into an older MacBook, and save it from a landfill, by installing Keynote, Numbers, and Pages.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Tutorial</category>
+      <category>OS X</category>
+      <category>Mavericks</category>
+      <category>MacBook</category>
+      <category>Apple</category>
+      <category>iWork</category>
+      <category>Pages</category>
+      <category>Numbers</category>
+      <category>Keynote</category>
+      <guid>https://www.valkryst.com/posts/55</guid>
+      <pubDate>Fri, 11 Oct 2024 01:44:08 +0000</pubDate>
+    </item>
+    <item>
+      <title>Documenting the Matrox Axio LE</title>
+      <link>https://www.valkryst.com/posts/54</link>
+      <description>A collection of official documentation and software, alongside my personal notes, documenting the Matrox Axio LE editing hardware.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>Matrox</category>
+      <category>Axio LE</category>
+      <category>SDI</category>
+      <category>RCA</category>
+      <category>HDMI</category>
+      <category>Component</category>
+      <category>PS2</category>
+      <category>Playstation</category>
+      <category>X.linkLE</category>
+      <category>Video Capture</category>
+      <category>Video Editing</category>
+      <guid>https://www.valkryst.com/posts/54</guid>
+      <pubDate>Tue, 16 Apr 2024 03:24:55 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Enable HTTPS for Local Flask Development</title>
+      <link>https://www.valkryst.com/posts/53</link>
+      <description>Learn how to securely run a local Flask server with HTTPS support, enabling the ability to implement OAuth authentication and ensuring secure communication between clients and servers.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Tutorial</category>
+      <category>Python</category>
+      <category>Flask</category>
+      <category>HTTPS</category>
+      <category>OAuth</category>
+      <category>Authentication</category>
+      <category>Security</category>
+      <category>SSL</category>
+      <category>OpenSSL</category>
+      <guid>https://www.valkryst.com/posts/53</guid>
+      <pubDate>Wed, 07 Feb 2024 16:45:13 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Implement Multilingual Search with Sentence Transformers</title>
+      <link>https://www.valkryst.com/posts/52</link>
+      <description>Explore the process of implementing a multilingual search system, using a novel machine learning approach.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Tutorial</category>
+      <category>Automation</category>
+      <category>Machine Learning</category>
+      <category>Software</category>
+      <category>Translation</category>
+      <category>Sentence</category>
+      <category>Transformer</category>
+      <category>Search</category>
+      <category>Multilingual</category>
+      <guid>https://www.valkryst.com/posts/52</guid>
+      <pubDate>Thu, 01 Feb 2024 16:53:33 +0000</pubDate>
+    </item>
+    <item>
+      <title>Hot Buttered Rum</title>
+      <link>https://www.valkryst.com/posts/51</link>
+      <description>Quick, addicting, and delicious. This boozy Buttered Rum will liven any holiday party.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Demerara</category>
+      <category>Rum</category>
+      <category>Spiced</category>
+      <category>Buttered</category>
+      <category>Nutmeg</category>
+      <category>Cinnamon</category>
+      <category>Cloves</category>
+      <category>Maple Syrup</category>
+      <category>Alcohol</category>
+      <category>Liquor</category>
+      <guid>https://www.valkryst.com/posts/51</guid>
+      <pubDate>Tue, 10 Oct 2023 19:14:49 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Install .NET &amp; MAUI</title>
+      <link>https://www.valkryst.com/posts/50</link>
+      <description>Straightforward instructions to installing .NET and MAUI through the Windows CLI.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Tutorial</category>
+      <category>C#</category>
+      <category>MAUI</category>
+      <category>.NET</category>
+      <category>JetBrains</category>
+      <category>winget</category>
+      <category>Java</category>
+      <guid>https://www.valkryst.com/posts/50</guid>
+      <pubDate>Thu, 05 Oct 2023 15:43:23 +0000</pubDate>
+    </item>
+    <item>
+      <title>Deevani's Butter Chicken</title>
+      <link>https://www.valkryst.com/posts/49</link>
+      <description>An adaptation of my friend's unwritten butter chicken recipe, slowly refined over many attempts to recreate the delicious flavour of her original dish 🤤</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Butter</category>
+      <category>Indian</category>
+      <category>Chicken</category>
+      <category>Cooking</category>
+      <guid>https://www.valkryst.com/posts/49</guid>
+      <pubDate>Tue, 03 Oct 2023 17:44:06 +0000</pubDate>
+    </item>
+    <item>
+      <title>Chocolate Chip Cookies</title>
+      <link>https://www.valkryst.com/posts/48</link>
+      <description>My personal recipe for chocolate chip cookies 🍪</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Cookie</category>
+      <category>Chocolate</category>
+      <category>Baking</category>
+      <guid>https://www.valkryst.com/posts/48</guid>
+      <pubDate>Tue, 03 Oct 2023 17:25:46 +0000</pubDate>
+    </item>
+    <item>
+      <title>Java Concurrency in Practice</title>
+      <link>https://www.valkryst.com/posts/47</link>
+      <description>Another long, arduous, but rewarding read. As "Java Network Programming" became my go-to reference for all things network related, this book is now my go-to for all things related to concurrent programming in Java.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Java</category>
+      <category>Concurrency</category>
+      <category>Synchronize</category>
+      <category>Lock</category>
+      <category>Multithread</category>
+      <category>Thread</category>
+      <category>Performance</category>
+      <category>Optimize</category>
+      <guid>https://www.valkryst.com/posts/47</guid>
+      <pubDate>Tue, 03 Oct 2023 15:28:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Java I/O, NIO and NIO.2</title>
+      <link>https://www.valkryst.com/posts/46</link>
+      <description>Yet another sluggish API reference manual. 🙄</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Java</category>
+      <category>Buffer</category>
+      <category>Socket</category>
+      <category>Channel</category>
+      <category>Selector</category>
+      <category>NIO</category>
+      <category>Formatter</category>
+      <category>RegEx</category>
+      <category>Charset</category>
+      <guid>https://www.valkryst.com/posts/46</guid>
+      <pubDate>Wed, 17 May 2023 15:15:15 +0000</pubDate>
+    </item>
+    <item>
+      <title>The Canadian's Guide to Investing</title>
+      <link>https://www.valkryst.com/posts/45</link>
+      <description>An overpriced, high-level overview of Canadian investing.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Investing</category>
+      <category>Stock</category>
+      <category>ETF</category>
+      <category>Mutual Fund</category>
+      <category>Bonds</category>
+      <guid>https://www.valkryst.com/posts/45</guid>
+      <pubDate>Tue, 09 May 2023 17:11:03 +0000</pubDate>
+    </item>
+    <item>
+      <title>Java Network Programming, 4th Edition</title>
+      <link>https://www.valkryst.com/posts/44</link>
+      <description>A long read, but it taught me a lot about a part of the JDK that I was completely unfamiliar with. This is now my go-to reference for network programming in Java.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Network</category>
+      <category>TCP</category>
+      <category>UDP</category>
+      <category>Buffer</category>
+      <category>Socket</category>
+      <category>Java</category>
+      <guid>https://www.valkryst.com/posts/44</guid>
+      <pubDate>Tue, 09 May 2023 16:09:41 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Transcribe &amp; Translate Audio with Whisper</title>
+      <link>https://www.valkryst.com/posts/42</link>
+      <description>Learn how to automatically transcribe and translate audio using OpenAI's Whisper!</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Tutorial</category>
+      <category>OpenAI</category>
+      <category>Whisper</category>
+      <category>Transcription</category>
+      <category>Automation</category>
+      <category>Machine Learning</category>
+      <category>Software</category>
+      <category>Translation</category>
+      <guid>https://www.valkryst.com/posts/42</guid>
+      <pubDate>Thu, 09 Mar 2023 00:51:12 +0000</pubDate>
+    </item>
+    <item>
+      <title>Building Browser Extensions: Create Modern Extensions for Chrome, Safari, Firefox, and Edge</title>
+      <link>https://www.valkryst.com/posts/40</link>
+      <description>Imperfect as it may be, this book is a recommendable introduction to, and reference for, browser extension development.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Browser</category>
+      <category>Extension</category>
+      <category>JavaScript</category>
+      <guid>https://www.valkryst.com/posts/40</guid>
+      <pubDate>Fri, 10 Feb 2023 16:32:28 +0000</pubDate>
+    </item>
+    <item>
+      <title>Practical SQL, 2nd Edition</title>
+      <link>https://www.valkryst.com/posts/39</link>
+      <description>A good reference manual, or self-taught course, for PostgreSQL. This book is on-par with an introductory University database course.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>PostgreSQL</category>
+      <category>Database</category>
+      <category>SQL</category>
+      <guid>https://www.valkryst.com/posts/39</guid>
+      <pubDate>Thu, 12 Jan 2023 14:57:21 +0000</pubDate>
+    </item>
+    <item>
+      <title>Fish Batter</title>
+      <link>https://www.valkryst.com/posts/38</link>
+      <description>A classic family recipe for deep fried fish, ribs, and chicken.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Fish</category>
+      <category>Rib</category>
+      <category>Chicken</category>
+      <category>Cooking</category>
+      <guid>https://www.valkryst.com/posts/38</guid>
+      <pubDate>Thu, 17 Nov 2022 01:07:47 +0000</pubDate>
+    </item>
+    <item>
+      <title>Peanut Butter Cookies</title>
+      <link>https://www.valkryst.com/posts/36</link>
+      <description>Look no further, for the cheapest, easiest, and quickest 🥜🧈🍪 recipe.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Peanut</category>
+      <category>Butter</category>
+      <category>Cookie</category>
+      <category>Baking</category>
+      <guid>https://www.valkryst.com/posts/36</guid>
+      <pubDate>Tue, 19 Jul 2022 17:06:59 +0000</pubDate>
+    </item>
+    <item>
+      <title>Installing the Homebrew Channel App on an LG TV</title>
+      <link>https://www.valkryst.com/posts/35</link>
+      <description>Wishing you could skip forced and sponsored YouTube ads on your LG TV? Install the Homebrew Channel app and say goodbye to them today.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Tutorial</category>
+      <category>webOS</category>
+      <category>YouTube</category>
+      <category>Ad Blocking</category>
+      <guid>https://www.valkryst.com/posts/35</guid>
+      <pubDate>Mon, 06 Jun 2022 01:15:09 +0000</pubDate>
+    </item>
+    <item>
+      <title>PowerShell for Sysadmins: Workflow Automation Made Easy</title>
+      <link>https://www.valkryst.com/posts/32</link>
+      <description>For those of you with prior experience in scripting or programming, I recommend this book as a quick introduction to PowerShell and some of its use cases.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Pester</category>
+      <category>Scripts</category>
+      <category>PowerShell</category>
+      <guid>https://www.valkryst.com/posts/32</guid>
+      <pubDate>Thu, 07 Apr 2022 15:10:37 +0000</pubDate>
+    </item>
+    <item>
+      <title>Chai</title>
+      <link>https://www.valkryst.com/posts/31</link>
+      <description>Feeling groggy, tired, or in-need of a quick pick-me-up while working from home? Try this simple chai to get your daily dose of caffeine!</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Chai</category>
+      <category>Tea</category>
+      <category>Masala</category>
+      <guid>https://www.valkryst.com/posts/31</guid>
+      <pubDate>Sun, 27 Feb 2022 18:41:42 +0000</pubDate>
+    </item>
+    <item>
+      <title>Béchamel Sauce</title>
+      <link>https://www.valkryst.com/posts/30</link>
+      <description>Look no-further for an upgrade to your store-bought Alfredo sauce. Béchamel sauce, one of the French mother sauces, is not only quick and simple to make, but also allows for near limitless variations as it readily absorbs the flavour of any herbs, spices, or other ingredients added to it.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Pasta</category>
+      <category>Sauce</category>
+      <guid>https://www.valkryst.com/posts/30</guid>
+      <pubDate>Mon, 10 Jan 2022 17:14:24 +0000</pubDate>
+    </item>
+    <item>
+      <title>Displaying a Level/Map</title>
+      <link>https://www.valkryst.com/posts/29</link>
+      <description>In Roguelike &amp; Roguelite games, the player is often shown a top-down view of a 2D level or map. Although there are countless ways to design and display levels and maps, there are only two obvious choices for displaying them with VTerminal.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>VTerminal</category>
+      <category>Swing</category>
+      <category>Roguelike</category>
+      <category>Roguelite</category>
+      <category>VPanel</category>
+      <category>Map</category>
+      <category>Level</category>
+      <category>Movement</category>
+      <category>Game Design</category>
+      <guid>https://www.valkryst.com/posts/29</guid>
+      <pubDate>Mon, 06 Dec 2021 17:33:51 +0000</pubDate>
+    </item>
+    <item>
+      <title>Air Fryer Boiled Eggs</title>
+      <link>https://www.valkryst.com/posts/28</link>
+      <description>Do you enjoy boiled eggs in the morning, but don't have time to watch the stove while you boil water and cook your eggs? Try using your air fryer instead!</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Air Fryer</category>
+      <guid>https://www.valkryst.com/posts/28</guid>
+      <pubDate>Tue, 30 Nov 2021 23:05:36 +0000</pubDate>
+    </item>
+    <item>
+      <title>Air Fryer Pizza Pops</title>
+      <link>https://www.valkryst.com/posts/27</link>
+      <description>A quick and easy alternative to cooking your pizza pops in the microwave or conventional oven.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Recipes</category>
+      <category>Air Fryer</category>
+      <guid>https://www.valkryst.com/posts/27</guid>
+      <pubDate>Tue, 30 Nov 2021 23:01:07 +0000</pubDate>
+    </item>
+    <item>
+      <title>Layering a Screen</title>
+      <link>https://www.valkryst.com/posts/26</link>
+      <description>A guide which shows how to layer screens on top of each other to achieve interesting visual effects.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>VTerminal</category>
+      <category>UIManager</category>
+      <category>SwingUtilities</category>
+      <category>JLayeredPane</category>
+      <category>Opaque</category>
+      <category>VPanel</category>
+      <guid>https://www.valkryst.com/posts/26</guid>
+      <pubDate>Sun, 07 Mar 2021 14:04:28 +0000</pubDate>
+    </item>
+    <item>
+      <title>Repainting a Screen</title>
+      <link>https://www.valkryst.com/posts/25</link>
+      <description>A guide which shows how to update and repaint a screen.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>VTerminal</category>
+      <category>UIManager</category>
+      <category>SwingUtilities</category>
+      <category>Executor</category>
+      <category>ExecutorService</category>
+      <guid>https://www.valkryst.com/posts/25</guid>
+      <pubDate>Fri, 05 Mar 2021 21:07:51 +0000</pubDate>
+    </item>
+    <item>
+      <title>Resetting a Screen</title>
+      <link>https://www.valkryst.com/posts/24</link>
+      <description>A guide which shows how to reset the characters, background colors, foreground colors, and sequential image operations (shaders) of a screen.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>VTerminal</category>
+      <category>UIManager</category>
+      <category>SwingUtilities</category>
+      <category>SqeuentialImageOp</category>
+      <category>Executor</category>
+      <category>ExecutorService</category>
+      <guid>https://www.valkryst.com/posts/24</guid>
+      <pubDate>Fri, 05 Mar 2021 20:26:15 +0000</pubDate>
+    </item>
+    <item>
+      <title>Drawing a Screen</title>
+      <link>https://www.valkryst.com/posts/23</link>
+      <description>A guide which shows how to alter the characters, background colors, foreground colors, and sequential image operations (shaders) of a screen.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>VTerminal</category>
+      <category>Unicode</category>
+      <category>Code Point</category>
+      <category>Shader</category>
+      <category>SequentialOp</category>
+      <category>BufferedImageOp</category>
+      <category>UIManager</category>
+      <category>SwingUtilities</category>
+      <guid>https://www.valkryst.com/posts/23</guid>
+      <pubDate>Sat, 27 Feb 2021 14:31:28 +0000</pubDate>
+    </item>
+    <item>
+      <title>Creating a Screen</title>
+      <link>https://www.valkryst.com/posts/22</link>
+      <description>A guide which explains how to initialize VTerminal and how to create a screen.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Documentation</category>
+      <category>VTerminal</category>
+      <category>Screen</category>
+      <category>UIManager</category>
+      <category>SwingUtilities</category>
+      <guid>https://www.valkryst.com/posts/22</guid>
+      <pubDate>Fri, 26 Feb 2021 22:50:41 +0000</pubDate>
+    </item>
+    <item>
+      <title>Filthy Rich Clients: Developing Animated and Graphical Effects for Desktop Java™ Applications</title>
+      <link>https://www.valkryst.com/posts/21</link>
+      <description>An essential book for anyone looking to deepen their understanding of Swing and Java2D.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Design</category>
+      <category>Java2D</category>
+      <category>Swing</category>
+      <category>Software</category>
+      <category>Java</category>
+      <guid>https://www.valkryst.com/posts/21</guid>
+      <pubDate>Thu, 25 Feb 2021 19:23:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Moonwalking with Einstein: The Art and Science of Remembering Everything</title>
+      <link>https://www.valkryst.com/posts/4</link>
+      <description>A motivating recount of one mans year-long journey into the world of competitive memory.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Book Reviews</category>
+      <category>Memory</category>
+      <guid>https://www.valkryst.com/posts/4</guid>
+      <pubDate>Sun, 25 Oct 2020 22:17:41 +0000</pubDate>
+    </item>
+    <item>
+      <title>Necromancy in Medieval Europe</title>
+      <link>https://www.valkryst.com/posts/1</link>
+      <description>A brief description of Necromantic practices and practitioners in Medieval Europe.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Essays &amp; Thought Pieces</category>
+      <category>Magic</category>
+      <guid>https://www.valkryst.com/posts/1</guid>
+      <pubDate>Sat, 06 Apr 2019 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Dynamic Difficulty Adjustment, Is It Worth Using?</title>
+      <link>https://www.valkryst.com/posts/2</link>
+      <description>A brief look at the paper "AI for Dynamic Difficulty Adjustment in Games" by Robin Hunicke and Vernell Chapman.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Essays &amp; Thought Pieces</category>
+      <category>Balance</category>
+      <category>Game</category>
+      <category>Design</category>
+      <guid>https://www.valkryst.com/posts/2</guid>
+      <pubDate>Tue, 20 Mar 2018 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Design and Presentation of Tutorial Instructions and Feedback</title>
+      <link>https://www.valkryst.com/posts/3</link>
+      <description>A brief look at the paper "Effective Practices in Game Tutorial Systems" by Amy Shannon, Acey Boyce, Chitra Gadwal, and Dr. Tiffany Barnes.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Essays &amp; Thought Pieces</category>
+      <category>Game</category>
+      <category>Design</category>
+      <guid>https://www.valkryst.com/posts/3</guid>
+      <pubDate>Tue, 15 Nov 2016 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
