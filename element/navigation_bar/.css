@@ -1,0 +1,110 @@
+x-navigation-bar > nav {
+    position: relative;
+    z-index: var(--z-index-navigation);
+
+    display: grid;
+    grid-auto-rows: 100%;
+
+    height: var(--navigation-height);
+    width: 100%;
+
+    font-size: 16px;
+
+    color: var(--color-background);
+    background-color: var(--color-foreground);
+
+    & > a:first-of-type {
+        width: 4rem;
+
+        font-size: xx-large;
+        line-height: var(--navigation-height);
+        text-align: center;
+
+        cursor: pointer;
+    }
+
+    & > section {
+        top: var(--navigation-height);
+
+        display: grid;
+
+        width: 100%;
+
+        & > a {
+            display: none;
+
+            font-size: x-large;
+            line-height: 3rem;
+            text-decoration: none;
+
+            cursor: pointer;
+
+            img {
+                height: 1.5rem;
+                transform: translate(50%, 25%);
+            }
+
+            p {
+                padding: 0 1rem 0 1rem;
+                display: inline;
+            }
+        }
+    }
+
+    a {
+        user-select: none;
+
+        &:link, &:visited {
+            color: var(--color-background);
+            background-color: var(--color-foreground);
+        }
+
+        &:hover {
+            background-color: var(--color-accent);
+        }
+    }
+}
+
+x-navigation-bar > nav > a:first-of-type {
+    width: 3rem;
+    line-height: 3rem;
+}
+
+@media only screen and (min-width: 500px) {
+    x-navigation-bar > nav > section {
+        width: 7rem;
+
+        & > a:last-of-type {
+            border-bottom-right-radius: 10px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    x-navigation-bar > nav > a > p {
+        padding: 0 1.25rem 0 1.25rem;
+    }
+
+    x-navigation-bar > a:first-of-type {
+        img {
+            height: 2rem;
+            transform: translate(25%, 0%);
+        }
+    }
+}
+
+@media only screen and (hover: hover) {
+    x-navigation-bar > nav {
+        a {
+            transition-duration: 0.125s;
+            transition-property: background-color, border-color;
+            transition-timing-function: ease;
+        }
+    }
+}
+
+@media print {
+    x-navigation-bar > nav {
+        display: none;
+    }
+}
