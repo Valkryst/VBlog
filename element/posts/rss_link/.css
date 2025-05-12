@@ -15,3 +15,9 @@ x-posts-rss-link > a {
         margin-right: 0.25rem
     }
 }
+
+@media only print {
+    x-posts-rss-link {
+        display: none;
+    }
+}
