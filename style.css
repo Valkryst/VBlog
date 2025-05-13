@@ -43,6 +43,29 @@ html {
             a:visited {
                 color: var(--color-link-visited);
             }
+
+            input, select, table, textarea {
+                color: var(--color-foreground);
+
+                border: #CCCCCC solid 1px;
+
+                font-family: inherit;
+                font-size: smaller;
+            }
+
+            input[type=button], input[type=submit], select {
+                cursor: pointer;
+            }
+
+            input[type=button]:active, input[type=submit]:active {
+                filter: brightness(90%);
+            }
+
+            & > #posts-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
 
         footer {
@@ -51,6 +74,12 @@ html {
             font-size: small;
             text-align: right;
         }
+    }
+}
+
+@media only screen and (hover: hover) {
+    input:hover, select:hover, textarea:hover {
+        border-color: var(--color-accent);
     }
 }
 
