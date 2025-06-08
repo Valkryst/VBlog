@@ -1,7 +1,7 @@
 class PostsListItemElement extends HTMLElement {
     connectedCallback() {
         let innerHTML = `
-            <link rel="stylesheet" href="${import.meta.resolve('/element/posts/list_item/_.css')}">
+            <link rel="stylesheet" href="${import.meta.resolve('/VBlog/element/posts/list_item/_.css')}">
             <script type="module" src="/VBlog/element/post/tag/_.js"></script>
         `;
 
