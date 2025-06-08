@@ -1,6 +1,6 @@
 const template = document.createElement('template');
 template.innerHTML = `
-<link rel="stylesheet" href="${import.meta.resolve('/element/navigation_bar/.css')}">
+<link rel="stylesheet" href="${import.meta.resolve('/element/navigation_bar/_.css')}">
 <nav>
     <a>☰</a>
     

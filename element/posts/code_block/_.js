@@ -146,7 +146,7 @@ class CodeBlockElement extends HTMLElement {
     getStyleSheetElement() {
         const element = document.createElement('link');
         element.rel = 'stylesheet';
-        element.href = '/VBlog/element/posts/code_block/.css';
+        element.href = '/VBlog/element/posts/code_block/_.css';
         return element;
     }
 }
