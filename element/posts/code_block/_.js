@@ -136,18 +136,6 @@ class CodeBlockElement extends HTMLElement {
         element.href = `https://unpkg.com/@highlightjs/cdn-assets@${CodeBlockElement._hljsVersion}/styles/${this.getLanguage()}.min.css`;
         return element;
     }
-
-    /**
-     * Constructs and returns a link element for the custom stylesheet.
-     *
-     * @returns {HTMLLinkElement} Link element for the custom stylesheet.
-     */
-    getStyleSheetElement() {
-        const element = document.createElement('link');
-        element.rel = 'stylesheet';
-        element.href = '/VBlog/element/posts/code_block/_.css';
-        return element;
-    }
 }
 
 customElements.define("x-code-block", CodeBlockElement);

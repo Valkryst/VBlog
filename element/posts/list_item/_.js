@@ -1,9 +1,9 @@
 class PostsListItemElement extends HTMLElement {
     connectedCallback() {
-        let innerHTML = '<script type="module" src="/VBlog/element/post/tag/_.js"></script>';
+        let innerHTML = '';
 
         if (this.getId()) {
-            innerHTML += `<a href="/VBlog/posts/${this.getId()}.html">`
+            innerHTML += `<a href="../../../posts/${this.getId()}.html">`
 
             if (this.getTitle()) {
                 innerHTML += `<h2>${this.getTitle()}</h2>`;

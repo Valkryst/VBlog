@@ -4,13 +4,13 @@ template.innerHTML = `
     <a>☰</a>
     
     <section>
-        <a href="/VBlog/">
-            <img src="/VBlog/resource/icon/home.svg" alt="Home Icon">
+        <a href="../../">
+            <img src="../../resource/icon/home.svg" alt="Home Icon">
             <p>Home</p>
         </a>
         
-        <a href="/VBlog/posts.html">
-            <img src="/VBlog/resource/icon/posts.svg" alt="Posts Icon">
+        <a href="../../posts.html">
+            <img src="../../resource/icon/posts.svg" alt="Posts Icon">
             <p>Posts</p>
         </a>
     </section>
