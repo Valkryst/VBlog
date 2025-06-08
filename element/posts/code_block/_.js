@@ -12,7 +12,6 @@ class CodeBlockElement extends HTMLElement {
 
         const language = this.getLanguage();
         if (language) {
-            this.appendChild(this.getStyleSheetElement());
             this.appendChild(this.getHighlightStyleSheetElement());
             this.appendChild(this.getHighlightLanguageStyleSheetElement());
 

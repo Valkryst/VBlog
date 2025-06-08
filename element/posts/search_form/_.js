@@ -1,7 +1,5 @@
 const template = document.createElement('template');
 template.innerHTML = `
-<link rel="stylesheet" href="${import.meta.resolve('/VBlog/element/posts/search_form/_.css')}">
-
 <form id="posts-search-form" action="" method="get" onsubmit="return false;">
     <input id="post-search-text" type="text" spellcheck="true" list="post-search-text-datalist">
     <datalist id="post-search-text-datalist"></datalist>
