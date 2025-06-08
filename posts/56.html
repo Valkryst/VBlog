@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A glimpse into the work that I did to evaluate and benchmark OpenFGA for one of Tarka Labs' clients.">
+        <meta name="keywords" content="Authorization,Docker,Java,OpenFGA,Tarka Labs">
+        <link rel="icon" type="image/png" href="/resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Benchmarking OpenFGA</title>
+
+        <script type="module" src="/element/navigation_bar/.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <h2>Introduction</h2>
+                <p>
+                    A client of Tarka Labs reached out for help in solving an ever-growing problem in their legacy codebase. Their system keeps track of groups,
+                    users, other resources, and the relationships between them. It also needs to quickly handle lookups to determine which groups or users have
+                    access to a particular resource. The existing implementation was struggling to meet
+                    <a href="https://en.wikipedia.org/wiki/Service-level_agreement" target="_blank">service-level agreements</a>
+                    (SLAs), and it was ill-suited for future requirements such as
+                    <a href="https://en.wikipedia.org/wiki/Role-based_access_control" target="_blank">role-based access control</a> (RBAC).
+                </p>
+                <p>
+                    As consultants, we strive to provide solutions that scale to meet and exceed our client’s projected needs, and to deliver them in the shortest
+                    possible time. During our research into solutions for this problem, we came across the paper for Google’s
+                    <a href="https://research.google/pubs/zanzibar-googles-consistent-global-authorization-system/" target="_blank">Zanzibar</a>
+                    and it stood out as a strong
+                    candidate as it supports a variety of permissions models, achieves high throughput with low latency, and has been battle-tested by many of
+                    Google’s largest services. It has also been
+                    <a href="https://permify.co/post/google-zanzibar-in-a-nutshell/" target="_blank">utilized by Google</a>,
+                    for handling authorization for “…hundreds of its services and products including; YouTube, Drive, Calendar, Cloud and Maps.”
+                </p>
+                <p>
+                    Seeing the merit in Zanzibar, our client agreed to an evaluation of it. We needed to ensure that it can satisfy their SLAs, work on all three
+                    major operating systems (Linux, macOS, and Windows), and can handle millions of relationships while responding to any lookup request in
+                    under one second.
+                </p>
+                <p>
+                    In researching open-source implementations of Zanzibar, we found
+                    <a href="https://openfga.dev/docs/fga" target="_blank">OpenFGA</a>,
+                    <a href="https://www.ory.sh/keto/" target="_blank">Ory Keto</a>,
+                    and <a href="https://permify.co/" target="_blank">Permify</a>.
+                    Each of these appeared to meet our needs, but we decided to first evaluate OpenFGA as their documentation seemed well-written and their
+                    team responsive to questions.
+                </p>
+                <h2>Evaluation</h2>
+                <p>
+                    Both OpenFGA and its CLI provide methods of installation which support Linux, macOS, and Windows. Their respective repository
+                    releases pages provide binaries for Linux and Windows, and installation is also available for all three operating systems VIA
+                    <i><a href="https://go.dev/ref/mod#go-install" target="_blank">go install</a></i>.
+                </p>
+                <p>
+                    Testing the installation steps for each operating system was straightforward and easy. What was more difficult was determining the throughput
+                    of each major operation in OpenFGA, as well as determining if it can consistently respond to complex lookup requests in under one second.
+                    For this, we needed to develop simple, repeatable benchmarks for each major operation: Relationship Creation, Deletion, Direct Lookup, and
+                    Indirect (Transitive) Lookup.
+                </p>
+                <p>
+                    Following past experience, we decided to utilize Docker, Maven, the
+                    <a href="https://github.com/openjdk/jmh" target="_blank">Java Microbenchmark Harness</a> (JMH),
+                    and the <a href="https://github.com/openfga/java-sdk" target="_blank">OpenFGA Java SDK</a> to develop our benchmarks. A major
+                    benefit to this approach is that we would gain valuable experience with the SDK, which would later speed-up development if OpenFGA
+                    were chosen as a solution to our client’s problem.
+                </p>
+                <h2>Relationship Modeling & Validation</h2>
+                <p>
+                    With our tools decided upon, the next step was to create a version of our client’s authorization model within OpenFGA. An authorization
+                    model can be defined either through
+                    <a href="https://openfga.dev/docs/configuration-language" target="_blank">Zanzibar-compliant JSON or OpenFGA’s own DSL</a>.
+                    After some experimentation, we found it difficult to write and reason-about the JSON syntax when compared to that of the DSL. For this
+                    reason, we decided to write our models using the DSL.
+                </p>
+                <p>
+                    As a whole, OpenFGA’s documentation is quite good in comparison to other projects that we have worked with. Their
+                    <a href="https://openfga.dev/docs/modeling/parent-child" target="_blank">Modeling Guides</a> are well-written and we wrote our initial
+                    test model, shown below, without much trouble. The most difficult part of writing the model was figuring out how indirect (transitive)
+                    relationships work; the documentation around them could use additional examples and explanation.
+                </p>
+                <pre>
+                <code class="language-yaml">
+                model
+                  schema 1.1
+
+                type user
+
+                type group
+                  relations
+                    # Direct subgroups of this group.
+                    define child: [group]
+
+                    # Direct subgroups of this group, and all subgroups of those subgroups.
+                    define descendant: child or child from child
+
+                    # Direct users of this group, and all users of its subgroups.
+                    define member: [user] or member from child
+
+                type report
+                  relations
+                    # Users and groups that can access this report.
+                    define accessor: [user, group, group#member, group#descendant]
+                </code>
+                </pre>
+                <p>
+                    Regardless of what you believe about your model, you must test and validate your assumptions.
+                    <a href="https://github.com/openfga/cli" target="_blank">OpenFGA’s CLI</a> is invaluable for this, and we highly recommend using it for
+                    model validation. For the test model above, we approached validation by creating a diagram of test scenarios and the commands required to
+                    setup and execute them. This approach worked well for our small model, and it would be interesting to try and apply it to a larger, more
+                    complex model.
+                </p>
+                <figure>
+                    <a href="/images/Posts/OpenFGA Model Tests.svg" target="_blank">
+                        <img src="/images/Posts/OpenFGA Model Tests.svg" alt="A visual representation of the OpenFGA model, including notes on how to manually test it." loading="lazy" />
+                    </a>
+                    <figcaption>A visual representation of the OpenFGA model, including notes on how to manually test it.</figcaption>
+                </figure>
+                <h2>Performance Benchmarking</h2>
+                <p>
+                    We need to benchmark each major operation (Relationship Creation, Deletion, Direct Lookup, and Indirect (Transitive) Lookup) to estimate
+                    their throughput and to ensure that the system can handle millions of relationships while responding to any lookup request in under one
+                    second.
+                </p>
+                <p>
+                    A direct lookup is used to check if a group or user has a direct relationship with a resource, and an indirect (transitive) lookup is used to
+                    check if a group or user has a relationship with a resource through their relationship with a group that they belong to.
+                </p>
+                <p>
+                    The throughput benchmarks are straightforward and can be found here. In general, each of them does a small amount of setup and teardown
+                    with a call to the OpenFGA API in-between. We used the JMH’s default settings, and the results are as follows:
+                </p>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Benchmark</th>
+                        <th>Node</th>
+                        <th>Count</th>
+                        <th>Score</th>
+                        <th>Error</th>
+                        <th>Units</th>
+                    </tr>
+                    <tr>
+                        <td>Relationship Creation</td>
+                        <td>thrpt</td>
+                        <td>25</td>
+                        <td>552.711</td>
+                        <td>±97.894</td>
+                        <td>ops/s</td>
+                    </tr>
+                    <tr>
+                        <td>Relationship Deletion</td>
+                        <td>thrpt</td>
+                        <td>25</td>
+                        <td>613.854</td>
+                        <td>±32.272</td>
+                        <td>ops/s</td>
+                    </tr>
+                    <tr>
+                        <td>Direct Lookup for Existing Relationships</td>
+                        <td>thrpt</td>
+                        <td>25</td>
+                        <td>1652.408</td>
+                        <td>±24.617</td>
+                        <td>ops/s</td>
+                    </tr>
+                    <tr>
+                        <td>Direct Lookup for Nonexistent Relationships</td>
+                        <td>thrpt</td>
+                        <td>25</td>
+                        <td>1685.459</td>
+                        <td>±19.937</td>
+                        <td>ops/s</td>
+                    </tr>
+                    <tr>
+                        <td>Indirect (Transitive) Lookup</td>
+                        <td>thrpt</td>
+                        <td>25</td>
+                        <td>1522.859</td>
+                        <td>±21.139</td>
+                        <td>ops/s</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>
+                    These results were more than satisfactory for our client’s needs, and they readily accepted our recommendation to use OpenFGA in
+                    developing a replacement for their legacy system. We encountered no further difficulties, save for the few mentioned in the Miscellaneous
+                    section below, in writing the new system. It also exceeded expectations when tested in a production-equivalent environment.
+                </p>
+                <h2>Miscellaneous</h2>
+                <h3>API Rate Limits</h3>
+                <p>
+                    While updating the test suite from version 0.3.x to 0.8.x of the OpenFGA Java SDK, a seemingly undocumented change was made to the way
+                    that writes are handled in the
+                    <a href="https://github.com/openfga/java-sdk/blob/main/src/main/java/dev/openfga/sdk/api/client/OpenFgaClient.java#L365" target="_blank">OpenFGAClient</a>.
+                    This change enforces the <a href="https://openfga.dev/docs/interacting/transactional-writes" target="_blank">documented limit</a> where
+                    the “…Write API allows you to send up to 100 unique tuples in the request.”, which was previously disregarded. This caused issues in the
+                    helper functions, which were easily resolved by updating our calls to follow the documented limit. Previously, we were sending up to a
+                    thousand tuples in a single request.
+                </p>
+                <h3>DSL Ingestion</h3>
+                <p>
+                    The OpenFGA API does not support ingestion of its own DSL, so you cannot use it when creating an authorization model VIA the API.
+                    You can use the OpenFGA CLI to convert your model from OpenFGA’s own DSL into a Zanzibar-compliant JSON file with
+                    <em>fga model transform</em>, and then send the generated JSON to the API as necessary. We found this to be an odd design
+                    choice, as OpenFGA should be able to automatically detect the input format and internally convert the DSL to JSON for ingestion as
+                    necessary.
+                </p>
+            </article>
+        </main>
+    </body>
+</html>
