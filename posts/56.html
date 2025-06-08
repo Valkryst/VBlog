@@ -7,13 +7,12 @@
         <meta name="keywords" content="Authorization,Docker,Java,OpenFGA,Tarka Labs">
         <link rel="icon" type="image/png" href="/VBlog/resource/icon/favicon.png">
         <link rel="stylesheet" type="text/css" href="/VBlog/style.css">
+        <link rel="stylesheet" type="text/css" href="/VBlog/post.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Benchmarking OpenFGA</title>
 
+        <script type="module" src="/VBlog/element/posts/code_block/.js"></script>
         <script type="module" src="/VBlog/element/navigation_bar/.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
     </head>
 
     <body>
@@ -86,8 +85,7 @@
                     test model, shown below, without much trouble. The most difficult part of writing the model was figuring out how indirect (transitive)
                     relationships work; the documentation around them could use additional examples and explanation.
                 </p>
-                <pre>
-                <code class="language-yaml">
+                <x-code-block language="yaml">
                 model
                   schema 1.1
 
@@ -108,8 +106,7 @@
                   relations
                     # Users and groups that can access this report.
                     define accessor: [user, group, group#member, group#descendant]
-                </code>
-                </pre>
+                </x-code-block>
                 <p>
                     Regardless of what you believe about your model, you must test and validate your assumptions.
                     <a href="https://github.com/openfga/cli" target="_blank">OpenFGA’s CLI</a> is invaluable for this, and we highly recommend using it for
@@ -118,8 +115,8 @@
                     complex model.
                 </p>
                 <figure>
-                    <a href="/VBlog/images/Posts/OpenFGA Model Tests.svg" target="_blank">
-                        <img src="/VBlog/images/Posts/OpenFGA Model Tests.svg" alt="A visual representation of the OpenFGA model, including notes on how to manually test it." loading="lazy" />
+                    <a href="/VBlog/resource/image/OpenFGA Model Tests.svg" target="_blank">
+                        <img src="/VBlog/resource/image/OpenFGA Model Tests.svg" alt="A visual representation of the OpenFGA model, including notes on how to manually test it." loading="lazy" />
                     </a>
                     <figcaption>A visual representation of the OpenFGA model, including notes on how to manually test it.</figcaption>
                 </figure>
