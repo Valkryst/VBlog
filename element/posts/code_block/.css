@@ -1,0 +1,19 @@
+x-code-block > pre {
+    display: flex;
+
+    margin: 0.8rem 0;
+
+    padding: 0.5rem;
+
+    code {
+        padding: 0 !important; /** Overriding HighlightJS' padding. */
+
+        overflow: auto;
+
+        font-size: 0.6rem;
+
+        background-color: var(--color-background) !important; /** Overriding HighlightJS' background color. */
+
+        line-height: 0.8rem;
+    }
+}
