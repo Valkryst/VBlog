@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="My personal notes and thoughts on Amazon's Bedrock, Azure's AI Foundry, Google's Dialogflow CX and Vertex AI.">
+        <meta name="keywords" content="AI,AI Foundry,Azure,Amazon,Bedrock,CoLab,Dialogflow CX,Google,LLM,Vector Database,Vertex AI">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>An Evaluation of Cloud Agent Development Tools</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>An Evaluation of Cloud Agent Development Tools</h1>
+
+                    <div>
+                        Published <time datetime="2025-06-08">May. 5, 2025</time>
+                    </div>
+                </header>
+
+                <h2>Introduction</h2>
+                <p>Since the release of OpenAI’s GPT-3 model, there has been a
+                    rush to develop frameworks, platforms, and tools to aid in the development of
+                    AI, LLM, and ML backed solutions. Over the past three weeks, I have spent time
+                    with <a target="_blank"
+                            href="https://aws-blogs-artifacts-public.s3.amazonaws.com/ML-15986/AmazonBedrock_UserGuide.pdf">Amazon’s
+                        Bedrock</a>, Azure’s <a target="_blank"
+                                                href="https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry?tabs=home">AI
+                        Foundry</a>, Google’s <a target="_blank" href="https://cloud.google.com/dialogflow/cx/docs">Dialogflow
+                        CX</a> and <a target="_blank" href="https://cloud.google.com/vertex-ai/docs">Vertex AI</a>. As
+                    my research time was limited, I focused on
+                    documentation, UI, and three powerful features which are present in most of
+                    these products: Agents, Flows, and Knowledge Bases.</p>
+
+                <p>Originally, I intended to evaluate Microsoft Azure’s AI
+                    Foundry along with the products from both Amazon and Google. However, AI
+                    Foundry was <a target="_blank"
+                                   href="https://techcommunity.microsoft.com/blog/azure-ai-services-blog/announcing-general-availability-of-azure-ai-foundry-agent-service/4414352">generally
+                        released</a> about two weeks ago, as of the time of writing, and I cannot
+                    fairly evaluate it in its current state. Many of its features are marked with the “PREVIEW”
+                    designation and I frequently
+                    ran into UI problems which prevented me from using the product as intended. I was
+                    pleasantly surprised at the quality of AI Foundry’s documentation and
+                    particularly enjoyed the ability to select which programming language to
+                    display the code examples in. Additionally, the UI is clean, simple, easy to
+                    use, and I believe that it will <i>eventually</i> become a worthwhile product.</p>
+
+                <p>As a side note, both Dialogflow CX and Vertex AI are soon™
+                    being consolidated into Google’s <a target="_blank"
+                                                        href="https://cloud.google.com/dialogflow/cx/docs/concept/console-conversational-agents">Conversational
+                        Agents console</a>. The terminology and product names, used here, may change.</p>
+
+                <h2>Documentation</h2>
+
+                <p>Documentation is important. Poorly documented projects are
+                    difficult to learn and adopt, frustrating to work with, and <i>will</i> cost
+                    your company and/or clients a significant amount of money in
+                    the long run. The skills and experience required to write good
+                    documentation are not developed overnight, and
+                    documentation is often thrown to the wayside in-favour of more rapid
+                    development.</p>
+
+                <p>With massive financial backing and access to the world’s top
+                    talent, industry giants such as Amazon, Google, and Microsoft have <i>no</i>
+                    excuse for providing poor quality documentation. There should be no tolerance
+                    for it.</p>
+
+                <p>Google’s Dialogflow CX is where my research began. Its
+                    documentation is somewhat good, and I found it to be both accessible and
+                    readable. Features often provided links to their associated documentation, and it
+                    is organized in a way which makes it easy to navigate
+                    without resorting to the search field. The documentation uses simple, clear
+                    language with heavy use of numbered lists and links to other pages and
+                    documentation. However, there is a lack of full, working examples and it can be
+                    difficult to test that certain features work without a fair bit of experimentation
+                    and guesswork. As the product is <a target="_blank"
+                                                        href="https://cloud.google.com/dialogflow/docs/release-notes">still
+                        receiving
+                        updates</a>, I have hope that their documentation will further improve over
+                    time.</p>
+
+                <p>Similarly to Dialogflow CX’s documentation, Google’s Vertex
+                    AI suffers from a lack of full, working examples. Its documentation is also scattered, missing
+                    information, and tedious to learn
+                    from. When I first approached the product, I thought that it had a supported
+                    Java SDK even though <a target="_blank" href="https://cloud.google.com/vertex-ai/docs">the
+                        documentation</a> only gave examples using its Python SDK. <a target="_blank"
+                                                                                      href="https://cloud.google.com/java/docs/reference/google-cloud-aiplatform/latest/overview">These</a>
+                    <a target="_blank"
+                       href="https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/overview">two</a>
+                    pages linked to <a target="_blank"
+                                       href="https://github.com/googleapis/google-cloud-java/tree/main/java-aiplatform">these</a>
+                    <a target="_blank" href="https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai">two</a>
+                    GitHub repositories which host two recently updated Java SDKs. What is the
+                    difference between them, what are they capable of, why are they in separate
+                    documentation areas, and how can I use them with Vertex AI? I do not know,
+                    because the documentation did not tell me. This was a recurring theme as I
+                    tried to learn and use Vertex AI, and it was <i>frustrating</i>.</p>
+
+                <p>An interesting product, which I stumbled upon while playing
+                    with Vertex AI, is Google’s <a target="_blank" href="https://colab.google/">Colab</a>. It is a free,
+                    hosted version of <a target="_blank" href="https://jupyter.org/">Jupyter Notebook</a> on
+                    Google’s Cloud Platform. As a fan of Jupyter Notebook, I had a great experience
+                    with Colab and it allowed me to quickly run the code in Vertex AI’s
+                    documentation. Though Colab is a capable platform to develop an agent with, I
+                    was unable to find any documentation describing how to deploy an agent on
+                    Vertex AI from it. This seems like a missed opportunity as it could help to streamline
+                    development.</p>
+
+                <p>As I once worked for an <a target="_blank" href="https://business.amazon.ca/en/partners">Amazon
+                    Business Partner</a>, I am biased towards their documentation. I hold it in high
+                    regard as a standard for how accessible, detailed, and readable that cloud
+                    provider documentation can be. I am sure that their documentation has its
+                    faults, but I have not yet run into any notable problems. </p>
+
+                <p>Bedrock’s documentation was a breath of fresh-air, after the
+                    frustration I felt while working with Vertex AI. As with Dialogflow CX, Bedrock
+                    often provides direct links to a feature’s associated documentation, it is organized for easy
+                    navigation, its language is clear, and
+                    there are relevant links to other sections of the documentation. The key
+                    difference is that Bedrock’s documentation appears much more thorough and
+                    detailed. I came out of the Bedrock documentation with far fewer questions than
+                    I did with either of Google’s services.</p>
+
+                <h2>User Interface/Experience</h2>
+
+                <p>Dialogflow CX seems to have originally been
+                    created for the low-code development of telephony systems. As these
+                    systems can benefit from the use of LLMs, Google has rightfully incorporated
+                    them into their pre-existing product. At a high level, Dialogflow CX appears
+                    capable of everything that Bedrock is. However, Azure’s AI Foundry (<a target="_blank"
+                                                                                           href="https://techcommunity.microsoft.com/blog/azure-ai-services-blog/announcing-general-availability-of-azure-ai-foundry-agent-service/4414352"
+                                                                                           target="_blank">2025</a>),
+                    Amazon’s Bedrock (<a target="_blank"
+                                         href="https://www.aboutamazon.com/news/aws/aws-amazon-bedrock-general-availability-generative-ai-innovations"
+                                         target="_blank">2023</a>), and Vertex AI (<a target="_blank"
+                                                                                      href="https://cloud.google.com/vertex-ai/docs/release-notes#September_21_2020"
+                                                                                      target="_blank">2019</a>) were
+                    released much more recently than the original
+                    Dialogflow (<a target="_blank" href="https://en.wikipedia.org/wiki/Dialogflow"
+                                   target="_blank">2014</a>).They
+                    have had the benefit of learning from its mistakes. All of this is to say that
+                    Dialogflow CX is powerful, but appears hampered by old design decisions which
+                    have led to a cumbersome user interface (UI) and user experience (UX).</p>
+
+                <p>Unlike documentation, the UI and UX of large products can
+                    become difficult to change as time goes on. Updating them can sometimes cause
+                    confusion and even outrage in longtime users, and it can be seen
+                    as a development burden which may not be worth investing in. From the
+                    perspective of someone who has just been introduced to
+                    Dialogflow CX, I believe that it needs more love, care, and effort put into its
+                    UI and UX if it hopes to continue competing with Bedrock and AI Foundry. Google
+                    is a multi-billion-dollar company and they can afford the resources required to
+                    accomplish this.</p>
+
+                <p>As an example of Dialogflow CX’s cumbersome design, look at
+                    the flow feature which both it and Bedrock offer. Both products have a
+                    node-based UI. In my experience, this type of UI usually allows the user to add
+                    or drag-and-drop new nodes onto a canvas, drag and rearrange existing nodes, and
+                    connect nodes together by dragging a line between one node’s output and another’s
+                    input. Bedrock follows this pattern, but Dialogflow CX does not.</p>
+
+                <p>In Dialogflow CX, the user must navigate through multiple,
+                    nested menus to create, configure, and connect nodes together. There is
+                    seemingly no affordance for the user to interactively perform these actions. This
+                    is a common theme for the UI and UX of Dialogflow CX’s features, and it greatly
+                    increases the cognitive load required to work with them. In comparison, Bedrock’s
+                    UI and UX is much more straightforward in that it simplifies Flow development
+                    by enabling the expected interactive actions. While Bedrock also makes use of
+                    nested menus to configure nodes once they have been selected,
+                    the menus are far less cluttered and are easier to understand. Care has been put into how Bedrock’s
+                    menu and configuration options
+                    are laid out, with irrelevant configuration options being hidden until the user
+                    makes specific selections which require them to be shown.</p>
+
+                <figure>
+                    <a href="../resource/image/57/Dialogflow%20CX%20Flow%20UI.png" target="_blank">
+                        <img src="../resource/image/57/Dialogflow%20CX%20Flow%20UI.png" alt="An image of the Dialogflow CX UI with Flow nodes and connections." loading="lazy">
+                    </a>
+                    <figcaption>An image of the Dialogflow CX UI with Flow nodes and connections.</figcaption>
+                </figure>
+
+                <figure>
+                    <a href="../resource/image/57/Dialogflow%20CX%20Flow%20UI%202.png" target="_blank">
+                        <img src="../resource/image/57/Dialogflow%20CX%20Flow%20UI%202.png" alt="An image of the Dialogflow CX UI with a node expanded to show its fields." loading="lazy">
+                    </a>
+                    <figcaption>An image of the Dialogflow CX UI with a node expanded to show its fields.</figcaption>
+                </figure>
+
+                <figure>
+                    <a href="../resource/image/57/Dialogflow%20CX%20Flow%20UI%203.png" target="_blank">
+                        <img src="../resource/image/57/Dialogflow%20CX%20Flow%20UI%203.png" alt="An image of the Dialogflow CX UI with a node field expanded to show its configuration options." loading="lazy">
+                    </a>
+                    <figcaption>An image of the Dialogflow CX UI with a node field expanded to show its configuration options.</figcaption>
+                </figure>
+
+                <figure>
+                    <a href="../resource/image/57/Amazon%20Bedrock%20Flow%20UI.png" target="_blank">
+                        <img src="../resource/image/57/Amazon%20Bedrock%20Flow%20UI.png" alt="An image of the Bedrock UI with Flow nodes and connections." loading="lazy">
+                    </a>
+                    <figcaption>An image of the Bedrock UI with Flow nodes and connections.</figcaption>
+                </figure>
+
+                <figure>
+                    <a href="../resource/image/57/Amazon%20Bedrock%20Flow%20UI%202.png" target="_blank">
+                        <img src="../resource/image/57/Amazon%20Bedrock%20Flow%20UI%202.png" alt="An image of the Bedrock UI with a node expanded to show its configuration options." loading="lazy">
+                    </a>
+                    <figcaption>An image of the Bedrock UI with a node expanded to show its configuration options.</figcaption>
+                </figure>
+
+                <p>With their more recent releases, AI Foundry, Bedrock, and Google’s
+                    own Vertex AI have not suffered from the UI and UX problems present in
+                    Dialogflow CX. While visually distinct, each of them has a straightforward UI
+                    and provides a relatively painless UX. From a developer’s standpoint, I have no
+                    complaints worth mentioning. </p>
+
+                <h2>Agents</h2>
+
+                <p>Agents, known as Playbooks in Dialogflow CX, are
+                    configurable LLMs which are generally capable of data retrieval and storage,
+                    calling functions and tools, working with APIs which support the <a target="_blank"
+                                                                                        href="https://en.wikipedia.org/wiki/OpenAPI_Specification">OpenAPI
+                        specification</a>, and<a target="_blank"
+                                                 href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation">
+                        retrieval
+                        augmented generation (RAG)</a>.</p>
+
+                <p>A conversation between a user and an agent is called a session. Each product enables its agents to
+                    resume past sessions and to refer to information within them. Both Bedrock and
+                    Dialogflow CX can save a session for up to <a target="_blank"
+                                                                  href="https://cloud.google.com/dialogflow/cx/docs/concept/session">24
+                        hours</a>
+                    or <a target="_blank"
+                          href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-memory.html">365
+                        days</a> respectively. Optionally, Bedrock can generate and store a summary of the
+                    conversation instead. Of the three products, Vertex AI offers the most
+                    flexibility with its <a target="_blank"
+                                            href="https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/sessions/manage-sessions-api?hl=en">session
+                        management API</a> and it may also be able to save a session indefinitely, as its
+                    documentation does not specify a <a target="_blank"
+                                                        href="https://en.wikipedia.org/wiki/Time_to_live">time to
+                        live</a>.</p>
+
+                <p>Though their session management features are similar, the
+                    products diverge in their ability to call functions, tools, and in how they use
+                    OpenAPIs. They each appear equivalently capable, but
+                    the amount of work required to achieve the same goal in each is highly variable
+                    and depends on your specific use case.</p>
+
+                <p>Google’s products provide numerous methods of integration
+                    with 3<sup>rd</sup> party services such as Oracle, Paypal,
+                    Salesforce, and Stripe. Integrations that an agent can directly, dynamically
+                    use are called tools. Dialogflow CX is <a target="_blank"
+                                                              href="https://cloud.google.com/dialogflow/cx/docs/concept/playbook/tool#built-in">limited</a>
+                    in its selection of tools, whereas Vertex AI offers <a target="_blank"
+                                                                           href="https://google.github.io/adk-docs/tools/">seemingly
+                        limitless</a>
+                    integrations through its support for OpenAPI, <a target="_blank"
+                                                                     href="https://en.wikipedia.org/wiki/Model_Context_Protocol">MCP</a>,
+                    and other tools.
+                    While Bedrock does not currently appear to offer 3<sup>rd</sup> party integrations
+                    VIA tools, it does allow you to write them yourself. Bedrock also supports <a target="_blank"
+                                                                                                  href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-computer-use.html">agent-controlled
+                        use of the user’s computer</a> as well as the ability to <a target="_blank"
+                                                                                    href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-code-interpretation.html">generate
+                        and run code to dynamically respond to a user’s prompt</a>.</p>
+
+                <p>In addition to tools, all agents can connect to multiple
+                    knowledge bases for RAG. The lack of a specific tool integration in a product
+                    may be compensated for by its support for that service
+                    in building a knowledge base that the agent can make use of.</p>
+
+                <h2>Knowledge Bases</h2>
+
+                <p>A knowledge base, known as a datastore in Dialogflow CX or
+                    corpus in Vertex AI, allow agents to perform RAG by providing them with data
+                    VIA a defined interface such as those used to connect with vector, SQL, and graph
+                    databases. Common data sources include folders and files, scraped websites, and
+                    data pulled from a 3<sup>rd</sup> party such as JIRA or Salesforce.</p>
+
+                <p>As with agents, there are many differences in the supported
+                    data sources, file types, and in both parsing and chunking of the data. With so
+                    many differences, it is infeasible to list them here while also keeping them up
+                    to date with future changes. To that end, the following links are a good starting
+                    point for determining whether a particular product supports your use case. </p>
+
+                <h3>Bedrock</h3>
+                <ul>
+                    <li><a target="_blank"
+                           href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-source-connectors.html">Data
+                        Sources</a></li>
+                    <li><a target="_blank"
+                           href="https://docs.aws.amazon.com/bedrock/latest/userguide/kb-data-source-customize-ingestion.html">Parsing
+                        and Chunking Options</a></li>
+                    <li><a target="_blank"
+                           href="https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-ds.html#kb-ds-supported-doc-formats-limits">Supported
+                        Filetypes</a></li>
+                </ul>
+
+                <h3>Dialogflow CX</h3>
+                <ul>
+                    <li><a target="_blank"
+                           href="https://cloud.google.com/dialogflow/cx/docs/concept/data-store#sources">Data
+                        Sources</a> &amp; <a target="_blank"
+                                             href="https://cloud.google.com/dialogflow/cx/docs/concept/data-store#restricted_access_additional_data_store_sources">Restricted
+                        Access Data Sources</a></li>
+                    <li><a target="_blank"
+                           href="https://cloud.google.com/dialogflow/cx/docs/concept/data-store#parse-chunk">Parsing
+                        and Chunking Options</a></li>
+                    <li><a target="_blank"
+                           href="https://cloud.google.com/dialogflow/cx/docs/concept/data-store#unstructured">Supported
+                        Filetypes</a></li>
+                </ul>
+
+                <h3>Vertex AI</h3>
+                <ul>
+                    <li><a target="_blank"
+                           href="https://cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/use-data-ingestion#supported-data-sources">Data
+                        Sources</a></li>
+                    <li><a target="_blank"
+                           href="https://cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/fine-tune-rag-transformations">Parsing
+                        and Chunking Options</a>, <a target="_blank"
+                                                      href="https://cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/layout-parser-integration">Layout
+                        Parser Integration</a>, and <a target="_blank"
+                                                       href="https://cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/llm-parser">LLM
+                        Parser</a></li>
+                    <li><a target="_blank"
+                           href="https://cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/supported-documents">Supported
+                        Filetypes</a></li>
+                </ul>
+
+                <h2>Flows</h2>
+
+                <p>Flows are <a target="_blank" href="https://en.wikipedia.org/wiki/Finite-state_machine">state
+                    machines</a> which perform a set of actions to achieve a
+                    goal. The allowed set of actions varies with each cloud provider. You can typically
+                    chain-together multiple agents in-sequence to converse and retrieve data from a
+                    user, to call other services to perform actions, to transform data VIA code or
+                    an LLM, and to retrieve and store data.</p>
+
+                <p>Both Bedrock and
+                    Dialogflow CX support flows and provide a node-based UI for creating and
+                    editing them. Aside from the differences mentioned above, their flow features
+                    are similar and similarly capable. Vertex AI does not have this feature, but
+                    its agents are fully programmable and can perform a flow-like series of steps.</p>
+
+                <h2>Deployment</h2>
+                <p>In Bedrock and Dialogflow CX, agents and flows can be
+                    versioned and multiple varying versions deployed alongside each other. Knowledge
+                    Bases do not appear to have this ability, but they can sometimes be
+                    periodically, automatically updated depending on the source of their data. Vertex
+                    AI does not explicitly support versioning, but it appears possible as two
+                    agents can be deployed with two differing codebases.</p>
+
+                <p>Though each product requires a different set of steps for
+                    deployment (<a target="_blank"
+                                   href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-deploy.html">Bedrock</a>,
+                    <a target="_blank" href="https://cloud.google.com/dialogflow/cx/docs/concept/integration">Dialogflow
+                        CX</a>, <a target="_blank"
+                                   href="https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/deploy?hl=en">Vertex
+                        AI</a>), they are similar overall. You define which version of an agent or flow
+                    to deploy, follow the deployment steps, and then update your integration to use
+                    the new deployment.</p>
+
+                <h2>Conclusion</h2>
+                <p>If you are developing a telephony system or a simple
+                    text-based chat bot, then I would consider Dialogflow CX along with additional
+                    research into other products in that domain. I hesitate to recommend it for
+                    other use cases as its documentation, UI, and UX make it difficult to reason
+                    about and work with. For all other use cases, I recommend evaluating Bedrock or
+                    Vertex AI.</p>
+                <p>For freeform development with few restrictions, Vertex AI is
+                    an appropriate choice. Its agents are entirely programmatic, so you should be
+                    able to do nearly anything with it. Its various integrations and supporting products
+                    also make it an appealing choice.</p>
+                <p>Amazon’s Bedrock is my go-to recommendation overall, but I
+                    would ideally love to use a product which combines Bedrock’s documentation and
+                    node-based flow creation UI with Vertex AI’s integrations and the telephony
+                    support of Dialogflow CX.</p>
+            </article>
+
+            <div id="tags-container">
+                <a class="post-tag" href="/posts?category=Essays+%26+Thought+Pieces">Essays &amp; Thought Pieces</a>
+
+                <a class="post-tag" href="/posts?search=AI">AI</a>
+                <a class="post-tag" href="/posts?search=AI%20Foundry">AI Foundry</a>
+                <a class="post-tag" href="/posts?search=Azure">Azure</a>
+                <a class="post-tag" href="/posts?search=Amazon">Amazon</a>
+                <a class="post-tag" href="/posts?search=Bedrock">Bedrock</a>
+                <a class="post-tag" href="/posts?search=Colab">Colab</a>
+                <a class="post-tag" href="/posts?search=Dialogflow%20CX">Dialogflow CX</a>
+                <a class="post-tag" href="/posts?search=Google">Google</a>
+                <a class="post-tag" href="/posts?search=LLM">LLM</a>
+                <a class="post-tag" href="/posts?search=Vector%20Database">Vector Database</a>
+                <a class="post-tag" href="/posts?search=Vertex%20AI">Vertex AI</a>
+            </div>
+        </main>
+    </body>
+</html>

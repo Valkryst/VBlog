@@ -8,13 +8,33 @@
     <copyright>© Copyright 2014-2025 Valkryst, All Rights Reserved</copyright>
     <managingEditor>admin@valkryst.com (Valkryst)</managingEditor>
     <webMaster>admin@valkryst.com (Valkryst)</webMaster>
-    <lastBuildDate>Mon, 05 May 2025 13:20:18 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Jun 2025 14:09:00 +0000</lastBuildDate>
     <docs>https://cyber.harvard.edu/rss/rss.html</docs>
     <image>
       <url>https://www.valkryst.com/resource/icon/favicon.png</url>
       <title>Valkryst's Blog</title>
       <link>https://www.valkryst.com/posts</link>
     </image>
+    <item>
+      <title>An Evaluation of Cloud Agent Development Tools</title>
+      <link>https://www.valkryst.com/posts/57.html</link>
+      <description>My personal notes and thoughts on Amazon's Bedrock, Azure's AI Foundry, Google's Dialogflow CX and Vertex AI.</description>
+      <author>admin@valkryst.com (Valkryst)</author>
+      <category>Essays &amp; Thought Pieces</category>
+      <category>AI</category>
+      <category>AI Foundry</category>
+      <category>Azure</category>
+      <category>Amazon</category>
+      <category>Bedrock</category>
+      <category>Colab</category>
+      <category>Dialogflow CX</category>
+      <category>Google</category>
+      <category>LLM</category>
+      <category>Vector Database</category>
+      <category>Vertex AI</category>
+      <guid>https://www.valkryst.com/posts/57</guid>
+      <pubDate>Sun, 08 Jun 2025 14:09:00 +0000</pubDate>
+    </item>
     <item>
       <title>Benchmarking OpenFGA</title>
       <link>https://www.valkryst.com/posts/56</link>
