@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Valkryst">
+    <meta name="description" content="Valkryst's Blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/VBlog/resource/icon/favicon.png">
+    <title>404 - Page Not Found</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        main {
+            display: flex;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>404 - Page Not Found</h1>
+        <p>Sorry, the page you are looking for doesn't exist.</p>
+
+        <p><a href="/">Return to Homepage</a></p>
+    </main>
+
+    <script>
+        /*
+         * The old, Ruby blog allowed the user to view pages without the .html extension. This is not possible on
+         * GitHub Pages, so we use this script to attempt to redirect the user to the correct page.
+         */
+        const path = window.location.pathname;
+        const hasExtension = /\.[a-zA-Z0-9]+$/.test(path);
+
+        if (!hasExtension) {
+            window.location.href = path + '.html';
+        }
+    </script>
+</body>
+</html>
