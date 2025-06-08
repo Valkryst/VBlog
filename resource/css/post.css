@@ -33,6 +33,8 @@ article {
     }
 
     #tags-container {
+        margin-top: 1rem;
+
         font-size: smaller;
         text-align: center;
 
