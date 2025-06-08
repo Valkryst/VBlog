@@ -12,9 +12,6 @@ class CodeBlockElement extends HTMLElement {
 
         const language = this.getLanguage();
         if (language) {
-            this.appendChild(this.getHighlightStyleSheetElement());
-            this.appendChild(this.getHighlightLanguageStyleSheetElement());
-
             if (this.#code) {
                 const codeElement = document.createElement('code');
                 codeElement.className = `language-${language}`;
@@ -111,30 +108,6 @@ class CodeBlockElement extends HTMLElement {
         }
 
         return value.trim().toLowerCase();
-    }
-
-    /**
-     * Constructs and returns a link element for the highlight.js stylesheet.
-     *
-     * @returns {HTMLLinkElement} Link element for the highlight.js stylesheet.
-     */
-    getHighlightStyleSheetElement() {
-        const element = document.createElement('link');
-        element.rel = 'stylesheet';
-        element.href = `https://unpkg.com/@highlightjs/cdn-assets@${CodeBlockElement._hljsVersion}/styles/default.min.css`;
-        return element;
-    }
-
-    /**
-     * Constructs and returns a link element for the highlight.js language-specific stylesheet.
-     *
-     * @returns {HTMLLinkElement} Link element for the highlight.js language-specific stylesheet.
-     */
-    getHighlightLanguageStyleSheetElement() {
-        const element = document.createElement('link');
-        element.rel = 'stylesheet';
-        element.href = `https://unpkg.com/@highlightjs/cdn-assets@${CodeBlockElement._hljsVersion}/languages/${this.getLanguage()}.min.css`;
-        return element;
     }
 }
 

@@ -1,3 +1,5 @@
+@import "https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/default.min.css";
+
 article {
     header {
         h1 {
