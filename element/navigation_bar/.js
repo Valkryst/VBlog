@@ -10,7 +10,7 @@ template.innerHTML = `
             <p>Home</p>
         </a>
         
-        <a href="/posts">
+        <a href="/posts.html">
             <img src="/resource/icon/posts.svg" alt="Posts Icon">
             <p>Posts</p>
         </a>
