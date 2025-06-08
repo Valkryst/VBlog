@@ -2,11 +2,11 @@ class PostsListItemElement extends HTMLElement {
     connectedCallback() {
         let innerHTML = `
             <link rel="stylesheet" href="${import.meta.resolve('/element/posts/list_item/.css')}">
-            <script type="module" src="/element/post/tag/.js"></script>
+            <script type="module" src="/VBlog/element/post/tag/.js"></script>
         `;
 
         if (this.getId()) {
-            innerHTML += `<a href="/posts/${this.getId()}.html">`
+            innerHTML += `<a href="/VBlog/posts/${this.getId()}.html">`
 
             if (this.getTitle()) {
                 innerHTML += `<h2>${this.getTitle()}</h2>`;

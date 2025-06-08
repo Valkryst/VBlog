@@ -1,8 +1,8 @@
 const template = document.createElement('template');
 template.innerHTML = `
 <link rel="stylesheet" href="${import.meta.resolve('/element/posts/rss_link/.css')}">
-<a href="/posts.rss">
-    <img src="/resource/icon/rss.png" alt="RSS Icon">
+<a href="/VBlog/posts.rss">
+    <img src="/VBlog/resource/icon/rss.png" alt="RSS Icon">
     Subscribe to RSS Feed
 </a>
 `;
