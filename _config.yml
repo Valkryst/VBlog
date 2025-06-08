@@ -1,0 +1,6 @@
+include:
+  - "**/*.js"
+  - "**/*.css"
+  - "**/*.html"
+
+encoding: utf-8
