@@ -133,7 +133,7 @@ class CodeBlockElement extends HTMLElement {
     getHighlightLanguageStyleSheetElement() {
         const element = document.createElement('link');
         element.rel = 'stylesheet';
-        element.href = `https://unpkg.com/@highlightjs/cdn-assets@${CodeBlockElement._hljsVersion}/styles/${this.getLanguage()}.min.css`;
+        element.href = `https://unpkg.com/@highlightjs/cdn-assets@${CodeBlockElement._hljsVersion}/languages/${this.getLanguage()}.min.css`;
         return element;
     }
 }
