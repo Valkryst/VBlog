@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="In Roguelike & Roguelite games, the player is often shown a top-down view of a 2D level or map. Although there are countless ways to design and display levels and maps, there are only two obvious choices for displaying them with VTerminal.">
+        <meta name="keywords" content="Game Design,Level,Map,Movement,Roguelike,Roguelite,Swing,VPanel,VTerminal">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Displaying a Level/Map</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Displaying a Level/Map</h1>
+
+                    <div>
+                        Published <time datetime="2021-12-06">Dec. 6, 2021</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+                    </div>
+                </header>
+
+                <p>This guide assumes that you have read up to <a href="25" target="_blank" rel="noopener"><em>Repainting a</em> Screen</a>.</p>
+                <p>In <a href="https://whatnerd.com/what-is-a-roguelike-roguelite-difference/" target="_blank" rel="noopener">Roguelike &amp; Roguelite</a> games, the player is often shown a top-down view of a 2D level or map. Although there are countless ways to design and display levels and maps, there are only two obvious choices for displaying them with VTerminal.</p>
+                <p>On its own, a VPanel cannot display partial tiles. If you create one and tell it to display a grid of 32x32 tiles, it will display exactly that. To display partial tiles, you must embed a VPanel within a <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/javax/swing/JScrollPane.html" target="_blank" rel="noopener">JScrollPane</a> and change the <a href="https://docs.oracle.com/javase/tutorial/uiswing/components/scrollpane.html#scrollable" target="_blank" rel="noopener">unit increment</a> for horizontal and vertical scrolling.</p>
+                <p>The deciding factor between using a VPanel on its own, or embedded within a JScrollPane, is whether you plan to implement effects such as screen shaking and <a href="https://www.whatgamesare.com/tracking-camera.html" target="_blank" rel="noopener">tracking</a>.</p>
+                <h2>Creating a Map</h2>
+                <p>Before testing our display options, we first need something to test them on. The following class describes a 2D map of tiles, each represented by a capital character, and a camera view determined by two offset values.</p>
+
+                <x-code-block language="java">
+                    import com.valkryst.VTerminal.component.VPanel;
+
+                    import java.util.concurrent.ThreadLocalRandom;
+
+                    public class Map {
+                        private final char[][] tiles;
+                        private int xOffset = 0;
+                        private int yOffset = 0;
+
+                        public Map(final int width, final int height) {
+                            tiles = new char[height][width];
+
+                            randomizeTiles();
+                        }
+
+                        private void randomizeTiles() {
+                            final var random = ThreadLocalRandom.current();
+
+                            for (int y = 0 ; y < tiles.length ; y++) {
+                                for (int x = 0 ; x < tiles[0].length ; x++) {
+                                    tiles[y][x] = (char) random.nextInt('A', 'Z');
+                                }
+                            }
+                        }
+
+                        public void draw(final VPanel panel) {
+                            final int endX = xOffset + panel.getWidthInTiles();
+                            final int endY = yOffset + panel.getHeightInTiles();
+
+                            for (int y = yOffset ; y < endY ; y++) {
+                                for (int x = xOffset ; x < endX ; x++) {
+                                    boolean isOutsideMapBounds = x < 0;
+                                    isOutsideMapBounds |= x >= tiles[0].length;
+                                    isOutsideMapBounds |= y < 0;
+                                    isOutsideMapBounds |= y > tiles.length;
+
+                                    final char codePoint = isOutsideMapBounds ? ' ' : tiles[y][x];
+                                    panel.setCodePointAt(x - xOffset, y - yOffset, codePoint);
+                                }
+                            }
+                        }
+
+                        public int getXOffset() {
+                            return xOffset;
+                        }
+
+                        public int getYOffset() {
+                            return yOffset;
+                        }
+
+                        public void setXOffset(final int offset) {
+                            xOffset = offset;
+                        }
+
+                        public void setYOffset(final int offset) {
+                            yOffset = offset;
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Displaying on a VPanel</h2>
+                <p>In this example we can move our camera around the map using the arrow keys. The camera can only be moved by one tile at a time.</p>
+
+                <x-code-block language="java">
+                    import com.valkryst.VTerminal.component.VFrame;
+                    import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel;
+
+                    import javax.swing.*;
+                    import java.awt.event.KeyAdapter;
+                    import java.awt.event.KeyEvent;
+
+                    public class ExampleA {
+                        public static void main(String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            final Map map = new Map(100, 100);
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                map.draw(panel);
+
+                                frame.addKeyListener(new KeyAdapter() {
+                                    @Override
+                                    public void keyReleased(final KeyEvent e) {
+                                        int xOffset = map.getXOffset();
+                                        int yOffset = map.getYOffset();
+
+                                        switch (e.getExtendedKeyCode()) {
+                                            case KeyEvent.VK_UP -> yOffset--;
+                                            case KeyEvent.VK_DOWN -> yOffset++;
+                                            case KeyEvent.VK_LEFT -> xOffset--;
+                                            case KeyEvent.VK_RIGHT -> xOffset++;
+                                        }
+
+                                        map.setXOffset(xOffset);
+                                        map.setYOffset(yOffset);
+
+                                        map.draw(panel);
+                                        panel.repaint();
+                                    }
+                                });
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Displaying on a JScrollPane</h2>
+                <p>As with the previous example, we can move our camera around the map using the arrow keys. The map and camera now appear to move independently, the camera moves in pixel increments rather than tile increments, and the camera slowly tracks/follows the direction of movement.</p>
+
+                <x-code-block language="java">
+                    import com.valkryst.VTerminal.component.VPanel;
+                    import com.valkryst.VTerminal.plaf.VTerminalLookAndFeel;
+
+                    import javax.swing.*;
+                    import java.awt.*;
+                    import java.awt.event.KeyAdapter;
+                    import java.awt.event.KeyEvent;
+                    import java.util.Timer;
+                    import java.util.TimerTask;
+
+                    public class Example {
+                        public static void main(String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            final Map map = new Map(100, 100);
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var laf = VTerminalLookAndFeel.getInstance();
+
+                                final var scrollPane = new JScrollPane();
+                                scrollPane.setPreferredSize(new Dimension(40 * laf.getTileWidth(), 20 * laf.getTileHeight()));
+                                scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                                scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+                                /*
+                                * The VPanel must be larger than the scroll pane, so that we have
+                                * wiggle room for camera tracking.
+                                */
+                                final var panel = new VPanel(42, 22);
+                                scrollPane.setViewportView(panel);
+
+                                /*
+                                * The initial value of each scroll bar is set to display the panel
+                                * starting from tile [1][1] instead of [0][0]. This allows us to
+                                * use the wiggle room for camera tracking.
+                                *
+                                * We set the unit increments to 1, so that the map can be scrolled
+                                * one pixel at a time rather than one tile at a time.
+                                */
+                                final var horizontalScrollBar = scrollPane.getHorizontalScrollBar();
+                                horizontalScrollBar.setValue(laf.getTileWidth());
+                                horizontalScrollBar.setUnitIncrement(1);
+
+                                final var verticalScrollBar = scrollPane.getVerticalScrollBar();
+                                verticalScrollBar.setValue(laf.getTileHeight());
+                                verticalScrollBar.setUnitIncrement(1);
+
+                                final var frame = new JFrame();
+                                frame.setContentPane(scrollPane);
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                map.draw(panel);
+
+                                frame.addKeyListener(new KeyAdapter() {
+                                    @Override
+                                    public void keyReleased(final KeyEvent e) {
+                                        int xOffset = map.getXOffset();
+                                        int yOffset = map.getYOffset();
+
+                                        int horizontalScrollBarValue = horizontalScrollBar.getValue();
+                                        int verticalScrollBarValue = verticalScrollBar.getValue();
+
+                                        /*
+                                        * When the map offsets are changed, the scroll bar values
+                                        * are moved in the opposite direction. This ensures that
+                                        * the camera remains at its original position and allows
+                                        * the camera tracking to work.
+                                        */
+                                        switch (e.getExtendedKeyCode()) {
+                                            case KeyEvent.VK_UP -> {
+                                                yOffset--;
+                                                verticalScrollBarValue += laf.getTileHeight();
+                                            }
+                                            case KeyEvent.VK_DOWN -> {
+                                                yOffset++;
+                                                verticalScrollBarValue -= laf.getTileHeight();
+                                            }
+                                            case KeyEvent.VK_LEFT -> {
+                                                xOffset--;
+                                                horizontalScrollBarValue += laf.getTileWidth();
+                                            }
+                                            case KeyEvent.VK_RIGHT -> {
+                                                xOffset++;
+                                                horizontalScrollBarValue -= laf.getTileWidth();
+                                            }
+                                        }
+
+                                        map.setXOffset(xOffset);
+                                        map.setYOffset(yOffset);
+
+                                        map.draw(panel);
+                                        panel.repaint();
+
+                                        /*
+                                        * The scroll pane must be updated after the map has been
+                                        * updated and the panel repainted. This prevents visual
+                                        * errors.
+                                        */
+                                        horizontalScrollBar.setValue(horizontalScrollBarValue);
+                                        verticalScrollBar.setValue(verticalScrollBarValue);
+                                    }
+                                });
+
+                                /*
+                                * This timer runs every ~50ms. It updates the horizontal/vertical
+                                * position of each scroll bar. Visually, this looks as if the
+                                * camera is slowly following the user's movements.
+                                */
+                                final var timer = new Timer();
+                                timer.scheduleAtFixedRate(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        int value = horizontalScrollBar.getValue();
+
+                                        if (value < laf.getTileWidth()) {
+                                            value++;
+                                        } else if (value > laf.getTileWidth()) {
+                                            value--;
+                                        }
+
+                                        horizontalScrollBar.setValue(value);
+
+                                        value = verticalScrollBar.getValue();
+
+                                        if (value < laf.getTileHeight()) {
+                                            value++;
+                                        } else if (value > laf.getTileHeight()) {
+                                            value--;
+                                        }
+
+                                        verticalScrollBar.setValue(value);
+                                    }
+                                }, 0, 50);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Documentation">
+                        Documentation
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Game+Design">Game Design</a>
+                    <a class="post-tag" href="/posts?search=Level">Level</a>
+                    <a class="post-tag" href="/posts?search=Map">Map</a>
+                    <a class="post-tag" href="/posts?search=Movement">Movement</a>
+                    <a class="post-tag" href="/posts?search=Roguelike">Roguelike</a>
+                    <a class="post-tag" href="/posts?search=Roguelite">Roguelite</a>
+                    <a class="post-tag" href="/posts?search=Swing">Swing</a>
+                    <a class="post-tag" href="/posts?search=VPanel">VPanel</a>
+                    <a class="post-tag" href="/posts?search=VTerminal">VTerminal</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

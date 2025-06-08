@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A collection of official documentation and software, alongside my personal notes, documenting the Matrox Axio LE editing hardware.">
+        <meta name="keywords" content="Axio LE,Component,HDMI,Matrox,PS2,Playstation,RCA,SDI,Video Capture,Video Editing,X.linkLE">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Documenting the Matrox Axio LE</title>
+
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Documenting the Matrox Axio LE</h1>
+
+                    <div>
+                        Published <time datetime="2024-04-16">Apr. 16, 2024</time> —
+                        Edited <time datetime="2024-05-18">May. 18, 2024</time>
+                    </div>
+                </header>
+
+                <p>
+                    About four years ago, I found and purchased a strange piece of tech at my local Value Village. With a
+                    bit of research, I was able to determine that it was the <i>X.linkLE</i> breakout box from someone's
+                    old set of
+                    <i><a href="https://www.bhphotovideo.com/c/product/428249-REG/Matrox_AXIOLEN_Axio_LE_Real_Time_HD.html" target="_blank">Matrox Axio LE</a></i>
+                    editing hardware. Though I was able to find a few eBay listings for the Axio LE card and analog audio
+                    cable bracket, they were exceedingly expensive at the time and the X.linkLE ended up in a storage bin.
+                </p>
+                <div style="display: grid; grid-template-columns: 7fr 3fr; grid-column-gap: 1rem;">
+                    <p>
+                        In <time datetime="2024-03">March of 2024</time>, while doing some spring cleaning, I
+                        once-again found the X.linkLE and continued my long-abandoned attempt at acquiring the
+                        full set of Axio LE editing hardware. As luck would have it, there were affordable
+                        listings for the Axio LE card, analog audio cable bracket, and a compatible
+                        <a href="https://www.ebay.ca/itm/302933221371" target="_blank">D-Sub (DB-26) cable</a>
+                        on eBay.
+                    </p>
+                    <aside>
+                        <p style="font-size: 0.75rem; line-height: 1.125rem;">
+                            The DB-26 cable is a replacement for the required X.linkLE balanced analog
+                            audio cable. It's used to connect the X.linkLE breakout box to the analog
+                            audio cable bracket. Without this cable, the Axio LE card would be unable
+                            to recieve audio data.
+                        </p>
+                    </aside>
+                </div>
+                <p>
+                    With the help of a few
+                    <a href="https://en.wikipedia.org/wiki/RCA_connector" target="_blank">RCA</a>-to-<a href="https://en.wikipedia.org/wiki/XLR_connector" target="_blank">XLR</a>,
+                    RCA-to-<a href="https://en.wikipedia.org/wiki/Serial_digital_interface" target="_blank">SDI</a>,
+                    and <a href="https://en.wikipedia.org/wiki/Component_video" target="_blank">Component</a>-to-<a href="https://en.wikipedia.org/wiki/HDMI" target="_blank">HDMI</a>
+                    adapters, I was able to launch and use the <i>Matrox AV Tools</i>. This opened up the opportunity
+                    for me to capture, stream, and view live audio/video from my fat PS2.
+                </p>
+                <p>
+                    The rest of this post will serve as an archive of information on the Axio LE editing hardware and
+                    as my own personal documentation. It will be updated as I continue to experiment with and learn about it.
+                </p>
+                <p>
+                    <strong>Warning:</strong> Do <em>not</em> attempt to use the <i>Matrox CompressHD</i> card in newer
+                    versions of Windows. It has some sort of incompatibility, and it is likely to cause repeating BSODs
+                    (Blue Screens of Death) with a <i>PAGE_FAULT_IN_NONPAGED_AREA</i> message. The only way I was
+                    able to recover from this was to do a system restore to before the device was plugged-in for the first time.
+                </p>
+                <p>
+                    Until I acquire another computer to run an earlier version of Windows on, I will be unable to document
+                    interactions between the <i>Matrox CompressHD</i> and <i>Matrox Axio LE</i> hard/software. As far as I
+                    am aware, the <i>CompressHD</i> card allows for capture of h.264 footage from the X.linkLE breakout box.
+                </p>
+
+                <h2>Hardware</h2>
+
+                <h3>Axio LE Card</h3>
+
+                <figure>
+                    <a href="../resource/image/Axio LE Card.png" target="_blank">
+                        <img src="../resource/image/Axio LE Card.png" alt="A diagram of the Axio LE PCI Card." loading="lazy">
+                    </a>
+                    <figcaption>A diagram of the Axio LE PCI Card.</figcaption>
+                </figure>
+
+                <h3>Analog Audio Cable Bracket</h3>
+
+                <figure>
+                    <a href="../resource/image/Analog Audio Cable Bracket.png" target="_blank">
+                        <img src="../resource/image/Analog Audio Cable Bracket.png" alt="A diagram of the Axio LE PCI Card alongside the Analog Audio Cable Bracket." loading="lazy">
+                    </a>
+                    <figcaption>A diagram of the Axio LE PCI Card alongside the Analog Audio Cable Bracket.</figcaption>
+                </figure>
+
+                <h3>X.linkLE Breakout Box</h3>
+
+                <figure>
+                    <a href="../resource/image/X.linkLE Breakout Box.png" target="_blank">
+                        <img src="../resource/image/X.linkLE Breakout Box.png" alt="A diagram showing the front and back of the X.linkLE." loading="lazy">
+                    </a>
+                    <figcaption>A diagram showing the front and back of the X.linkLE.</figcaption>
+                </figure>
+
+                <p>
+                    The following list contains direct links to sections of the
+                    <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf" target="_blank">Matrox Axio
+                        Installation and User Guide</a>, which correspond to the settings menus within the <i>Matrox
+                    AV Tools</i> software. Various helpful sections are also given at the beginning of this list.
+                </p>
+
+                <ul>
+                    <li>
+                        A listing of all X.linkLE breakout box connections can be found
+                        <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=36" target="_blank">here</a>
+                    </li>
+                    <li>
+                        <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=74" target="_blank">
+                            Matrox Playback Settings
+                        </a>
+                    </li>
+                    <ul>
+                        <li>
+                            <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=74" target="_blank">
+                                General
+                            </a>
+                        </li>
+                        <li>Video Output</li>
+                        <ul>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=78" target="_blank">
+                                    General
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=80" target="_blank">
+                                    Advanced
+                                </a>
+                            </li>
+                        </ul>
+                        <li>
+                            <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=85" target="_blank">
+                                Genlock
+                            </a>
+                        </li>
+                        <li>Audio Output</li>
+                        <ul>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=87" target="_blank">
+                                    General
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=88" target="_blank">
+                                    Mono/Stereo Mapping
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=89" target="_blank">
+                                    5.1 Surround Mapping
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=90" target="_blank">
+                                    16-channel Mapping
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <li>
+                        <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=97" target="_blank">
+                            Capture Settings
+                        </a>
+                    </li>
+                    <ul>
+                        <li>
+                            <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=97" target="_blank">
+                                Video Capture Settings
+                            </a>
+                        </li>
+                        <ul>
+                            <li>
+                                <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=108" target="_blank">
+                                    Matrox MPEG-2 I-frame
+                                </a>
+                            </li>
+                        </ul>
+                        <li>
+                            <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf#page=101" target="_blank">
+                                Audio Capture Settings
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+
+
+                <h2>Downloads</h2>
+                <ul>
+                    <li>
+                        <a href="/files/matrox/Driver and Software Downloads.pdf" target="_blank">
+                            Driver and Software Downloads (Webpage Backup) <span style="font-size: 0.75rem;">[510 KB]</span>
+                        </a>
+                    </li>
+                    <ul>
+                        <li>
+                            <a href="/files/matrox/mtxutils_512.exe" target="_blank">
+                                mtxutils_512.exe <span style="font-size: 0.75rem;">[448 MB]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/files/matrox/mtxfxpatterns.exe" target="_blank">
+                                mtxfxpatterns.exe <span style="font-size: 0.75rem;">[391 MB]</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/files/matrox/Matrox Axio Release Notes.pdf" target="_blank">
+                                Software Release Notes <span style="font-size: 0.75rem;">[134 KB]</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <li>
+                        <a href="/files/matrox/Matrox Axio Installation and User Guide.pdf" target="_blank">
+                            Installation and User Guide <span style="font-size: 0.75rem;">[4.83 MB]</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Documentation">
+                        Documentation
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Axio+LE">Axio LE</a>
+                    <a class="post-tag" href="/posts?search=Component">Component</a>
+                    <a class="post-tag" href="/posts?search=HDMI">HDMI</a>
+                    <a class="post-tag" href="/posts?search=Matrox">Matrox</a>
+                    <a class="post-tag" href="/posts?search=PS2">PS2</a>
+                    <a class="post-tag" href="/posts?search=Playstation">Playstation</a>
+                    <a class="post-tag" href="/posts?search=RCA">RCA</a>
+                    <a class="post-tag" href="/posts?search=SDI">SDI</a>
+                    <a class="post-tag" href="/posts?search=Video+Capture">Video Capture</a>
+                    <a class="post-tag" href="/posts?search=Video+Editing">Video Editing</a>
+                    <a class="post-tag" href="/posts?search=X.linkLE">X.linkLE</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

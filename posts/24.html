@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A guide which shows how to reset the characters, background colors, foreground colors, and sequential image operations (shaders) of a screen.">
+        <meta name="keywords" content="Executor,ExecutorService,SqeuentialImageOp,SwingUtilities,UIManager,VTerminal">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resetting a Screen</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Resetting a Screen</h1>
+
+                    <div>
+                        Published <time datetime="2021-03-05">Mar. 5, 2021</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+                    </div>
+                </header>
+
+                <p>This guide assumes that you have already read <a href="23" target="_blank" rel="noopener"><em>Drawing a Screen</em></a>.</p>
+                <h2>Executor Service</h2>
+                <p>In order to show the result of each reset method, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/concurrent/ExecutorService.html" target="_blank" rel="noopener">ExecutorServices</a> are used to run the reset and repaint methods two seconds after the program is launched.</p>
+                <p>The following example shows the creation of an ExecutorService which will print "Hello, World!".</p>
+                <x-code-block language="java">
+                    public class ExampleA {
+                        public static void main(final String[] args) {
+                            Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                System.out.println("Hello, World!");
+                                System.exit(0);
+                            }, 2, TimeUnit.SECONDS);
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Resetting Code Points</h2>
+                <p>The <a href="https://github.com/Valkryst/VTerminal/blob/98605daea2ae9453a8c5a1f10109b41c05efd70a/src/main/java/com/valkryst/VTerminal/component/VPanel.java#L167" target="_blank" rel="noopener">resetCodePoints()</a> method can be used to reset the code point of every tile on a VPanel.</p>
+                <x-code-block language="java">
+                    public class ExampleB {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setCodePointAt(x, y, getRandomCodePoint());
+                                    }
+                                }
+
+                                Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                    panel.resetCodePoints();
+                                    SwingUtilities.invokeLater(panel::repaint);
+                                }, 2, TimeUnit.SECONDS);
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 127);
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Resetting Background Colors</h2>
+                <p>The <a href="https://github.com/Valkryst/VTerminal/blob/98605daea2ae9453a8c5a1f10109b41c05efd70a/src/main/java/com/valkryst/VTerminal/component/VPanel.java#L162" target="_blank" rel="noopener">resetBackgroundColors()</a> method can be used to reset the background color of every tile on a VPanel.</p>
+                <x-code-block language="java">
+                    public class ExampleC {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setBackgroundAt(x, y, getRandomColor());
+                                    }
+                                }
+
+                                Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                    panel.resetBackgroundColors();
+                                    SwingUtilities.invokeLater(panel::repaint);
+                                }, 2, TimeUnit.SECONDS);
+                            });
+                        }
+
+                        private static Color getRandomColor() {
+                            switch (ThreadLocalRandom.current().nextInt(0, 6)) {
+                                case 0 -> { return Color.MAGENTA; }
+                                case 1 -> { return Color.GREEN; }
+                                case 2 -> { return Color.YELLOW; }
+                                case 3 -> { return Color.BLUE; }
+                                case 4 -> { return Color.RED; }
+                                case 5 -> { return Color.ORANGE; }
+                                default -> { return Color.WHITE; }
+                            }
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Resetting Foreground Colors</h2>
+                <p>The <a href="https://github.com/Valkryst/VTerminal/blob/98605daea2ae9453a8c5a1f10109b41c05efd70a/src/main/java/com/valkryst/VTerminal/component/VPanel.java#L179" target="_blank" rel="noopener">resetForegroundColors()</a> method can be used to reset the foreground color of every tile on a VPanel.</p>
+                <x-code-block language="java">
+                    public class ExampleD {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setCodePointAt(x, y, getRandomCodePoint());
+                                        panel.setForegroundAt(x, y, getRandomColor());
+                                    }
+                                }
+
+                                Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                    panel.resetForegroundColors();
+                                    SwingUtilities.invokeLater(panel::repaint);
+                                }, 2, TimeUnit.SECONDS);
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 127);
+                        }
+
+                        private static Color getRandomColor() {
+                            switch (ThreadLocalRandom.current().nextInt(0, 6)) {
+                                case 0 -> { return Color.MAGENTA; }
+                                case 1 -> { return Color.GREEN; }
+                                case 2 -> { return Color.YELLOW; }
+                                case 3 -> { return Color.BLUE; }
+                                case 4 -> { return Color.RED; }
+                                case 5 -> { return Color.ORANGE; }
+                                default -> { return Color.WHITE; }
+                            }
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Resetting Sequential Image Operations</h2>
+                <p>The <a href="https://github.com/Valkryst/VTerminal/blob/98605daea2ae9453a8c5a1f10109b41c05efd70a/src/main/java/com/valkryst/VTerminal/component/VPanel.java#L184" target="_blank" rel="noopener">resetSequentialImageOps()</a> method can be used to reset the sequential image operation of every tile on a VPanel.</p>
+                <p>Please do not attempt to run the following example as it requires the <a href="http://www.jhlabs.com/ip/filters/" target="_blank" rel="noopener">image filters by JH Labs</a>, and the code will fail without <a href="https://mvnrepository.com/artifact/com.jhlabs/filters/2.0.235-1" target="_blank" rel="noopener">this dependency</a>.</p>
+                <x-code-block language="java">
+                    public class ExampleE {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setCodePointAt(x, y, getRandomCodePoint());
+                                        panel.setSequentialImageOpAt(x, y, new SequentialOp(new GaussianFilter(3f)));
+                                    }
+                                }
+
+                                Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                    panel.resetSequentialImageOps();
+                                    SwingUtilities.invokeLater(panel::repaint);
+                                }, 2, TimeUnit.SECONDS);
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 127);
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Resetting Everything</h2>
+                <p>The <a href="https://github.com/Valkryst/VTerminal/blob/98605daea2ae9453a8c5a1f10109b41c05efd70a/src/main/java/com/valkryst/VTerminal/component/VPanel.java#L146" target="_blank" rel="noopener">reset()</a> method can be used to reset the code points, colors, and sequential image operations of every tile on a VPanel.</p>
+                <p>Please do not attempt to run the following example as it requires the <a href="http://www.jhlabs.com/ip/filters/" target="_blank" rel="noopener">image filters by JH Labs</a>, and the code will fail without <a href="https://mvnrepository.com/artifact/com.jhlabs/filters/2.0.235-1" target="_blank" rel="noopener">this dependency</a>.</p>
+                <x-code-block language="java">
+                    public class ExampleF {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setCodePointAt(x, y, getRandomCodePoint());
+                                        panel.setBackgroundAt(x, y, getRandomColor());
+                                        panel.setForegroundAt(x, y, getRandomColor());
+                                        panel.setSequentialImageOpAt(x, y, new SequentialOp(new GaussianFilter(3f)));
+                                    }
+                                }
+
+                                Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                    panel.reset();
+                                    SwingUtilities.invokeLater(panel::repaint);
+                                }, 2, TimeUnit.SECONDS);
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 127);
+                        }
+
+                        private static Color getRandomColor() {
+                            switch (ThreadLocalRandom.current().nextInt(0, 6)) {
+                                case 0 -> { return Color.MAGENTA; }
+                                case 1 -> { return Color.GREEN; }
+                                case 2 -> { return Color.YELLOW; }
+                                case 3 -> { return Color.BLUE; }
+                                case 4 -> { return Color.RED; }
+                                case 5 -> { return Color.ORANGE; }
+                                default -> { return Color.WHITE; }
+                            }
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Further Reading</h2>
+                <ul>
+                    <li><a href="https://www.baeldung.com/java-executor-service-tutorial" target="_blank" rel="noopener">Baeldung - A Guide to the Java ExecutorService</a></li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Documentation">
+                        Documentation
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Executor">Executor</a>
+                    <a class="post-tag" href="/posts?search=ExecutorService">ExecutorService</a>
+                    <a class="post-tag" href="/posts?search=SqeuentialImageOp">SqeuentialImageOp</a>
+                    <a class="post-tag" href="/posts?search=SwingUtilities">SwingUtilities</a>
+                    <a class="post-tag" href="/posts?search=UIManager">UIManager</a>
+                    <a class="post-tag" href="/posts?search=VTerminal">VTerminal</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

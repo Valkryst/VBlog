@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A guide which explains how to initialize VTerminal and how to create a screen.">
+        <meta name="keywords" content="Screen,SwingUtilities,UIManager,VTerminal">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Creating a Screen</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Creating a Screen</h1>
+
+                    <div>
+                        Published <time datetime="2021-02-26">Feb. 26, 2021</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+
+
+                    </div>
+                </header>
+
+                <h2>Initializing VTerminal</h2>
+                <p>Before creating a <a href="https://github.com/Valkryst/VTerminal/blob/master/src/main/java/com/valkryst/VTerminal/component/VPanel.java" target="_blank" rel="noopener">screen</a>, you must first initialize VTerminal. This <em>must</em> be done before running any Swing-related code, or else your program will be running in an undefined state which may cause graphical issues.</p>
+                <p>There are two basic ways to run the initialization code. The only difference being that the second way allows you to specify the font size. The font size is applied to <em>all</em> components and cannot be changed after it has been set.</p>
+                <x-code-block language="java">
+                    public class ExampleA {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                </x-code-block>
+
+                <x-code-block language="java">
+                    public class ExampleB {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                </x-code-block>
+
+
+                <p>The following is a more advanced way, which allows you to initialize VTerminal with a custom font and font size. Please do not attempt to run this example as it references a non-existant file.</p>
+                <x-code-block language="java">
+                    public class ExampleI {
+                        public static void main(final String[] args) {
+                            try {
+                                final var file = new File("Font.ttf");
+                                final var fis = new FileInputStream(file);
+
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(fis, 24));
+
+                                fis.close();
+                            } catch (final UnsupportedLookAndFeelException | IOException | FontFormatException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var panel = new VPanel(40, 20);
+
+                                final var frame = new JFrame();
+                                frame.add(panel);
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                panel.setCodePointAt(0, 0, 'A');
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p>Java <a href="https://docs.oracle.com/en/java/javase/15/intl/supported-fonts.html#GUID-95191329-90F9-4DC5-9D14-59C4B9872D58" target="_blank" rel="noopener">supports</a> TrueType, OpenType, and PostScript Type 1 fonts.</p>
+                <h2>Screen Creation</h2>
+                <p>When it comes to screen creation, there are a few methods to choose from. Each of the following methods achieves the same result.</p>
+                <p>If you're not familiar with <em>SwingUtilities.invokeLater</em>, it ensures that the code is run on the Event Dispatch Thread (EDT). This is an important concept to know when working with Swing, so <em>please </em>take the time to learn about the EDT and how to use it.</p>
+
+                <x-code-block language="java">
+                    public class ExampleC {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <x-code-block language="java">
+                    public class ExampleD {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(new VPanel(40, 20));
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <x-code-block language="java">
+                    public class ExampleE {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new JFrame();
+                                frame.setContentPane(new VPanel(40, 20));
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <x-code-block language="java">
+                    public class ExampleF {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new JFrame();
+                                frame.add(new VPanel(40, 20));
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p>Though each of the above methods achieves the same result, there is one key difference. When you want to update the screen in Examples C &amp; D, you have to use the <em>frame.getContentPane() </em>method to retrieve the panel. When you want to update the screen in Examples E &amp; F, you already have a reference to the panel.</p>
+
+                <x-code-block language="java">
+                    public class ExampleG {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                panel.setCodePointAt(0, 0, 'A');
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <x-code-block language="java">
+                    public class ExampleH {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance());
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var panel = new VPanel(40, 20);
+
+                                final var frame = new JFrame();
+                                frame.add(panel);
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                panel.setCodePointAt(0, 0, 'A');
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Further Reading</h2>
+                <ul>
+                    <li><a href="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/dispatch.html" target="_blank" rel="noopener">The Event Dispatch Thread</a></li>
+                    <li><a href="https://stackoverflow.com/a/6568120/13279616" target="_blank" rel="noopener">What does SwingUtilities.invokeLater do?</a></li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Documentation">
+                        Documentation
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Screen">Screen</a>
+                    <a class="post-tag" href="/posts?search=SwingUtilities">SwingUtilities</a>
+                    <a class="post-tag" href="/posts?search=UIManager">UIManager</a>
+                    <a class="post-tag" href="/posts?search=VTerminal">VTerminal</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

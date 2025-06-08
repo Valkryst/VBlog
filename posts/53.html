@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="Learn how to securely run a local Flask server with HTTPS support, enabling the ability to implement OAuth authentication and ensuring secure communication between clients and servers.">
+        <meta name="keywords" content="Authentication,Flask,HTTPS,OAuth,OpenSSL,Python,SSL,Security">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to Enable HTTPS for Local Flask Development</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>How to Enable HTTPS for Local Flask Development</h1>
+
+                    <div>
+                        Published <time datetime="2024-02-07">Feb. 7, 2024</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+                    </div>
+                </header>
+
+                <p>
+                    By following this guide, you will be equipped to run a local
+                    <a href="https://github.com/pallets/flask/" target="_blank">Flask</a> server and access it's routes securely via
+                    <a href="https://en.wikipedia.org/wiki/HTTPS" target="_blank">HTTPS</a>. There are a few situations where this is
+                    a requirement, such as enabling
+                    <a href="https://en.wikipedia.org/wiki/OAuth" target="_blank">OAuth authentication</a> with GitHub using
+                    <a href="https://github.com/singingwolfboy/flask-dance" target="_blank">Flask-Dance</a>.
+                </p>
+                <p>
+                    This guide assumes that you are using Linux, specifically Ubuntu in my case, and that you have enough
+                    knowledge to follow along with any linked pages and examples.
+                </p>
+
+                <h2>Requirements</h2>
+                <ul>
+                    <li>
+                        <a href="https://stackoverflow.com/a/3016986" target="_blank">OpenSSL</a>
+                    </li>
+                    <li>
+                        <a href="https://www.python.org/downloads" target="_blank">Python 3.x</a> with a
+                        <a href="https://github.com/pallets/flask/" target="_blank">Flask</a> server.
+                    </li>
+                </ul>
+
+                <h2>Certificate Generation</h2>
+                <p>
+                    To use HTTPS with Flask, you need both a <a href="https://en.wikipedia.org/wiki/Certificate_signing_request" target="_blank">
+                    certificate signing request (CSR)</a> and a
+                    <a href="https://en.wikipedia.org/wiki/X.509#Certificate_filename_extensions" target="_blank">CRT</a> file. These can both
+                    be generated using the <a href="https://www.openssl.org/docs/man1.1.1/index.html" target="_blank">OpenSSL CLI</a> and the
+                    following command:
+                </p>
+                <x-code-block language="shell">
+                    openssl req -new -newkey rsa:2048 -nodes -keyout https.key -x509 -days 3650 -out https.crt
+                </x-code-block>
+                <p>
+                    For further details, refer to the
+                    <a href="https://www.openssl.org/docs/man1.1.1/man1/req.html" target="_blank">official documentation</a>.
+                </p>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Segment</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>openssl req</td>
+                        <td>Use the OpenSSL certificate generating utility.</td>
+                    </tr>
+                    <tr>
+                        <td>-new</td>
+                        <td>Generate a new CSR file.</td>
+                    </tr>
+                    <tr>
+                        <td>-newkey rsa:2048</td>
+                        <td>Generate and use an RSA key of 2048 bits.</td>
+                    </tr>
+                    <tr>
+                        <td>-nodes</td>
+                        <td>
+                            Do not encrypt the output key, to avoid entering a passphrase when generating the RSA key.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>-keyout https.key</td>
+                        <td>Save the private key as <i>https.key</i>.</td>
+                    </tr>
+                    <tr>
+                        <td>-x509</td>
+                        <td>Output a self-signed certificate, instead of a certificate request.</td>
+                    </tr>
+                    <tr>
+                        <td>-days 3650</td>
+                        <td>
+                            Ensure the certificate is valid for 10 years. This is normally considered overkill, but we are
+                            only using the certificate for <em>local</em> development.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>-out https.crt</td>
+                        <td>Save the certificate as <i>https.crt</i>.</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h2>Enabling HTTPS</h2>
+                <p>
+                    To enable HTTPS in your Flask application, use the following command:
+                </p>
+                <x-code-block language="shell">
+                    flask run --cert=https.crt --key=https.key
+                </x-code-block>
+                <p>
+                    This command instructs Flask to run your application with the specified SSL certificate (<i>https.crt</i>) and private key
+                    (<i>https.key</i>), enabling HTTPS communication between the client and server.
+                </p>
+
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Tutorial">
+                        Tutorial
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Authentication">Authentication</a>
+                    <a class="post-tag" href="/posts?search=Flask">Flask</a>
+                    <a class="post-tag" href="/posts?search=HTTPS">HTTPS</a>
+                    <a class="post-tag" href="/posts?search=OAuth">OAuth</a>
+                    <a class="post-tag" href="/posts?search=OpenSSL">OpenSSL</a>
+                    <a class="post-tag" href="/posts?search=Python">Python</a>
+                    <a class="post-tag" href="/posts?search=SSL">SSL</a>
+                    <a class="post-tag" href="/posts?search=Security">Security</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

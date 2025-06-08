@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="Wishing you could skip forced and sponsored YouTube ads on your LG TV? Install the Homebrew Channel app and say goodbye to them today.">
+        <meta name="keywords" content="Ad Blocking,Jailbreak,YouTube,webOS">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Installing the Homebrew Channel App on an LG TV</title>
+
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Installing the Homebrew Channel App on an LG TV</h1>
+
+                    <div>
+                        Published <time datetime="2022-06-06">Jun. 6, 2022</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+                    </div>
+                </header>
+
+                <p>
+                    Ensure your computer and TV are connected to the same network,
+                    <a href="https://webostv.developer.lge.com/login" target="_blank">create</a> an LG Account,
+                    <a href="https://webostv.developer.lge.com/develop/tools/cli-installation" target="_blank">download</a>
+                    and configure the CLI (ares), then
+                    <a href="https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#installing-developer-mode-app" target="_blank">install</a>
+                    then turn on the <i>Developer Mode</i> app on your TV and enable both <i>Dev Mode</i> and <i>Key Server</i>.
+                </p>
+                <p>
+                    After configuring ares, open a new terminal and run the <i>ares --version</i> command. If it outputs a version, then
+                    it is configured correctly. The next step is to add your TV to ares by running the
+                    <i>ares-setup-device</i> command, choosing the <i>add</i> option, and entering the data as follows:
+                </p>
+                <table>
+                    <tbody><tr>
+                        <th style="min-width: 8em">Name</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Device Name</td>
+                        <td>
+                            A name for the TV. Do not include spaces in the name, as it <i>may</i> cause issues with
+                            subsequent commands.
+                        </td>
+                        <td style="text-align: center">TV</td>
+                    </tr>
+                    <tr>
+                        <td>Device IP Address</td>
+                        <td>IP address of the TV, which can usually be found within the TV's <i>Network</i> settings.</td>
+                        <td style="text-align: center">192.168.2.123</td>
+                    </tr>
+                    <tr>
+                        <td>Device Port</td>
+                        <td>SSH port of the TV. This is always <i>9922</i>.</td>
+                        <td style="text-align: center">9922</td>
+                    </tr>
+                    <tr>
+                        <td>SSH User</td>
+                        <td>Username of the account to log into. This is always <i>prisoner</i>.</td>
+                        <td style="text-align: center">prisoner</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>This field can be skipped.</td>
+                        <td style="text-align: center">Bedroom TV</td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>Password of the account to log into. This must be left blank.</td>
+                        <td style="text-align: center"></td>
+                    </tr>
+                    </tbody></table>
+                <p>
+                    Enable the <i>Key Server</i>, run the <i>ares-novacom --getkey --device DeviceNameHere</i> command, and
+                    input the passphrase found in the <i>Developer Mode</i> app.
+                </p>
+                <p>
+                    Before continuing, test your configuration by running the <i>ares-device-info --device DeviceNameHere</i>
+                    command. If it returns a result, then your settings are correct and you can install the <i>Homebrew Channel</i>
+                    app by downloading the latest <i>.ipk</i> file from the
+                    <a href="https://github.com/webosbrew/webos-homebrew-channel/releases" target="_blank">releases</a> page,
+                    and running the <i>ares-install --device DeviceNameHere "C:\path\to\file.ipk"</i> command.
+                </p>
+
+                <h2>Session Time Renewal</h2>
+                <p>
+                    The <i>Developer Mode</i> app has a session time which expires after some time. If you do not open the app and click
+                    <i>Extend Session Time</i> before it expires, then all 3<sup>rd</sup> party apps (i.e. <i>Homebrew Channel</i> and
+                    apps installed through it) will be uninstalled. You can either do this manually, or create a
+                    <a href="https://en.wikipedia.org/wiki/Cron" target="_blank">cron</a> job to do it automatically.
+                </p>
+                <p>
+                    To create a cron job:
+                </p>
+                <ol>
+                    <li>Open the <i>Developer Mode</i> app and enable the <i>Key Server</i>.</li>
+                    <li>Run the <i>ares-novacom --device TV --getkey</i> command to download the Identiy File.</li>
+                    <li>
+                        SSH into the TV with <i>ssh -p 9922 prisoner@192.168.2.123 -i "C:\Users\Username\.ssh\TV_webos"</i>, replacing
+                        the example IP and file path with your own. The password is listed in the <i>Developer Mode</i> app.
+                    </li>
+                    <li>
+                        Run <i>cat /var/luna/preferences/devmode_enabled</i> and copy the text that it outputs. Do not include the
+                        <i>~ $</i>, as the session token contains only alphanumeric characters.
+                    </li>
+                    <li>
+                        SSH into another Linux machine and add
+                        <i>0 0 * * * curl https://developer.lge.com/secure/ResetDevModeSession.dev?sessionToken=putTheTokenHere</i>
+                        as a cron job.
+                    </li>
+                </ol>
+
+                <h2>Common Issues</h2>
+                <div style="margin-left: 1em">
+                    <h3>CLI: Connection timed out.</h3>
+                    <p>
+                        This error is most likely caused by an incorrect IP Address. Try verifying whether it is correct, and then re-run
+                        the <i>ares-setup-device</i> command to change it as necessary.
+                    </p>
+
+                    <h3>Error: connect ECONNREFUSED</h3>
+                    <p>This error is known to be caused by:</p>
+                    <ol>
+                        <li>
+                            An incorrect IP Address or Port number. Try verifying whether they are correct, and then re-run the
+                            <i>ares-setup-device</i> command to change them as necessary.
+                        </li>
+                        <li>
+                            Running an ares command, before webOS is fully launched. Try waiting a minute and then running
+                            the command again.
+                        </li>
+                    </ol>
+
+                    <h3>Error: All configured authentication methods failed</h3>
+                    <p>
+                        This error is most likely caused by an incorrect <i>ares-setup-device</i> configuration. Please re-read the
+                        information above and try again.
+                    </p>
+
+                    <h3>ares-novacom ERR!  [Tips]: Failed to get ssh private key</h3>
+                    <p>
+                        This error can appear when running <i>ares-novacoom --getkey</i>. It likely means that you forgot to enable <i>Dev Mode</i>
+                        or <i>Key Server</i> in the <i>Developer Mode</i> app.
+                    </p>
+                </div>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Tutorial">
+                        Tutorial
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Ad+Blocking">Ad Blocking</a>
+                    <a class="post-tag" href="/posts?search=YouTube">YouTube</a>
+                    <a class="post-tag" href="/posts?search=webOS">webOS</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

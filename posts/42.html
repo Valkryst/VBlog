@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="Learn how to automatically transcribe and translate audio using OpenAI's Whisper!">
+        <meta name="keywords" content="Automation,Machine Learning,OpenAI,Software,Transcription,Translation,Whisper">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to Transcribe & Translate Audio with Whisper</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>How to Transcribe &amp; Translate Audio with Whisper</h1>
+
+                    <div>
+                        Published <time datetime="2023-03-09">Mar. 9, 2023</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+
+
+                    </div>
+                </header>
+
+                <p>
+                    After following this guide, you will be able to use OpenAI's <i>Whisper</i> to transcribe audio, translate the
+                    transcription into English, and to generate subtitles from the transcription.
+                </p>
+
+                <p>
+                    My interest in this technology is to generate subtitles for lesser-known media, and to generate English subtitles
+                    for media that has previously only been available in its original language.
+                </p>
+
+                <p>
+                    This guide assumes that you are using Linux, specifically Ubuntu in my case, and that you have enough knowledge
+                    to follow along with any linked pages and examples.
+                </p>
+
+                <h2>Requirements</h2>
+
+                <ul>
+                    <li>
+                        <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank">Git</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/git-lfs/git-lfs/blob/main/INSTALLING.md" target="_blank">Git Large File Storage</a>
+                    </li>
+                    <li>
+                        <a href="https://www.python.org/downloads" target="_blank">Python 3.10.x</a>
+                        <ul>
+                            <li>
+                                You may need to run <i>sudo apt install libffi-dev</i> before installing Python, so that
+                                the <i>_ctypes</i> module is available for use.
+                            </li>
+                            <li>
+                                You will need to run <i>pip install numpy torch transformers</i> after installing Python.
+                                This will install all libraries required to run the <i>convert-h5-to-ggml.py</i> script.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="https://ffmpeg.org/download.html" target="_blank">FFMPEG</a>
+                    </li>
+                </ul>
+
+                <h2>Whisper Installation</h2>
+                <x-code-block language="shell">
+                    # Create and enter a new directory.
+                    mkdir subtitle_generation
+                    cd subtitle_generation
+
+                    # Clone all required Git repositories.
+                    git clone https://github.com/ggerganov/whisper.cpp.git
+                    git clone https://github.com/openai/whisper.git
+                    git clone https://huggingface.co/openai/whisper-large-v3.git
+
+                    # Compile whisper.cpp. You may need to install "make" and
+                    # other tools first.
+                    cd whisper.cpp
+                    make
+                    cd ../
+
+                    # Convert the whisper-large-v3 model from ".h5" to ".ggml".
+                    python3 ./whisper.cpp/models/convert-h5-to-ggml.py ./whisper-large-v3 ./whisper .
+                </x-code-block>
+
+                <h2>Audio Preparation</h2>
+
+                <p>
+                    Whisper will <i>only</i> accept a <i>16kHz .wav</i> file, so you may need to extract and/or convert your audio with
+                    <i>FFMPEG</i>. The following commands are examples of how to do this. You will likely need to spend time learning
+                    more about <i>FFMPEG</i> if your situation is more complicated than extracting a single audio track from a video or
+                    converting an audio file.
+                </p>
+
+                <x-code-block language="shell">
+                    # This will extract the first audio track of a video file, convert the
+                    # audio to 16kHz, and save it as a ".wav" audio file.
+                    ffmpeg -i "input_file.mp4" -c:a pcm_s16le -ar 16000 "output_file.wav"
+                </x-code-block>
+
+                <x-code-block language="shell">
+                    # This will convert an audio file to 16kHz and save it as a ".wav" file.
+                    ffmpeg -i "input_file.mp3" -c:a pcm_s16le -ar 16000 "output_file.wav"
+                </x-code-block>
+
+                <h2>Running Whisper</h2>
+
+                <p>
+                    There are many parameters that you can use with Whisper. To view them, <i>cd</i> into the <i>whisper.cpp</i> folder and
+                    then run <i>./main</i>.
+                </p>
+
+                <p>
+                    As an example, assume you have a Dutch movie and that you want to generate English subtitles for it. You could use the
+                    <i>-l nl</i> option to tell Whisper that the file is in Dutch, the <i>-tr</i> option to translate the Dutch transcription
+                    into English, and the <i>-osrt</i> option to create an <i>.srt</i> subtitle file with the translated transcription.
+                </p>
+
+                <x-code-block language="shell">
+                    # Place your ".wav" file in the same folder as "ggml_model.bin"
+                    ./whisper.cpp/main -l nl -tr -osrt --model ./ggml-model.bin -f ./input_file.wav
+                </x-code-block>
+
+                <h2>Notes</h2>
+
+                <ul>
+                    <li>
+                        <i>OpenAI</i> has released a number of other models, which are much smaller than the <i>whisper-large-v3</i> model
+                        used in this guide, and you can find them <a href="https://huggingface.co/openai" target="_blank">here</a>.
+                    </li>
+                    <li>
+                        You can find a list of two-character language codes
+                        <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">here</a>.
+                    </li>
+                    <li>
+                        I have written scripts to help in automating some of the tasks outline above. You can view them
+                        <a href="https://github.com/Valkryst/Whisper_Automations" target="_blank">here</a>
+                    </li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Tutorial">
+                        Tutorial
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Automation">Automation</a>
+                    <a class="post-tag" href="/posts?search=Machine+Learning">Machine Learning</a>
+                    <a class="post-tag" href="/posts?search=OpenAI">OpenAI</a>
+                    <a class="post-tag" href="/posts?search=Software">Software</a>
+                    <a class="post-tag" href="/posts?search=Transcription">Transcription</a>
+                    <a class="post-tag" href="/posts?search=Translation">Translation</a>
+                    <a class="post-tag" href="/posts?search=Whisper">Whisper</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

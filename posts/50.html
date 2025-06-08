@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="Straightforward instructions to installing .NET and MAUI through the Windows CLI.">
+        <meta name="keywords" content=".NET,C#,Java,JetBrains,MAUI,winget">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to Install .NET & MAUI</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>How to Install .NET &amp; MAUI</h1>
+
+                    <div>
+                        Published <time datetime="2023-10-05">Oct. 5, 2023</time> —
+                        Edited <time datetime="2024-03-28">Mar. 28, 2024</time>
+                    </div>
+                </header>
+
+                <p>
+                    After following this guide, you will be able to create a .NET MAUI project in JetBrains' Rider IDE.
+                </p>
+
+                <p>
+                    Coming from a Java background, with no prior experience in C# or with the .NET ecosystem, I initially had a difficult time when trying to learn C# and MAUI. JetBrains' Rider IDE did not show support for MAUI in the <i>New Solution</i> menus, because MAUI and it's requirements were not installed with Rider and it's .NET SDK.
+                </p>
+
+                <p>
+                    This guide assumes that you are familiar with Windows, and that you have enough knowledge to follow along with any linked pages and examples.
+                </p>
+
+                <h3>Requirements</h3>
+
+                <ul>
+                    <li>
+                        <a href="https://github.com/Valkryst/Install_Java" target="_blank">Java 11+</a>
+                    </li>
+                    <li>
+                        <a href="https://learn.microsoft.com/en-us/windows/package-manager/winget" target="_blank">winget</a>
+                    </li>
+                </ul>
+
+                <h3>Installation</h3>
+
+                <p>
+                    Ensure Rider is closed before starting the installation process. I suggest rebooting your computer after following these instructions, just in-case there are any final installation steps awaiting it.
+                </p>
+
+                <ol>
+                    <li>
+                        Open a new terminal and run <b>winget search DotNet.SDK</b> to find the latest version of the SDK.
+                    </li>
+                    <li>
+                        Install latest SDK using <b>winget install Microsoft.DotNet.SDK.7</b>. If there is a version newer than <i>7</i>, then install it instead.
+                    </li>
+                    <li>
+                        Install MAUI by running <b>dotnet workload install maui</b>.
+                    </li>
+                    <li>
+                        You should now see an option for MAUI in Rider's <i>New Solution</i> menus.
+                    </li>
+                </ol>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Tutorial">
+                        Tutorial
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=.NET">.NET</a>
+                    <a class="post-tag" href="/posts?search=C%23">C#</a>
+                    <a class="post-tag" href="/posts?search=Java">Java</a>
+                    <a class="post-tag" href="/posts?search=JetBrains">JetBrains</a>
+                    <a class="post-tag" href="/posts?search=MAUI">MAUI</a>
+                    <a class="post-tag" href="/posts?search=winget">winget</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

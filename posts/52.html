@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="Explore the process of implementing a multilingual search system, using a novel machine learning approach.">
+        <meta name="keywords" content="Automation,Machine Learning,Multilingual,Search,Sentence,Software,Transformer,Translation">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to Implement Multilingual Search with Sentence Transformers</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>How to Implement Multilingual Search with Sentence Transformers</h1>
+
+                    <div>
+                        Published <time datetime="2024-02-01">Feb. 1, 2024</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+
+
+                    </div>
+                </header>
+
+                <p>
+                    After following this guide, you will be able to use a
+                    <a href="https://www.sbert.net/docs/pretrained_models.html" target="_blank">pre-trained model</a> to populate a Qdrant
+                    database with text and to search it for relevant results.
+                </p>
+                <p>
+                    Creating a searchable database is straightforward. You can achieve basic functionality with Postgres'
+                    <a href="https://www.postgresql.org/docs/current/textsearch.html" target="_blank">full text search</a>.
+                    The novel advantage of using a pre-trained model with Qdrant is the ability to ingest and search data in any
+                    language that the model supports. Over 50 languages are supported by the model that we will be using.
+                </p>
+                <p>
+                    Let's consider a scenario where you have a collection of English and French song lyrics. The model can convert
+                    each song's lyrics into a vector, which can then be stored in Qdrant. Once this is done, you can run a search query
+                    in English and find semantically similar lyrics in both English <em>and</em> French.
+                </p>
+                <p>
+                    This guide assumes that you are using Linux, specifically Ubuntu in my case, and that you have enough
+                    knowledge to follow along with any linked pages and examples.
+                </p>
+
+                <h2>Requirements</h2>
+                <ul>
+                    <li>
+                        <a href="https://www.python.org/downloads" target="_blank">Python 3.10.x</a>
+                        <ul>
+                            <li>
+                                You may need to run <i>sudo apt install libffi-dev libsqlite3-dev</i> before installing Python, so that the
+                                <i>_ctypes</i> and <i>sqlite3</i> modules are available for use.
+                            </li>
+                            <li>
+                                You must install all of the following dependencies VIA <i>pip</i>:
+
+                                <ul>
+                                    <li>
+                                        <a href="https://huggingface.co/docs/huggingface_hub/index" target="_blank">huggingface_hub</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://github.com/qdrant/qdrant-client" target="_blank">qdrant-client</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.sbert.net/" target="_blank">sentence-transformers</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://pytorch.org/get-started/locally/" target="_blank">torch</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="https://github.com/qdrant/qdrant" target="_blank">Qdrant</a>
+                    </li>
+                </ul>
+
+                <h2>Code</h2>
+                <x-code-block language="python">
+                    from qdrant_client import QdrantClient
+                    from qdrant_client.http import models
+                    from sentence_transformers import SentenceTransformer
+                    from torch.cuda import is_available
+                    from uuid import uuid4
+
+
+                    def text_to_vector(text):
+                        """
+                        Encodes the provided text into a vector, using a pre-trained model.
+
+                        :param text: Text to convert.
+                        :return: Vector representation of the text.
+                        """
+                        model = SentenceTransformer(
+                            device="cuda" if is_available() else "cpu",
+                            model_name_or_path="sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+                            trust_remote_code=True
+                        )
+
+                        return model.encode(text).tolist()
+
+
+                    def ingest(qdrant_client, text):
+                        """
+                        Ingests the provided text into Qdrant.
+
+                        :param text: Text to ingest.
+                        """
+                        qdrant_client.upsert(
+                            collection_name="example",
+                            points=[
+                                models.PointStruct(
+                                    id=str(uuid4()),
+                                    payload={"text": text},
+                                    vector=text_to_vector(text)
+                                )
+                            ]
+                        )
+
+
+                    def search(qdrant_client, query):
+                        """
+                        Searches Qdrant for text similar to the provided query, and prints the results.
+
+                        :param query: Query to search with.
+                        :return: None
+                        """
+                        results = qdrant_client.search(
+                            collection_name="example",
+                            limit=10,
+                            query_vector=text_to_vector(query),
+                            with_payload=True
+                        )
+
+                        print(f"Search Results for '{query}':")
+                        for result in results:
+                            score = round(result.score * 100, 2)
+                            print(f"\tScore: {score}\tText: '{result.payload['text']}'")
+
+
+                    # Delete and recreate the Qdrant collection.
+                    qdrant_client = QdrantClient(host="host.docker.internal", port=6333)
+                    qdrant_client.recreate_collection(
+                        collection_name="example",
+                        vectors_config=models.VectorParams(size=768, distance=models.Distance.COSINE)
+                    )
+
+
+                    # Ingest some example text.
+                    ingest(qdrant_client, "Hello, World!")
+                    ingest(qdrant_client, "Olá Mundo!")
+                    ingest(qdrant_client, "こんにちは世界")
+                    ingest(qdrant_client, "हैलो वर्ल्ड!")
+
+
+                    # Search for similar text.
+                    search(qdrant_client, "Hello, World!")
+                    search(qdrant_client, "Olá Mundo!")
+                    search(qdrant_client, "こんにちは世界")
+                    search(qdrant_client, "हैलो वर्ल्ड!")
+                </x-code-block>
+
+                <p>
+                    <i>text_to_vector</i> downloads and loads
+                    <a href="https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2" target="_blank">this model</a>,
+                    and uses it to convert any input text into a 768 element vector.
+                    See <a href="https://www.sbert.net/docs/pretrained_models.html" target="_blank">here</a> for a list of
+                    available models and their tradeoffs.
+                </p>
+                <p>
+                    <i>ingest</i> creates a
+                    <a href="https://qdrant.tech/documentation/concepts/points/" target="_blank">point</a> and inserts it
+                    into the <i>example</i>
+                    <a href="https://qdrant.tech/documentation/concepts/collections/" target="_blank">collection</a>.
+                </p>
+                <p>
+                    <i>search</i> runs a Qdrant
+                    <a href="https://qdrant.tech/documentation/concepts/search/" target="_blank">search</a>
+                    to find and display results that are semantically similar to the input query.
+                </p>
+
+
+                <h2>Code Output</h2>
+                <x-code-block language="no-highlight">
+                    Search Results for 'Hello, World!':
+                        Score: 100.0    Text: 'Hello, World!'
+                        Score: 99.09    Text: 'हैलो वर्ल्ड!'
+                        Score: 96.71    Text: 'こんにちは世界'
+                        Score: 88.44    Text: 'Olá Mundo!'
+
+                    Search Results for 'Olá Mundo!':
+                        Score: 100.0    Text: 'Olá Mundo!'
+                        Score: 89.48    Text: 'हैलो वर्ल्ड!'
+                        Score: 88.58    Text: 'こんにちは世界'
+                        Score: 88.44    Text: 'Hello, World!'
+
+                    Search Results for 'こんにちは世界':
+                        Score: 100.0    Text: 'こんにちは世界'
+                        Score: 96.71    Text: 'Hello, World!'
+                        Score: 95.36    Text: 'हैलो वर्ल्ड!'
+                        Score: 88.58    Text: 'Olá Mundo!'
+
+                    Search Results for 'हैलो वर्ल्ड!':
+                        Score: 100.0    Text: 'हैलो वर्ल्ड!'
+                        Score: 99.09    Text: 'Hello, World!'
+                        Score: 95.36    Text: 'こんにちは世界'
+                        Score: 89.48    Text: 'Olá Mundo!'
+                </x-code-block>
+
+                <h2>Notes</h2>
+                <ul>
+                    <li>
+                        You can use <a href="https://github.com/openai/whisper" target="_blank">OpenAI's Whisper</a> to
+                        generate transcriptions/lyrics of an audio file. See
+                        <a href="https://www.valkryst.com/posts/42" target="_blank">this post</a> for more information on how
+                        to do so.
+                    </li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Tutorial">
+                        Tutorial
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Automation">Automation</a>
+                    <a class="post-tag" href="/posts?search=Machine+Learning">Machine Learning</a>
+                    <a class="post-tag" href="/posts?search=Multilingual">Multilingual</a>
+                    <a class="post-tag" href="/posts?search=Search">Search</a>
+                    <a class="post-tag" href="/posts?search=Sentence">Sentence</a>
+                    <a class="post-tag" href="/posts?search=Software">Software</a>
+                    <a class="post-tag" href="/posts?search=Transformer">Transformer</a>
+                    <a class="post-tag" href="/posts?search=Translation">Translation</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

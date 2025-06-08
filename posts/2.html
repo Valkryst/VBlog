@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A brief look at the paper &quot;AI for Dynamic Difficulty Adjustment in Games&quot; by Robin Hunicke and Vernell Chapman.">
+        <meta name="keywords" content="Balance,Design,Difficulty,Game">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Difficulty Adjustment, Is It Worth Using?</title>
+
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Dynamic Difficulty Adjustment, Is It Worth Using?</h1>
+
+                    <div>
+                        Published
+                        <time datetime="2018-03-20">Mar. 20, 2018</time>
+                        —
+                        Edited
+                        <time datetime="2020-05-28">May. 28, 2020</time>
+                    </div>
+                </header>
+
+                <p>The paper “AI for Dynamic Difficulty Adjustment in Games” by Hunicke and Chapman states that “Video
+                    Games are boring when they are too easy and frustrating when they are too hard.” and that, through
+                    the use of dynamic difficulty adjustment (DDA), a game can be tailored to fit the experience and
+                    capabilities of each player as they progress through the game. This method of balance not only
+                    allows players of any experience-level to better enjoy the game, but it also enhances
+                    re-playability. </p>
+                <p>Players of all experience-levels, ranging from those who have never played a game before to
+                    professional eSports competitors, are all unique. Each player has their own play-style and knowledge
+                    which plays a role in dictating how well they perform in any given game. Many game designers take
+                    this into account through the use of various pre-set difficulty levels such as easy, medium, and
+                    hard when designing their game. These difficulty levels can affect elements such as the frequency of
+                    health/ammo drops and enemy strength. Though pre-set difficulty levels are a tried and true method
+                    of catering to a wide variety of players, they are not the best possible solution in every case. For
+                    example, imagine a procedurally generated endless-runner game similar to <em>Temple Run</em> where
+                    the player must navigate a unique level comprised of various obstacles and maze-like paths to reach
+                    some goal. In this example, it may make sense to allow the player to choose from easy, medium, or
+                    hard levels and to create a unique generation algorithm, or customization of a single algorithm, for
+                    each option, but these three presets can also be augmented or replaced by a dynamic difficulty
+                    adjustment (DDA) algorithm. Instead of allowing the player to choose which difficulty they would
+                    rather play on, the game can begin with an untrained DDA algorithm that slowly tests the player’s
+                    response times, success rates on overcoming each obstacle, reaching specific milestones or goals,
+                    and various other metrics. As the DDA algorithm is trained on the player’s specific metrics, it will
+                    automatically make adjustments to the&nbsp;spawn rates of certain obstacles, enemies, level size,
+                    required response/reaction times, and other variables of the procedural generation algorithm.
+                    Adjustments to the procedural algorithm will then cause the game to increase or lessen in difficulty
+                    as the player’s experience-level increases, decreases, or possibly when the player begins to fail
+                    too often. With a well written DDA algorithm, the game will keep the player in a constant flow state
+                    where “Challenge and pacing must ramp to match skill, in order to support continued engagement.”
+                    (Hunicke &amp; Chapman)</p>
+                <p>Re-playability is often a forethought in game design and there are many techniques, which involve
+                    some form of procedural or randomized elements, that can be utilized and combined to create an
+                    enjoyable and uniquely re-playable experience. The previously described <em>Temple Run</em>-eqsue
+                    game is one example where a procedural technique or techniques, in this case procedural level
+                    generation, can be used to to give the player a unique experience on every re-play. Although
+                    procedural generation is a large topic and there are countless ways to implement such techniques, it
+                    is useful to take into consideration the benefit of a DDA algorithm used in-conjunction with
+                    procedural techniques. As previously stated, adjustments to the parameters of a procedural level
+                    generation algorithm, such as the spawn rates of certain obstacles, enemies, and level size, can be
+                    performed by a DDA algorithm to affect the difficulty of each level as the player is playing through
+                    it either in real-time or between levels. Through use of these adjustments, the DDA algorithm is
+                    effectively ensuring that each re-play of the game is not only unique, as guaranteed by the
+                    procedural algorithm, but that each re-play is both a challenge to the player to increase his or her
+                    skills and to provide an enjoyable experience that is neither frustrating or dull. As Missura et.
+                    al. have stated “The perceived difficulty of the game also contributes to the time that any given
+                    player spends playing it. Games that are too easy or too difficult become boring or frustrating
+                    fast.”</p>
+                <p>In their paper, Hunicke and Chapman are primarily working within the area of game balancing and how
+                    it can be done through the use of an automated system to cater specifically to each unique player.
+                    Traditional game balancing, as can be used with pre-set difficulty levels, is where “Game developers
+                    iteratively refine these systems based on play testing feedback – tweaking behaviors and settings
+                    until the game is balanced.” (Hunicke &amp; Chapman). As many game developers and, more
+                    specifically, programmers may learn at one point or another, deciding the actual values to be used
+                    in a game based off of game design documentation is difficult. Terms such as “High Damage”, “Very
+                    Fast Attack”, and “Slow Movement” are vague and mean nothing until a “Normal” set of values is
+                    decided upon. Without expressed integer or decimal values, the programmer is incapable of creating a
+                    proper balance between, for example, enemy health and player attack damage. In a situation such as
+                    this, the values inserted into the game may simply be an educated guess as to what could work. By
+                    implementing some form of DDA algorithm, both the design team and the programmer can exchange the
+                    stress, work, and costs associated with iterative game balancing for the stress, work, and costs
+                    associated with developing a working DDA algorithm. An exchange such as this must be carefully
+                    analyzed as the work and costs associated with DDA development may outweigh those of traditional
+                    balancing. Games such as <em>Bejeweled</em>, <em>Solitaire</em>, and <em>Chess</em> may not benefit
+                    much from a DDA algorithm due to their simple and deterministic nature, but <em>Counter Strike:
+                        Global Offensive</em>, <em>&nbsp;Torchlight II</em>, and <em>Diablo 3</em> may be able to offer
+                    a more challenging, varied, and fresh replay experience if a DDA algorithm is utilized.</p>
+                <p>In conclusion,&nbsp; a game can be tailored to fit the experience and capabilities of each player as
+                    they progress through the game by use of a dynamic difficulty adjustment (DDA) algorithm. Players of
+                    all experience levels can benefit from uniquely adjusted game play as the adjustments will ensure
+                    that players remain in a constant flow state which will increase both player enjoyment and therefore
+                    player retention. Though traditional iterative balancing is a tried and true method, it is not
+                    applicable to every game. DDA adjustment algorithms are a useful tool a game such as <em>Counter
+                        Strike: Global Offensive</em>, <em>&nbsp;Torchlight II</em>, and <em>Diablo 3</em> where the
+                    player’s skill, equipment, and other factors can cause the challenge of the game to greatly lessen
+                    over time. A DDA algorithm, if properly utilized, is a powerful tool which is potentially able to
+                    save hundreds of man-hours of iterative game balancing. </p>
+                <h3>Sources</h3>
+                <ul>
+                    <li><a href="https://www.aaai.org/Papers/Workshops/2004/WS-04-04/WS04-04-019.pdf" target="_blank"
+                           rel="noopener"><span class="ng-binding">Hunicke, R., &amp; Chapman, V. (2004). <em>AI for Dynamic Difficulty Adjustment in Games</em>.</a>
+                    </li>
+                    <li><a href="https://www.researchgate.net/publication/283326014_Dynamic_Difficulty_Adjustment"
+                           target="_blank" rel="noopener"><span class="ng-binding">Missura, O., Gärtner, T., &amp; Wrobel, S. (2015). <em>Dynamic Difficulty Adjustment</em>.</a>
+                    </li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Essays+%26+Thought+Pieces">
+                        Essays &amp; Thought Pieces
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=Balance">Balance</a>
+                    <a class="post-tag" href="/posts?search=Design">Design</a>
+                    <a class="post-tag" href="/posts?search=Game">Game</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

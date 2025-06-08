@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A guide which shows how to layer screens on top of each other to achieve interesting visual effects.">
+        <meta name="keywords" content="JLayeredPane,Opaque,SwingUtilities,UIManager,VPanel,VTerminal">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Layering a Screen</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Layering a Screen</h1>
+
+                    <div>
+                        Published <time datetime="2021-03-07">Mar. 7, 2021</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+                    </div>
+                </header>
+
+                <p>This guide assumes that you have already read <a href="23" target="_blank" rel="noopener"><em>Drawing a Screen</em></a>.</p>
+                <h2>JLayeredPane Creation</h2>
+                <p>As defined in the <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/javax/swing/JLayeredPane.html" target="_blank" rel="noopener">documentation</a>, a "JLayeredPane adds depth to a JFC/Swing container, allowing components to overlap each other when needed. An Integer object specifies each component's depth in the container, where higher-numbered components sit 'on top' of other components.".</p>
+                <p>A JLayeredPane can be created as follows.</p>
+                <x-code-block language="java">
+                    public class ExampleA {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var layeredPane = new JLayeredPane();
+                                layeredPane.setLayout(new OverlayLayout(layeredPane));
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p>When adding a component to the JLayerePane, you <em>must</em> specify the layer as an <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Integer.html" target="_blank" rel="noopener">Integer</a> object and <em>not</em> an <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html" target="_blank" rel="noopener">int</a> primitive.</p>
+                <x-code-block language="java">
+                    public class ExampleB {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var layeredPane = new JLayeredPane();
+                                layeredPane.setLayout(new OverlayLayout(layeredPane));
+
+                                final var bottomPanel = new VPanel(40, 20);
+                                layeredPane.add(bottomPanel, Integer.valueOf(0));
+
+                                final var topPanel = new VPanel(40, 20);
+                                layeredPane.add(topPanel, Integer.valueOf(1));
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Opaque Components</h2>
+                <p>All Swing components have access to the <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/javax/swing/JComponent.html#setOpaque(boolean)" target="_blank" rel="noopener">setOpaque()</a> method. Most components have this set to <em>false</em> by default. As the documentation states, "If <em>true</em> the component paints every pixel within its bounds. Otherwise, the component may not paint some or all of its pixels, allowing the underlying pixels to show through.".</p>
+                <x-code-block language="java">
+                    public class ExampleC {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var layeredPane = new JLayeredPane();
+                                layeredPane.setLayout(new OverlayLayout(layeredPane));
+
+                                final var bottomPanel = new VPanel(40, 20);
+                                bottomPanel.setOpaque(true);
+                                layeredPane.add(bottomPanel, Integer.valueOf(0));
+
+                                final var topPanel = new VPanel(40, 20);
+                                bottomPanel.setOpaque(false);
+                                layeredPane.add(topPanel, Integer.valueOf(1));
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <h2>Layering Screens</h2>
+                <p>Using the information above, you should now be able to understand the following examples. The only difference between the two is that the second example sets&nbsp;<em>topPanel</em> as opaque.</p>
+                <x-code-block language="java">
+                    public class ExampleD {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var layeredPane = new JLayeredPane();
+                                layeredPane.setLayout(new OverlayLayout(layeredPane));
+
+                                final var bottomPanel = new VPanel(40, 20);
+                                bottomPanel.setOpaque(true);
+                                layeredPane.add(bottomPanel, Integer.valueOf(0));
+
+                                final var topPanel = new VPanel(20, 20);
+                                topPanel.setOpaque(false);
+                                layeredPane.add(topPanel, Integer.valueOf(1));
+
+                                final var frame = new JFrame();
+                                frame.add(layeredPane);
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                for (int y = 0 ; y < bottomPanel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < bottomPanel.getWidthInTiles() ; x++) {
+                                        bottomPanel.setCodePointAt(x, y, getRandomCodePoint());
+                                    }
+                                }
+
+                                bottomPanel.setBackground(Color.RED);
+                                topPanel.setBackground(new Color(0, 0, 255, 100));
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 127);
+                        }
+                    }
+                </x-code-block>
+
+
+                <p><img src="../resource/image/VTerminal/26/ExampleD.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+
+                <x-code-block language="java">
+                    public class ExampleE {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var layeredPane = new JLayeredPane();
+                                layeredPane.setLayout(new OverlayLayout(layeredPane));
+
+                                final var bottomPanel = new VPanel(40, 20);
+                                bottomPanel.setOpaque(true);
+                                layeredPane.add(bottomPanel, Integer.valueOf(0));
+
+                                final var topPanel = new VPanel(20, 20);
+                                topPanel.setOpaque(true);
+                                layeredPane.add(topPanel, Integer.valueOf(1));
+            
+                                final var frame = new JFrame();
+                                frame.add(layeredPane);
+                                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                for (int y = 0 ; y < bottomPanel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < bottomPanel.getWidthInTiles() ; x++) {
+                                        bottomPanel.setCodePointAt(x, y, getRandomCodePoint());
+                                    }
+                                }
+
+                                bottomPanel.setBackground(Color.RED);
+                                topPanel.setBackground(new Color(0, 0, 255, 100));
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 127);
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/26/ExampleE.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <h2>Further Reading</h2>
+                <ul>
+                    <li><a href="https://docs.oracle.com/javase/tutorial/uiswing/components/layeredpane.html" target="_blank" rel="noopener">How to Use Layered Panes</a></li>
+                </ul>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Documentation">
+                        Documentation
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=JLayeredPane">JLayeredPane</a>
+                    <a class="post-tag" href="/posts?search=Opaque">Opaque</a>
+                    <a class="post-tag" href="/posts?search=SwingUtilities">SwingUtilities</a>
+                    <a class="post-tag" href="/posts?search=UIManager">UIManager</a>
+                    <a class="post-tag" href="/posts?search=VPanel">VPanel</a>
+                    <a class="post-tag" href="/posts?search=VTerminal">VTerminal</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>

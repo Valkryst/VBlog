@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="A guide which shows how to alter the characters, background colors, foreground colors, and sequential image operations (shaders) of a screen.">
+        <meta name="keywords" content="BufferedImageOp,Code Point,SequentialOp,Shader,SwingUtilities,UIManager,Unicode,VTerminal">
+        <link rel="icon" type="image/png" href="../resource/icon/favicon.png">
+        <link rel="stylesheet" type="text/css" href="../resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drawing a Screen</title>
+
+        <script type="module" src="../element/posts/code_block/_.js"></script>
+        <script type="module" src="../element/navigation_bar/_.js"></script>
+    </head>
+
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <article>
+                <header>
+                    <h1>Drawing a Screen</h1>
+
+                    <div>
+                        Published <time datetime="2021-02-27">Feb. 27, 2021</time> —
+                        Edited <time datetime="2024-02-13">Feb. 13, 2024</time>
+                    </div>
+                </header>
+
+                <p>This guide assumes that you have already read <a href="22" target="_blank" rel="noopener"><em>Creating a Screen</em></a>.</p>
+                <h2>Code Point</h2>
+                <p>A <a href="https://en.wikipedia.org/wiki/Code_point" target="_blank" rel="noopener">code point</a> is an integer which represents a Unicode character. Although there are a <a href="https://www.unicode.org/charts/" target="_blank" rel="noopener">vast number</a> of characters to choose from, you are limited to those that are supported by your chosen font. The default font is currently <a href="https://dejavu-fonts.github.io/" target="_blank" rel="noopener">DejaVu Sans Mono</a> and its supported characters can be found <a href="https://dejavu.sourceforge.net/samples/DejaVuSansMono.pdf" target="_blank" rel="noopener">here</a>.</p>
+                <p>You can change the code point of a specific tile by specifying both a position and a code point. The code point can be given as a character, integer, or hexadecimal value.</p>
+
+                <x-code-block language="java">
+                    public class ExampleA {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                panel.setCodePointAt(0, 0, 'A');
+                                panel.setCodePointAt(1, 1, 66);
+                                panel.setCodePointAt(2, 2, 0x43);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/23/1.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <h2>Background Color</h2>
+                <p>A background color is the base color of a tile and it is drawn behind the displayed character, if there is one. You can change the background color of a specific tile by specifying both a position and a color.</p>
+                <p>As Swing supports non-opaque components, you are allowed to use transparent colors (i.e. colors with an alpha value). However, that is beyond the scope of this guide.</p>
+                <x-code-block language="java">
+                    public class ExampleB {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                panel.setCodePointAt(0, 0, 'A');
+                                panel.setBackgroundAt(0, 0, Color.MAGENTA);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/23/2.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <p>You can also set the background color of every tile as follows.</p>
+                <x-code-block language="java">
+                    public class ExampleE {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                panel.setBackground(Color.MAGENTA);
+
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setCodePointAt(x, y, getRandomCodePoint());
+                                    }
+                                }
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 126);
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/23/5.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <h2>Foreground Color</h2>
+                <p>A foreground color is the color of the character displayed on a tile. You can change the foreground color of a specific tile by specifying both a position and a color.</p>
+                <p>As Swing supports non-opaque components, you are allowed to use transparent colors (i.e. colors with an alpha value). However, that is beyond the scope of this guide.</p>
+                <x-code-block language="java">
+                    public class ExampleC {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                panel.setCodePointAt(0, 0, 'A');
+                                panel.setForegroundAt(0, 0, Color.MAGENTA);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/23/3.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <p>You can also set the foreground color of every tile as follows.</p>
+                <x-code-block language="java">
+                    public class ExampleD {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var panel = frame.getContentPane();
+                                panel.setForeground(Color.MAGENTA);
+
+                                for (int y = 0 ; y < panel.getHeightInTiles() ; y++) {
+                                    for (int x = 0 ; x < panel.getWidthInTiles() ; x++) {
+                                        panel.setCodePointAt(x, y, getRandomCodePoint());
+                                    }
+                                }
+                            });
+                        }
+
+                        private static int getRandomCodePoint() {
+                            return ThreadLocalRandom.current().nextInt(33, 126);
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/23/4.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <h2>Sequential Image Operation (Shader)</h2>
+                <p>A sequential image operation (<a href="https://github.com/Valkryst/VTerminal/blob/master/src/main/java/com/valkryst/VTerminal/image/SequentialOp.java" target="_blank" rel="noopener">SequentialOp</a>) can be thought of as a shader. It performs one or more image operations (<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/java/awt/image/BufferedImageOp.html" target="_blank" rel="noopener">BufferedImageOp</a>) on the character of a tile, before the character is drawn on the tile.</p>
+                <p>Please do not attempt to run the following examples as they require the <a href="http://www.jhlabs.com/ip/filters/" target="_blank" rel="noopener">image filters by JH Labs</a>, and the code will fail without <a href="https://mvnrepository.com/artifact/com.jhlabs/filters/2.0.235-1" target="_blank" rel="noopener">this dependency</a>.</p>
+                <x-code-block language="java">
+                    public class ExampleF {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var sequentialOp = new SequentialOp(new GaussianFilter(6));
+
+                                final var panel = frame.getContentPane();
+                                panel.setCodePointAt(0, 0, 'A');
+                                panel.setSequentialImageOpAt(0, 0, sequentialOp);
+                            });
+                        }
+                    }
+                </x-code-block>
+
+                <p><img src="../resource/image/VTerminal/23/6.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+                <x-code-block language="java">
+                    public class ExampleG {
+                        public static void main(final String[] args) {
+                            try {
+                                UIManager.setLookAndFeel(VTerminalLookAndFeel.getInstance(24));
+                            } catch (final UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
+
+                            SwingUtilities.invokeLater(() -> {
+                                final var frame = new VFrame(40, 20);
+                                frame.setVisible(true);
+                                frame.pack();
+                                frame.setLocationRelativeTo(null);
+
+                                final var sequentialOp = new SequentialOp(
+                                    new MarbleFilter(),
+                                    new GaussianFilter()
+                                );
+
+                                final var panel = frame.getContentPane();
+                                panel.setCodePointAt(0, 0, 'A');
+                                panel.setSequentialImageOpAt(0, 0, sequentialOp);
+                            });
+                        }
+                    }
+                </x-code-block>
+                <p><img src="../resource/image/VTerminal/23/7.png" alt="A visual example of the preceding code." width="562" height="612" loading="lazy"></p>
+
+                <div id="tags-container">
+                    <a class="post-tag" href="/posts?category=Documentation">
+                        Documentation
+                    </a>
+
+                    <a class="post-tag" href="/posts?search=BufferedImageOp">BufferedImageOp</a>
+                    <a class="post-tag" href="/posts?search=Code+Point">Code Point</a>
+                    <a class="post-tag" href="/posts?search=SequentialOp">SequentialOp</a>
+                    <a class="post-tag" href="/posts?search=Shader">Shader</a>
+                    <a class="post-tag" href="/posts?search=SwingUtilities">SwingUtilities</a>
+                    <a class="post-tag" href="/posts?search=UIManager">UIManager</a>
+                    <a class="post-tag" href="/posts?search=Unicode">Unicode</a>
+                    <a class="post-tag" href="/posts?search=VTerminal">VTerminal</a>
+                </div>
+            </article>
+        </main>
+    </body>
+</html>
