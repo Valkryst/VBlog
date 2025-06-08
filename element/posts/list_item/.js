@@ -6,7 +6,7 @@ class PostsListItemElement extends HTMLElement {
         `;
 
         if (this.getId()) {
-            innerHTML += `<a href="/posts/${this.getId()}">`
+            innerHTML += `<a href="/posts/${this.getId()}.html">`
 
             if (this.getTitle()) {
                 innerHTML += `<h2>${this.getTitle()}</h2>`;
