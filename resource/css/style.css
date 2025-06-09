@@ -7,9 +7,11 @@
 @import "./tag.css";
 
 html {
-    --color-link-visited: var(--color-accent);
-    --color-nav-bg: #181A1B;
-    --color-nav-text: #F7F7F7;
+    --color-accent: #6BA4FF;
+    --color-background: #F7F7F7;
+    --color-foreground: #1A1C1A;
+    --color-link-unvisited: #008AFF;
+    --color-link-visited: #D10DEE;
 
     --footer-height: 1rem;
     --navigation-height: 3rem;
@@ -82,24 +84,6 @@ html {
             font-size: small;
             text-align: right;
         }
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    html {
-        --color-accent: #B388FF;
-        --color-background: #2A3040;
-        --color-foreground: #F7F7F7;
-        --color-link-unvisited: #6BA4FF;
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    html {
-        --color-accent: #E358FD;
-        --color-background: #F7F7F7;
-        --color-foreground: #1A1C1A;
-        --color-link-unvisited: #008AFF;
     }
 }
 

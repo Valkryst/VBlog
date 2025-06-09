@@ -9,11 +9,6 @@ x-posts-search-form > form {
         grid-template-columns: auto auto;
         grid-column-gap: 0.25rem;
     }
-
-    input, select {
-        color: var(--color-foreground);
-        background-color: var(--color-background);
-    }
 }
 
 @media only screen and (min-width: 720px) {

@@ -10,8 +10,8 @@ x-navigation-bar > nav {
 
     font-size: 16px;
 
-    color: var(--color-nav-text);
-    background-color: var(--color-nav-bg);
+    color: var(--color-background);
+    background-color: var(--color-foreground);
 
     & > a:first-of-type {
         width: 4rem;
@@ -55,8 +55,8 @@ x-navigation-bar > nav {
         user-select: none;
 
         &:link, &:visited {
-            color: var(--color-nav-text);
-            background-color: var(--color-nav-bg);
+            color: var(--color-background);
+            background-color: var(--color-foreground);
         }
 
         &:hover {
