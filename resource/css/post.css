@@ -101,8 +101,4 @@ article {
             break-inside: avoid;
         }
     }
-
-    #disqus_thread {
-        display: none;
-    }
 }
