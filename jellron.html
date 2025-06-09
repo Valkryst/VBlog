@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Valkryst">
+        <meta name="description" content="Jellron is a personal experimental playground designed to explore and practice augmented reality in the browser.">
+        <meta name="keywords" content="Augmented Reality,AR,WebAR,Three.js,WebGL,Virtual Try-On,Virtual Reality,VR">
+        <link rel="icon" type="image/png" href="./resource/icon/favicon.png">
+        <link rel="stylesheet" href="./resource/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jellron</title>
+
+        <script type="module" src="./element/navigation_bar/_.js"></script>
+
+        <style>
+            html > body > main, iframe {
+                height: 100%;
+                width: 100%;
+
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <x-navigation-bar></x-navigation-bar>
+
+        <main>
+            <iframe src="https://valkryst.github.io/Jellron/" allowfullscreen></iframe>
+        </main>
+    </body>
+</html>
+

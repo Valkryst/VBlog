@@ -13,6 +13,11 @@ template.innerHTML = `
             <img src="../../resource/icon/posts.svg" alt="Posts Icon">
             <p>Posts</p>
         </a>
+        
+        <a href="../../jellron.html">
+            <img src="../../resource/icon/augmented-reality.svg" alt="Jellron Icon">
+            <p>Jellron</p>
+        </a>
     </section>
 </nav>
 `;
