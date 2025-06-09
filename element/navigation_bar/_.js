@@ -18,6 +18,11 @@ template.innerHTML = `
             <img src="../../resource/icon/augmented-reality.svg" alt="Jellron Icon">
             <p>Jellron</p>
         </a>
+        
+        <a href="../../clyser.html">
+            <img src="../../resource/icon/bitcoin.svg" alt="Clyser Icon">
+            <p>Clyser</p>
+        </a>
     </section>
 </nav>
 `;
