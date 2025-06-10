@@ -53,6 +53,7 @@ x-navigation-bar > nav {
 
     a {
         user-select: none;
+        --webkit-user-select: none;
 
         &:link, &:visited {
             color: var(--color-background);
