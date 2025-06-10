@@ -21,13 +21,13 @@ class PostsListItemElement extends HTMLElement {
 
             const category = this.getCategory();
             if (category) {
-                innerHTML += `<button class="post-tag" onclick="searchForCategory(&quot;${category}&quot;)">${category}</button>`;
+                innerHTML += `<button class="post-tag" onclick="searchForCategory(&quot;${category}&quot;)" type="button">${category}</button>`;
             }
 
             const tags = this.getTags();
             if (tags) {
                 for (const tag of tags) {
-                    innerHTML += `<button class="post-tag" onclick="searchForString(&quot;${tag}&quot;)">${tag}</button>`;
+                    innerHTML += `<button class="post-tag" onclick="searchForString(&quot;${tag}&quot;)" type="button">${tag}</button>`;
                 }
             }
 
