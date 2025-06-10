@@ -13,11 +13,14 @@
         <script type="module" src="./element/navigation_bar/_.js"></script>
 
         <style>
-            html > body > main, iframe {
-                height: 100%;
+            html > body > main {
                 width: 100%;
 
                 padding: 0;
+
+                & > iframe {
+                    height: calc(100% - var(--navigation-height));
+                }
             }
         </style>
     </head>
@@ -25,8 +28,7 @@
         <x-navigation-bar></x-navigation-bar>
 
         <main>
-            <iframe src="https://valkryst.github.io/Jellron/" allowfullscreen></iframe>
+            <iframe src="https://valkryst.github.io/Jellron/" allow="camera" loading="lazy"></iframe>
         </main>
     </body>
 </html>
-

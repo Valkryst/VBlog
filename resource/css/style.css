@@ -52,6 +52,14 @@ html {
                 color: var(--color-link-visited);
             }
 
+            iframe {
+                width: 100%;
+
+                padding: 0;
+
+                border: none;
+            }
+
             input, select, table, textarea {
                 color: var(--color-foreground);
 

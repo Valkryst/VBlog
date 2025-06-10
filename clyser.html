@@ -14,10 +14,15 @@
 
         <style>
             html > body > main, iframe {
-                height: 100%;
                 width: 100%;
 
                 padding: 0;
+
+                overflow-y: hidden;
+
+                & > iframe {
+                    height: 100%;
+                }
             }
         </style>
     </head>
@@ -25,7 +30,7 @@
         <x-navigation-bar></x-navigation-bar>
 
         <main>
-            <iframe src="https://valkryst.github.io/Clyser/" allowfullscreen></iframe>
+            <iframe src="https://valkryst.github.io/Clyser/" loading="lazy"></iframe>
         </main>
     </body>
 </html>
