@@ -16,6 +16,19 @@
       <link>https://www.valkryst.com/posts</link>
     </image>
     <item>
+        <title>Peer Reviews in Software: A Practical Guide</title>
+        <link>https://www.valkryst.com/posts/58.html</link>
+        <description>An excellent book that should be required reading for every professional working in a programming-related field. It is a comprehensive guide to peer reviews in software development, covering the process, benefits, and best practices.</description>
+        <author>admin@valkryst.com (Valkryst)</author>
+        <category>Book Reviews</category>
+        <category>Bug</category>
+        <category>Code Quality</category>
+        <category>Defect</category>
+        <category>Peer Review</category>
+        <category>Project Management</category>
+        <guid>https://www.valkryst.com/posts/58</guid>
+        <pubDate>Sun, 11 Jun 2025 10:33:00 +0000</pubDate>
+    <item>
       <title>An Evaluation of Cloud Agent Development Tools</title>
       <link>https://www.valkryst.com/posts/57.html</link>
       <description>My personal notes and thoughts on Amazon's Bedrock, Azure's AI Foundry, Google's Dialogflow CX and Vertex AI.</description>
