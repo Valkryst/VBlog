@@ -1,5 +1,5 @@
 x-navigation-bar > nav {
-    position: relative;
+    position: fixed;
     z-index: var(--z-index-navigation);
 
     display: grid;
