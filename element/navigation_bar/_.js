@@ -23,6 +23,11 @@ template.innerHTML = `
             <img src="../../resource/icon/bitcoin.svg" alt="Clyser Icon">
             <p>Clyser</p>
         </a>
+        
+        <a href ="https://tillert.ee">
+            <img src="../../resource/icon/about.svg" alt="About Icon">
+            <p>About</p>
+        </a>
     </section>
 </nav>
 `;
