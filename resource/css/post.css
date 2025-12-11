@@ -79,6 +79,10 @@ article {
                     color: var(--color-background);
                     background-color: var(--color-foreground);
                 }
+
+                td {
+                    padding: 0 0.25rem;
+                }
             }
         }
     }
