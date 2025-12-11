@@ -64,8 +64,6 @@ html {
             input, select, table, textarea {
                 color: var(--color-foreground);
 
-                border: #CCCCCC solid 1px;
-
                 font-family: inherit;
                 font-size: smaller;
             }
